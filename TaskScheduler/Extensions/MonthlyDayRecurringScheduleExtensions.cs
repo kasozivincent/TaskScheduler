@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using LanguageExt;
-using TaskScheduler.Schedules.DailySchedules;
+using TaskScheduler.Schedules.MonthlySchedules;
 
 namespace TaskScheduler.Extensions;
 
-public static class RecurringDailyScheduleExtensions
+public static class MonthlyDayRecurringScheduleExtensions
 {
-    public static List<Either<string, DateTime>> DailyRecurringScheduleSeries(this DailyRecurringSchedule dailyRecurring, DateTime currentDate, int count)
+    public static List<Either<string, DateTime>> MonthlyDayRecurringScheduleSeries(this MonthlyDayRecurringSchedule monthlyDayRecurringSchedule, DateTime currentDate, int count)
     {
         var results = new List<Either<string, DateTime>>();
         for (var i = 0; i < count; i++)
         {
-            var date = dailyRecurring.GetNextExecutionDate(currentDate);
+            var date = monthlyDayRecurringSchedule.GetNextExecutionDate(currentDate);
             if (date.IsRight)
             {
                 results.Add((DateTime)date);

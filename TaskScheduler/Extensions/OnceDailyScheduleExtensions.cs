@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using LanguageExt;
-using static LanguageExt.Prelude;
-using TaskScheduler.Schedules;
+using TaskScheduler.Schedules.DailySchedules;
 
 namespace TaskScheduler.Extensions;
 

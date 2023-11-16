@@ -1,18 +1,13 @@
 ﻿using System;
 using LanguageExt;
-using LanguageExt.Pipes;
 
-namespace TaskScheduler.Schedules;
-
-public abstract class MonthlySchedule : RecurringSchedule
-{
-    public int EveryAfterMonths { get; set; }
-}
+namespace TaskScheduler.Schedules.MonthlySchedules;
 
 public class MonthlyDayOnceSchedule : MonthlySchedule
 {
     public int MonthlyDay { get; set; }
     public TimeSpan ExecutionTime { get; set; }
+   
     public override Either<string, DateTime> GetNextExecutionDate(DateTime currentDate)
     {
         if (IsEnabled == false)
@@ -76,8 +71,6 @@ public class MonthlyDayOnceSchedule : MonthlySchedule
         var endDate = (DateTime)EndDate;
         if (currentDate > endDate)
             return false;
-        if (endDate.Date == currentDate.Date && currentDate.TimeOfDay > endDate.TimeOfDay)
-            return false;
-        return true;
+        return endDate.Date != currentDate.Date || currentDate.TimeOfDay <= endDate.TimeOfDay;
     }
 }

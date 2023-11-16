@@ -1,6 +1,7 @@
 ﻿using LanguageExt.UnitTesting;
 using TaskScheduler.Extensions;
 using TaskScheduler.Schedules;
+using TaskScheduler.Schedules.MonthlySchedules;
 
 namespace TaskScheduler.Tests.MonthlyScheduleTests;
 

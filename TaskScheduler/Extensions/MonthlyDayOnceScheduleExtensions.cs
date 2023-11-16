@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using LanguageExt;
 using TaskScheduler.Schedules;
+using TaskScheduler.Schedules.MonthlySchedules;
 
 namespace TaskScheduler.Extensions;
 
