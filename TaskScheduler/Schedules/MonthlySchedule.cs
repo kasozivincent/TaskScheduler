@@ -13,8 +13,6 @@ public class MonthlyDayOnceSchedule : MonthlySchedule
 {
     public int MonthlyDay { get; set; }
     public TimeSpan ExecutionTime { get; set; }
-    
-
     public override Either<string, DateTime> GetNextExecutionDate(DateTime currentDate)
     {
         if (IsEnabled == false)
@@ -46,7 +44,11 @@ public class MonthlyDayOnceSchedule : MonthlySchedule
                 if (currentDate.TimeOfDay < ExecutionTime)
                     return startingDate;
                 if (currentDate.TimeOfDay >= ExecutionTime)
+                {
+                    if (!ValidateCurrentDate(startingDate.AddMonths(EveryAfterMonths))) 
+                        return "Current date is past end date!";
                     return startingDate.AddMonths(EveryAfterMonths);
+                }
             }
             startingDate = startingDate.AddMonths(EveryAfterMonths);
         }
@@ -69,7 +71,13 @@ public class MonthlyDayOnceSchedule : MonthlySchedule
 
     protected override bool ValidateCurrentDate(DateTime currentDate)
     {
-        return EndDate.Match(date => date > currentDate || (date.Date == currentDate.Date && date.TimeOfDay > currentDate.TimeOfDay)
-            ,() => true);
+        if (EndDate.IsNone) 
+            return true;
+        var endDate = (DateTime)EndDate;
+        if (currentDate > endDate)
+            return false;
+        if (endDate.Date == currentDate.Date && currentDate.TimeOfDay > endDate.TimeOfDay)
+            return false;
+        return true;
     }
 }
