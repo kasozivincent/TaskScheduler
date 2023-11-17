@@ -2,7 +2,7 @@
 using TaskScheduler.Extensions;
 using TaskScheduler.Schedules.DailySchedules;
 
-namespace TaskScheduler.Tests;
+namespace TaskScheduler.Tests.DailyScheduleTests;
 
 [TestFixture]
 public class DailyOnceScheduleTests
@@ -39,6 +39,7 @@ public class DailyOnceScheduleTests
         var dailyOnceSchedule = new DailyOnceSchedule
         {
             Name = "Send email",
+            IsEnabled = true,
             StartDate = new DateTime(2020, 1, 1),
             ExecutionTime = new TimeSpan(2, 0, 0)
         };
@@ -63,6 +64,7 @@ public class DailyOnceScheduleTests
         var dailyOnceSchedule = new DailyOnceSchedule
         {
             Name = "Send email",
+            IsEnabled = true,
             StartDate = new DateTime(2020, 1, 1),
             EndDate = new DateTime(2020, 5, 7),
             ExecutionTime = new TimeSpan(2, 0, 0)
@@ -112,6 +114,7 @@ public class DailyOnceScheduleTests
         var dailyOnceSchedule = new DailyOnceSchedule
         {
             Name = "Send email",
+            IsEnabled = true,
             StartDate = new DateTime(2020, 1, 1),
             EndDate = new DateTime(2020, 5, 8),
             ExecutionTime = new TimeSpan(2, 0, 0)
@@ -137,6 +140,7 @@ public class DailyOnceScheduleTests
         var dailyOnceSchedule = new DailyOnceSchedule
         {
             Name = "Send email",
+            IsEnabled = true,
             StartDate = new DateTime(2020, 1, 1),
             ExecutionTime = new TimeSpan(2, 0, 0)
         };
@@ -161,6 +165,7 @@ public class DailyOnceScheduleTests
         var dailyOnceSchedule = new DailyOnceSchedule
         {
             Name = "Send email",
+            IsEnabled = true,
             StartDate = new DateTime(2024, 1, 1),
             EndDate = new DateTime(2020, 5, 8),
             ExecutionTime = new TimeSpan(2, 0, 0)
