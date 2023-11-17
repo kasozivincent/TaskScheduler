@@ -7,6 +7,9 @@
     &lt;TestId&gt;NUnit3x::FF9D36DB-DA2B-4FDD-A6A4-B34BEA5366C5::net7.0::TaskScheduler.Tests.MonthlyScheduleTests.MonthlyDayOnceScheduleTests.SeriesMonthlyDayOnce_CurrentDay_Equal_To_MonthDay_BeforeExecutionTime&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=4b85ac61_002Dc8f7_002D4bbf_002D8feb_002D1496c6e4599d/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from Solution #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;Solution /&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=547bda61_002D9430_002D4f09_002Db3f7_002D6b44121e116b/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="SeriesMonthlyDayOnce_CurrentDay_Equal_To_MonthDay_After_ExecutionTime" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;Solution /&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
