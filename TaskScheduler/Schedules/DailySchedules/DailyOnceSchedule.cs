@@ -11,8 +11,11 @@ public class DailyOnceSchedule : RecurringSchedule
     {
         if (IsEnabled == false)
             return "Schedule was cancelled!";
-        if (StartDate > EndDate)
-            return "Start date can't be later than end date";
+        if (EndDate.IsSome)
+        {
+            if(StartDate > EndDate)
+                return "Start date can't be later than end date";
+        }
         if (currentDate < StartDate)
             return StartDate;
         if (!ValidateCurrentDate(currentDate)) 

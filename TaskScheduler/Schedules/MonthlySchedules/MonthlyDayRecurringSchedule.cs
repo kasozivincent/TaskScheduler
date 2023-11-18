@@ -46,27 +46,29 @@ public class MonthlyDayRecurringSchedule : MonthlySchedule
         startingDate = new DateTime(startingDate.Year, startingDate.Month, startingDate.Day,
                 StartingTime.Hours, StartingTime.Minutes, StartingTime.Seconds);
 
-        while (true)
+        while (currentDate.Date > startingDate.Date)
         {
-            if (startingDate > currentDate)
-                return startingDate;
-            if (startingDate.Date == currentDate.Date)
-            {
-                if (currentDate.TimeOfDay < StartingTime)
-                    return startingDate;
-                if (currentDate.TimeOfDay >= StartingTime && currentDate.TimeOfDay < EndingTime)
-                {
-                    return IntervalType switch
-                    {
-                        IntervalType.Hours => startingDate.AddHours(EveryAfter),
-                        IntervalType.Minutes => startingDate.AddMinutes(EveryAfter),
-                        _ => startingDate.AddSeconds(EveryAfter),
-                    };
-                }
-                return startingDate.AddMonths(EveryAfterMonths);
-            }
             startingDate = startingDate.AddMonths(EveryAfterMonths);
         }
+
+        if (startingDate.Date == currentDate.Date)
+        {
+            if (currentDate.TimeOfDay < startingDate.TimeOfDay)
+                return startingDate;
+            if (currentDate.TimeOfDay >= StartingTime && currentDate.TimeOfDay < EndingTime)
+            {
+                return IntervalType switch
+                {
+                    IntervalType.Hours => currentDate.AddHours(EveryAfter),
+                    IntervalType.Minutes => currentDate.AddMinutes(EveryAfter),
+                    _ => currentDate.AddSeconds(EveryAfter)
+                };
+            }
+            if (!ValidateCurrentDate(startingDate.AddMonths(EveryAfterMonths))) 
+                return "Current date is past end date!";
+            return startingDate.AddMonths(EveryAfterMonths);
+        }
+        return startingDate;
     }
 
     public override Either<string, ScheduleDetails> GetTaskDescription(DateTime currentDate)
@@ -76,11 +78,21 @@ public class MonthlyDayRecurringSchedule : MonthlySchedule
 
     protected override bool ValidateCurrentDate(DateTime currentDate)
     {
-        if (EndDate.IsNone) 
-            return true;
-        var endDate = (DateTime)EndDate;
-        if (currentDate > endDate)
-            return false;
-        return endDate.Date != currentDate.Date || currentDate.TimeOfDay <= endDate.TimeOfDay;
+        if (EndDate.IsSome)
+        {
+            var endDate = (DateTime)EndDate;
+            if (currentDate > endDate)
+                return false;
+            if (currentDate.Date == endDate.Date && currentDate.TimeOfDay > endDate.TimeOfDay)
+                return false;
+        }
+        return true;
+    }
+    
+    private DateTime GetNextWholeHour(DateTime time)
+    {
+        var nextHour = time.AddHours(EveryAfter);
+        var nextWholeHour = new DateTime(nextHour.Year, nextHour.Month, nextHour.Day, nextHour.Hour, 0, 0);
+        return nextWholeHour;
     }
 }
