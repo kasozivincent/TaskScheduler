@@ -1569,11 +1569,11 @@ public class MonthlyTheOnceScheduleTests
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
-            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 6, 2, 0, 0))));
-            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 4, 2, 0, 0))));
-            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 8, 1, 2, 0, 0))));
-            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 9, 5, 2, 0, 0))));
-            series[4].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 5, 5, 2, 0, 0))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 2, 2, 0, 0))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 7, 2, 0, 0))));
+            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 8, 4, 2, 0, 0))));
+            series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 9, 1, 2, 0, 0))));
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
     }
@@ -1597,12 +1597,12 @@ public class MonthlyTheOnceScheduleTests
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
-            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 6, 2, 0, 0))));
-            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 4, 2, 0, 0))));
-            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 8, 1, 2, 0, 0))));
-            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 9, 5, 2, 0, 0))));
-            series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 10, 3, 2, 0, 0))));
-            series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 11, 7, 2, 0, 0))));
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 5, 5, 2, 0, 0))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 2, 2, 0, 0))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 7, 2, 0, 0))));
+            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 8, 4, 2, 0, 0))));
+            series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 9, 1, 2, 0, 0))));
+            series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 10, 6, 2, 0, 0))));
         });
     }
     
@@ -1626,10 +1626,10 @@ public class MonthlyTheOnceScheduleTests
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
-            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 5, 9, 2, 0, 0))));
-            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 13, 2, 0, 0))));
-            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 11, 2, 0, 0))));
-            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 8, 8, 2, 0, 0))));
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 5, 12, 2, 0, 0))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 9, 2, 0, 0))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 14, 2, 0, 0))));
+            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 8, 11, 2, 0, 0))));
             series[4].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
@@ -1654,12 +1654,12 @@ public class MonthlyTheOnceScheduleTests
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
-            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 5, 9, 2, 0, 0))));
-            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 13, 2, 0, 0))));
-            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 11, 2, 0, 0))));
-            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 8, 8, 2, 0, 0))));
-            series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 9, 12, 2, 0, 0))));
-            series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 10, 10, 2, 0, 0))));
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 5, 12, 2, 0, 0))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 9, 2, 0, 0))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 14, 2, 0, 0))));
+            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 8, 11, 2, 0, 0))));
+            series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 9, 8, 2, 0, 0))));
+            series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 10, 13, 2, 0, 0))));
         });
     }
     
@@ -1683,10 +1683,10 @@ public class MonthlyTheOnceScheduleTests
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
-            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 5, 16, 2, 0, 0))));
-            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 20, 2, 0, 0))));
-            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 18, 2, 0, 0))));
-            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 8, 15, 2, 0, 0))));
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 5, 19, 2, 0, 0))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 16, 2, 0, 0))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 21, 2, 0, 0))));
+            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 8, 18, 2, 0, 0))));
             series[4].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
@@ -1711,12 +1711,12 @@ public class MonthlyTheOnceScheduleTests
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
-            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 5, 16, 2, 0, 0))));
-            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 20, 2, 0, 0))));
-            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 18, 2, 0, 0))));
-            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 8, 15, 2, 0, 0))));
-            series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 9, 19, 2, 0, 0))));
-            series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 10, 17, 2, 0, 0))));
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 5, 19, 2, 0, 0))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 16, 2, 0, 0))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 21, 2, 0, 0))));
+            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 8, 18, 2, 0, 0))));
+            series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 9, 15, 2, 0, 0))));
+            series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 10, 20, 2, 0, 0))));
         });
     }
     
@@ -1740,10 +1740,10 @@ public class MonthlyTheOnceScheduleTests
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
-            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 5, 23, 2, 0, 0))));
-            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 27, 2, 0, 0))));
-            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 25, 2, 0, 0))));
-            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 8, 22, 2, 0, 0))));
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 5, 26, 2, 0, 0))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 23, 2, 0, 0))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 28, 2, 0, 0))));
+            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 8, 25, 2, 0, 0))));
             series[4].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
@@ -1768,12 +1768,12 @@ public class MonthlyTheOnceScheduleTests
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
-            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 5, 23, 2, 0, 0))));
-            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 25, 2, 0, 0))));
-            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 9, 26, 2, 0, 0))));
-            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 11, 28, 2, 0, 0))));
-            series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2024, 1, 23, 2, 0, 0))));
-            series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2024, 3, 26, 2, 0, 0))));
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 5, 26, 2, 0, 0))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 28, 2, 0, 0))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 9, 29, 2, 0, 0))));
+            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 11, 24, 2, 0, 0))));
+            series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2024, 1, 26, 2, 0, 0))));
+            series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2024, 3, 22, 2, 0, 0))));
         });
     }
     
@@ -1797,10 +1797,10 @@ public class MonthlyTheOnceScheduleTests
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
-            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 5, 30, 2, 0, 0))));
-            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 27, 2, 0, 0))));
-            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 25, 2, 0, 0))));
-            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 8, 29, 2, 0, 0))));
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 5, 26, 2, 0, 0))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 30, 2, 0, 0))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 28, 2, 0, 0))));
+            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 8, 25, 2, 0, 0))));
             series[4].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
@@ -1825,12 +1825,12 @@ public class MonthlyTheOnceScheduleTests
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
-            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 5, 30, 2, 0, 0))));
-            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 25, 2, 0, 0))));
-            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 9, 26, 2, 0, 0))));
-            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 11, 28, 2, 0, 0))));
-            series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2024, 1, 30, 2, 0, 0))));
-            series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2024, 3, 26, 2, 0, 0))));
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 5, 26, 2, 0, 0))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 28, 2, 0, 0))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 9, 29, 2, 0, 0))));
+            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 11, 24, 2, 0, 0))));
+            series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2024, 1, 26, 2, 0, 0))));
+            series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2024, 3, 29, 2, 0, 0))));
         });
     }
     
@@ -1855,10 +1855,10 @@ public class MonthlyTheOnceScheduleTests
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
-            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 6, 2, 0, 0))));
-            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 4, 2, 0, 0))));
-            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 8, 1, 2, 0, 0))));
-            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 9, 5, 2, 0, 0))));
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 5, 6, 2, 0, 0))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 3, 2, 0, 0))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 1, 2, 0, 0))));
+            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 8, 5, 2, 0, 0))));
             series[4].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
@@ -1883,12 +1883,12 @@ public class MonthlyTheOnceScheduleTests
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
-            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 6, 2, 0, 0))));
-            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 4, 2, 0, 0))));
-            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 8, 1, 2, 0, 0))));
-            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 9, 5, 2, 0, 0))));
-            series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 10, 3, 2, 0, 0))));
-            series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 11, 7, 2, 0, 0))));
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 5, 6, 2, 0, 0))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 3, 2, 0, 0))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 1, 2, 0, 0))));
+            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 8, 5, 2, 0, 0))));
+            series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 9, 2, 2, 0, 0))));
+            series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 10, 7, 2, 0, 0))));
         });
     }
     
@@ -1912,10 +1912,10 @@ public class MonthlyTheOnceScheduleTests
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
-            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 5, 9, 2, 0, 0))));
-            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 13, 2, 0, 0))));
-            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 11, 2, 0, 0))));
-            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 8, 8, 2, 0, 0))));
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 5, 13, 2, 0, 0))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 10, 2, 0, 0))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 8, 2, 0, 0))));
+            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 8, 12, 2, 0, 0))));
             series[4].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
@@ -1940,12 +1940,12 @@ public class MonthlyTheOnceScheduleTests
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
-            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 5, 9, 2, 0, 0))));
-            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 13, 2, 0, 0))));
-            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 11, 2, 0, 0))));
-            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 8, 8, 2, 0, 0))));
-            series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 9, 12, 2, 0, 0))));
-            series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 10, 10, 2, 0, 0))));
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 5, 13, 2, 0, 0))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 10, 2, 0, 0))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 8, 2, 0, 0))));
+            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 8, 12, 2, 0, 0))));
+            series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 9, 9, 2, 0, 0))));
+            series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 10, 14, 2, 0, 0))));
         });
     }
     
@@ -1969,10 +1969,10 @@ public class MonthlyTheOnceScheduleTests
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
-            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 5, 16, 2, 0, 0))));
-            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 20, 2, 0, 0))));
-            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 18, 2, 0, 0))));
-            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 8, 15, 2, 0, 0))));
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 5, 20, 2, 0, 0))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 17, 2, 0, 0))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 15, 2, 0, 0))));
+            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 8, 19, 2, 0, 0))));
             series[4].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
@@ -1997,12 +1997,12 @@ public class MonthlyTheOnceScheduleTests
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
-            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 5, 16, 2, 0, 0))));
-            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 20, 2, 0, 0))));
-            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 18, 2, 0, 0))));
-            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 8, 15, 2, 0, 0))));
-            series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 9, 19, 2, 0, 0))));
-            series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 10, 17, 2, 0, 0))));
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 5, 20, 2, 0, 0))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 17, 2, 0, 0))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 15, 2, 0, 0))));
+            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 8, 19, 2, 0, 0))));
+            series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 9, 16, 2, 0, 0))));
+            series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 10, 21, 2, 0, 0))));
         });
     }
     
@@ -2026,10 +2026,10 @@ public class MonthlyTheOnceScheduleTests
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
-            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 5, 23, 2, 0, 0))));
-            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 27, 2, 0, 0))));
-            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 25, 2, 0, 0))));
-            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 8, 22, 2, 0, 0))));
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 5, 27, 2, 0, 0))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 24, 2, 0, 0))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 22, 2, 0, 0))));
+            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 8, 26, 2, 0, 0))));
             series[4].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
@@ -2054,12 +2054,12 @@ public class MonthlyTheOnceScheduleTests
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
-            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 5, 23, 2, 0, 0))));
-            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 25, 2, 0, 0))));
-            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 9, 26, 2, 0, 0))));
-            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 11, 28, 2, 0, 0))));
-            series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2024, 1, 23, 2, 0, 0))));
-            series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2024, 3, 26, 2, 0, 0))));
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 5, 27, 2, 0, 0))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 22, 2, 0, 0))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 9, 23, 2, 0, 0))));
+            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 11, 25, 2, 0, 0))));
+            series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2024, 1, 27, 2, 0, 0))));
+            series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2024, 3, 23, 2, 0, 0))));
         });
     }
     
@@ -2083,10 +2083,10 @@ public class MonthlyTheOnceScheduleTests
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
-            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 5, 30, 2, 0, 0))));
-            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 27, 2, 0, 0))));
-            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 25, 2, 0, 0))));
-            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 8, 29, 2, 0, 0))));
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 5, 27, 2, 0, 0))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 24, 2, 0, 0))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 29, 2, 0, 0))));
+            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 8, 26, 2, 0, 0))));
             series[4].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
@@ -2111,12 +2111,12 @@ public class MonthlyTheOnceScheduleTests
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
-            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 5, 30, 2, 0, 0))));
-            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 25, 2, 0, 0))));
-            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 9, 26, 2, 0, 0))));
-            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 11, 28, 2, 0, 0))));
-            series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2024, 1, 30, 2, 0, 0))));
-            series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2024, 3, 26, 2, 0, 0))));
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 5, 27, 2, 0, 0))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 29, 2, 0, 0))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 9, 30, 2, 0, 0))));
+            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 11, 25, 2, 0, 0))));
+            series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2024, 1, 27, 2, 0, 0))));
+            series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2024, 3, 30, 2, 0, 0))));
         });
     }
     
@@ -2140,10 +2140,10 @@ public class MonthlyTheOnceScheduleTests
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
-            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 6, 2, 0, 0))));
-            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 4, 2, 0, 0))));
-            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 8, 1, 2, 0, 0))));
-            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 9, 5, 2, 0, 0))));
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 5, 7, 2, 0, 0))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 4, 2, 0, 0))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 2, 2, 0, 0))));
+            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 8, 6, 2, 0, 0))));
             series[4].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
@@ -2168,12 +2168,12 @@ public class MonthlyTheOnceScheduleTests
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
-            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 6, 2, 0, 0))));
-            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 4, 2, 0, 0))));
-            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 8, 1, 2, 0, 0))));
-            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 9, 5, 2, 0, 0))));
-            series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 10, 3, 2, 0, 0))));
-            series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 11, 7, 2, 0, 0))));
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 5, 7, 2, 0, 0))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 4, 2, 0, 0))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 2, 2, 0, 0))));
+            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 8, 6, 2, 0, 0))));
+            series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 9, 3, 2, 0, 0))));
+            series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 10, 1, 2, 0, 0))));
         });
     }
     
@@ -2197,10 +2197,10 @@ public class MonthlyTheOnceScheduleTests
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
-            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 5, 9, 2, 0, 0))));
-            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 13, 2, 0, 0))));
-            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 11, 2, 0, 0))));
-            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 8, 8, 2, 0, 0))));
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 5, 14, 2, 0, 0))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 11, 2, 0, 0))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 9, 2, 0, 0))));
+            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 8, 13, 2, 0, 0))));
             series[4].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
@@ -2225,12 +2225,12 @@ public class MonthlyTheOnceScheduleTests
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
-            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 5, 9, 2, 0, 0))));
-            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 13, 2, 0, 0))));
-            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 11, 2, 0, 0))));
-            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 8, 8, 2, 0, 0))));
-            series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 9, 12, 2, 0, 0))));
-            series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 10, 10, 2, 0, 0))));
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 5, 14, 2, 0, 0))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 11, 2, 0, 0))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 9, 2, 0, 0))));
+            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 8, 13, 2, 0, 0))));
+            series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 9, 10, 2, 0, 0))));
+            series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 10, 8, 2, 0, 0))));
         });
     }
     
@@ -2254,10 +2254,10 @@ public class MonthlyTheOnceScheduleTests
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
-            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 5, 16, 2, 0, 0))));
-            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 20, 2, 0, 0))));
-            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 18, 2, 0, 0))));
-            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 8, 15, 2, 0, 0))));
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 5, 21, 2, 0, 0))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 18, 2, 0, 0))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 16, 2, 0, 0))));
+            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 8, 20, 2, 0, 0))));
             series[4].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
@@ -2282,12 +2282,12 @@ public class MonthlyTheOnceScheduleTests
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
-            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 5, 16, 2, 0, 0))));
-            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 20, 2, 0, 0))));
-            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 18, 2, 0, 0))));
-            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 8, 15, 2, 0, 0))));
-            series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 9, 19, 2, 0, 0))));
-            series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 10, 17, 2, 0, 0))));
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 5, 21, 2, 0, 0))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 18, 2, 0, 0))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 16, 2, 0, 0))));
+            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 8, 20, 2, 0, 0))));
+            series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 9, 17, 2, 0, 0))));
+            series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 10, 15, 2, 0, 0))));
         });
     }
     
@@ -2311,10 +2311,10 @@ public class MonthlyTheOnceScheduleTests
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
-            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 5, 23, 2, 0, 0))));
-            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 27, 2, 0, 0))));
-            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 25, 2, 0, 0))));
-            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 8, 22, 2, 0, 0))));
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 5, 28, 2, 0, 0))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 25, 2, 0, 0))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 23, 2, 0, 0))));
+            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 8, 27, 2, 0, 0))));
             series[4].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
@@ -2339,12 +2339,12 @@ public class MonthlyTheOnceScheduleTests
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
-            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 5, 23, 2, 0, 0))));
-            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 25, 2, 0, 0))));
-            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 9, 26, 2, 0, 0))));
-            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 11, 28, 2, 0, 0))));
-            series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2024, 1, 23, 2, 0, 0))));
-            series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2024, 3, 26, 2, 0, 0))));
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 5, 28, 2, 0, 0))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 23, 2, 0, 0))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 9, 24, 2, 0, 0))));
+            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 11, 26, 2, 0, 0))));
+            series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2024, 1, 28, 2, 0, 0))));
+            series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2024, 3, 24, 2, 0, 0))));
         });
     }
     
@@ -2368,10 +2368,10 @@ public class MonthlyTheOnceScheduleTests
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
-            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 5, 30, 2, 0, 0))));
-            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 27, 2, 0, 0))));
-            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 25, 2, 0, 0))));
-            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 8, 29, 2, 0, 0))));
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 5, 28, 2, 0, 0))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 25, 2, 0, 0))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 30, 2, 0, 0))));
+            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 8, 27, 2, 0, 0))));
             series[4].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
@@ -2396,12 +2396,12 @@ public class MonthlyTheOnceScheduleTests
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
-            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 5, 30, 2, 0, 0))));
-            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 25, 2, 0, 0))));
-            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 9, 26, 2, 0, 0))));
-            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 11, 28, 2, 0, 0))));
-            series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2024, 1, 30, 2, 0, 0))));
-            series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2024, 3, 26, 2, 0, 0))));
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 5, 28, 2, 0, 0))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 30, 2, 0, 0))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 9, 24, 2, 0, 0))));
+            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 11, 26, 2, 0, 0))));
+            series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2024, 1, 28, 2, 0, 0))));
+            series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2024, 3, 31, 2, 0, 0))));
         });
     }
 }

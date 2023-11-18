@@ -78,12 +78,7 @@ public class MonthlyPeriodOnceSchedule: MonthlySchedule
         return endDate.Date != currentDate.Date || currentDate.TimeOfDay <= endDate.TimeOfDay;
     }
 
-    private DateTime Seed(DateTime date)
-    {
-        return new DateTime(date.Year, date.Month, date.Day, 
-            ExecutionTime.Hours, ExecutionTime.Minutes, ExecutionTime.Seconds);
-    }
-    
+   
     private DateTime GetExactStartDate(int month, int year)
     {
         var date = GetDateOfDay(Position, Day, month, year);

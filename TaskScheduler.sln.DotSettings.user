@@ -1,4 +1,6 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=FF9D36DB_002DDA2B_002D4FDD_002DA6A4_002DB34BEA5366C5_002Fd_003AMonthlyScheduleTests_002Ff_003AMonthlyPeriodRecurringScheduleTests_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
+	<s:String x:Key="/Default/Environment/Highlighting/HighlightingSourceSnapshotLocation/@EntryValue">C:\Users\vincentk\AppData\Local\JetBrains\Rider2023.2\resharper-host\temp\Rider\vAny\CoverageData\_TaskScheduler.-1050036375\Snapshot\snapshot.utdcvr</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=1d85a4de_002Dbe31_002D4c24_002D8175_002Da1061076b064/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from Solution" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;Solution /&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
@@ -7,12 +9,12 @@
     &lt;TestId&gt;NUnit3x::FF9D36DB-DA2B-4FDD-A6A4-B34BEA5366C5::net7.0::TaskScheduler.Tests.MonthlyScheduleTests.MonthlyDayOnceScheduleTests.SeriesMonthlyDayOnce_CurrentDay_Equal_To_MonthDay_BeforeExecutionTime&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=4b85ac61_002Dc8f7_002D4bbf_002D8feb_002D1496c6e4599d/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from Solution #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=4b85ac61_002Dc8f7_002D4bbf_002D8feb_002D1496c6e4599d/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from Solution #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;Solution /&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=547bda61_002D9430_002D4f09_002Db3f7_002D6b44121e116b/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="SeriesMonthlyDayOnce_CurrentDay_Equal_To_MonthDay_After_ExecutionTime" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;Solution /&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=568cb763_002Da002_002D49fb_002D8e9d_002Dd000701c0e70/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="GetNextExecutionDate_CurrentDateBeforeExecutionDate_ReturnsExecutionDate" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=568cb763_002Da002_002D49fb_002D8e9d_002Dd000701c0e70/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetNextExecutionDate_CurrentDateBeforeExecutionDate_ReturnsExecutionDate" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;Solution /&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
