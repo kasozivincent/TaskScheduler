@@ -17,4 +17,7 @@
 &lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=568cb763_002Da002_002D49fb_002D8e9d_002Dd000701c0e70/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetNextExecutionDate_CurrentDateBeforeExecutionDate_ReturnsExecutionDate" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;Solution /&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=98809008_002D5ce6_002D4841_002Dbae7_002D13fcd54bce89/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="SeriesMonthlyPeriodRecurring_LastMonday_Seconds" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;Solution /&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
