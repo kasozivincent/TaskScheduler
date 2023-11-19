@@ -5,9 +5,9 @@ using TaskScheduler.Schedules.MonthlySchedules;
 
 namespace TaskScheduler.Extensions;
 
-public static class MonthlyTheOnceScheduleExtensions
+public static class MonthlyPeriodOnceScheduleExtensions
 {
-    public static List<Either<string, DateTime>> MonthlyTheOnceScheduleSeries(this MonthlyPeriodOnceSchedule monthlyPeriodOnceSchedule, DateTime currentDate, int count)
+    public static List<Either<string, DateTime>> MonthlyPeriodOnceScheduleSeries(this MonthlyPeriodOnceSchedule monthlyPeriodOnceSchedule, DateTime currentDate, int count)
     {
         var results = new List<Either<string, DateTime>>();
         for (var i = 0; i < count; i++)

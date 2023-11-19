@@ -8,6 +8,951 @@ namespace TaskScheduler.Tests.MonthlyScheduleTests;
 [TestFixture]
 public class MonthlyPeriodRecurringScheduleTests
 {
+     [Test]
+    public void SeriesMonthlyPeriodRecurring_FirstDay_Hours()
+    {
+        var currentDate = new DateTime(2023, 5, 5, 1, 0, 0);
+        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        {
+            Name = "Send email",
+            IsEnabled = true,
+            StartDate = new DateTime(2023, 1, 1),
+            EndDate = new DateTime(2023, 6, 28),
+            EveryAfterMonths = 1,
+            EveryAfter = 1,
+            IntervalType = IntervalType.Hours,
+            StartingTime = new TimeSpan(2, 0, 0),
+            EndingTime = new TimeSpan(4, 0, 0),
+            Day = Day.Day,
+            Position = Position.First,
+        };
+
+        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        Assert.That(series, Has.Count.EqualTo(6));
+        Assert.Multiple(() =>
+        {
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 1, 2, 0, 0))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 1, 3, 0, 0))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 1, 4, 0, 0))));
+            series[3].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
+            series[4].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
+            series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
+        });
+    }
+    
+    [Test]
+    public void SeriesMonthlyPeriodRecurring_FirstDay_Hours_NoEndDate()
+    {
+        var currentDate = new DateTime(2023, 5, 5, 1, 0, 0);
+        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        {
+            Name = "Send email",
+            IsEnabled = true,
+            StartDate = new DateTime(2023, 1, 1),
+            EveryAfterMonths = 1,
+            EveryAfter = 1,
+            IntervalType = IntervalType.Hours,
+            StartingTime = new TimeSpan(2, 0, 0),
+            EndingTime = new TimeSpan(4, 0, 0),
+            Day = Day.Day,
+            Position = Position.First,
+        };
+
+
+        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        Assert.That(series, Has.Count.EqualTo(6));
+        Assert.Multiple(() =>
+        {
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 1, 2, 0, 0))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 1, 3, 0, 0))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 1, 4, 0, 0))));
+            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 1, 2, 0, 0))));
+            series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 1, 3, 0, 0))));
+            series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 1, 4, 0, 0))));
+        });
+    }
+    
+    [Test]
+    public void SeriesMonthlyPeriodRecurring_FirstDay_Minutes()
+    {
+        var currentDate = new DateTime(2023, 6, 1, 1, 0, 0);
+        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        {
+            Name = "Send email",
+            IsEnabled = true,
+            StartDate = new DateTime(2023, 1, 1),
+            EndDate = new DateTime(2023, 6, 28),
+            EveryAfterMonths = 1,
+            EveryAfter = 30,
+            IntervalType = IntervalType.Minutes,
+            StartingTime = new TimeSpan(2, 0, 0),
+            EndingTime = new TimeSpan(4, 0, 0),
+            Day = Day.Day,
+            Position = Position.First,
+        };
+
+        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        Assert.That(series, Has.Count.EqualTo(6));
+        Assert.Multiple(() =>
+        {
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 1, 2, 0, 0))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 1, 2, 30, 0))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 1, 3, 0, 0))));
+            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 1, 3, 30, 0))));
+            series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 1, 4, 0, 0))));
+            series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
+        });
+    }
+    
+    [Test]
+    public void SeriesMonthlyPeriodRecurring_FirstDay_Minutes_NoEndDate()
+    {
+        var currentDate = new DateTime(2023, 6, 1, 1, 0, 0);
+        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        {
+            Name = "Send email",
+            IsEnabled = true,
+            StartDate = new DateTime(2023, 1, 1),
+            EveryAfterMonths = 1,
+            EveryAfter = 30,
+            IntervalType = IntervalType.Minutes,
+            StartingTime = new TimeSpan(2, 0, 0),
+            EndingTime = new TimeSpan(4, 0, 0),
+            Day = Day.Day,
+            Position = Position.First,
+        };
+
+        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        Assert.That(series, Has.Count.EqualTo(6));
+        Assert.Multiple(() =>
+        {
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 1, 2, 0, 0))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 1, 2, 30, 0))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 1, 3, 0, 0))));
+            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 1, 3, 30, 0))));
+            series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 1, 4, 0, 0))));
+            series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 1, 2, 0, 0))));
+        });
+    }
+    
+     [Test]
+    public void SeriesMonthlyPeriodRecurring_FirstDay_Seconds()
+    {
+        var currentDate = new DateTime(2023, 6, 1, 3, 59, 57);
+        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        {
+            Name = "Send email",
+            IsEnabled = true,
+            StartDate = new DateTime(2023, 1, 1),
+            EndDate = new DateTime(2023, 6, 28),
+            EveryAfterMonths = 1,
+            EveryAfter = 1,
+            IntervalType = IntervalType.Seconds,
+            StartingTime = new TimeSpan(2, 0, 0),
+            EndingTime = new TimeSpan(4, 0, 0),
+            Day = Day.Day,
+            Position = Position.First,
+        };
+
+        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        Assert.That(series, Has.Count.EqualTo(6));
+        Assert.Multiple(() =>
+        {
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 1, 3, 59, 58))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 1, 3, 59, 59))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 1, 4, 0, 0))));
+            series[3].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
+            series[4].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
+            series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
+        });
+    }
+    
+    [Test]
+    public void SeriesMonthlyPeriodRecurring_FirstDay_Seconds_NoEndDate()
+    {
+        var currentDate = new DateTime(2023, 6, 1, 3, 59, 57);
+        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        {
+            Name = "Send email",
+            IsEnabled = true,
+            StartDate = new DateTime(2023, 1, 1),
+            EveryAfterMonths = 1,
+            EveryAfter = 1,
+            IntervalType = IntervalType.Seconds,
+            StartingTime = new TimeSpan(2, 0, 0),
+            EndingTime = new TimeSpan(4, 0, 0),
+            Day = Day.Day,
+            Position = Position.First,
+        };
+
+        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        Assert.That(series, Has.Count.EqualTo(6));
+        Assert.Multiple(() =>
+        {
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 1, 3, 59, 58))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 1, 3, 59, 59))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 1, 4, 0, 0))));
+            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 1, 2, 0, 0))));
+            series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 1, 2, 0, 1))));
+            series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 1, 2, 0, 2))));
+        });
+    }
+    
+     [Test]
+    public void SeriesMonthlyPeriodRecurring_SecondDay_Hours()
+    {
+        var currentDate = new DateTime(2023, 5, 5, 1, 0, 0);
+        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        {
+            Name = "Send email",
+            IsEnabled = true,
+            StartDate = new DateTime(2023, 1, 1),
+            EndDate = new DateTime(2023, 6, 28),
+            EveryAfterMonths = 1,
+            EveryAfter = 1,
+            IntervalType = IntervalType.Hours,
+            StartingTime = new TimeSpan(2, 0, 0),
+            EndingTime = new TimeSpan(4, 0, 0),
+            Day = Day.Day,
+            Position = Position.Second,
+        };
+
+        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        Assert.That(series, Has.Count.EqualTo(6));
+        Assert.Multiple(() =>
+        {
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 2, 2, 0, 0))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 2, 3, 0, 0))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 2, 4, 0, 0))));
+            series[3].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
+            series[4].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
+            series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
+        });
+    }
+    
+    [Test]
+    public void SeriesMonthlyPeriodRecurring_SecondDay_Hours_NoEndDate()
+    {
+        var currentDate = new DateTime(2023, 5, 5, 1, 0, 0);
+        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        {
+            Name = "Send email",
+            IsEnabled = true,
+            StartDate = new DateTime(2023, 1, 1),
+            EveryAfterMonths = 1,
+            EveryAfter = 1,
+            IntervalType = IntervalType.Hours,
+            StartingTime = new TimeSpan(2, 0, 0),
+            EndingTime = new TimeSpan(4, 0, 0),
+            Day = Day.Day,
+            Position = Position.Second,
+        };
+
+        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        Assert.That(series, Has.Count.EqualTo(6));
+        Assert.Multiple(() =>
+        {
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 2, 2, 0, 0))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 2, 3, 0, 0))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 2, 4, 0, 0))));
+            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 2, 2, 0, 0))));
+            series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 2, 3, 0, 0))));
+            series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 2, 4, 0, 0))));
+        });
+    }
+    
+    [Test]
+    public void SeriesMonthlyPeriodRecurring_SecondDay_Minutes()
+    {
+        var currentDate = new DateTime(2023, 6, 1, 1, 0, 0);
+        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        {
+            Name = "Send email",
+            IsEnabled = true,
+            StartDate = new DateTime(2023, 1, 1),
+            EndDate = new DateTime(2023, 6, 28),
+            EveryAfterMonths = 1,
+            EveryAfter = 30,
+            IntervalType = IntervalType.Minutes,
+            StartingTime = new TimeSpan(2, 0, 0),
+            EndingTime = new TimeSpan(4, 0, 0),
+            Day = Day.Day,
+            Position = Position.Second,
+        };
+
+        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        Assert.That(series, Has.Count.EqualTo(6));
+        Assert.Multiple(() =>
+        {
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 2, 2, 0, 0))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 2, 2, 30, 0))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 2, 3, 0, 0))));
+            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 2, 3, 30, 0))));
+            series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 2, 4, 0, 0))));
+            series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
+        });
+    }
+    
+    [Test]
+    public void SeriesMonthlyPeriodRecurringSecondDay_Minutes_NoEndDate()
+    {
+        var currentDate = new DateTime(2023, 6, 2, 1, 0, 0);
+        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        {
+            Name = "Send email",
+            IsEnabled = true,
+            StartDate = new DateTime(2023, 1, 1),
+            EveryAfterMonths = 1,
+            EveryAfter = 30,
+            IntervalType = IntervalType.Minutes,
+            StartingTime = new TimeSpan(2, 0, 0),
+            EndingTime = new TimeSpan(4, 0, 0),
+            Day = Day.Day,
+            Position = Position.Second,
+        };
+
+        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        Assert.That(series, Has.Count.EqualTo(6));
+        Assert.Multiple(() =>
+        {
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 2, 2, 0, 0))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 2, 2, 30, 0))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 2, 3, 0, 0))));
+            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 2, 3, 30, 0))));
+            series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 2, 4, 0, 0))));
+            series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 2, 2, 0, 0))));
+        });
+    }
+    
+     [Test]
+    public void SeriesMonthlyPeriodRecurring_SecondDay_Seconds()
+    {
+        var currentDate = new DateTime(2023, 6, 2, 3, 59, 57);
+        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        {
+            Name = "Send email",
+            IsEnabled = true,
+            StartDate = new DateTime(2023, 1, 1),
+            EndDate = new DateTime(2023, 6, 28),
+            EveryAfterMonths = 1,
+            EveryAfter = 1,
+            IntervalType = IntervalType.Seconds,
+            StartingTime = new TimeSpan(2, 0, 0),
+            EndingTime = new TimeSpan(4, 0, 0),
+            Day = Day.Day,
+            Position = Position.Second,
+        };
+
+        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        Assert.That(series, Has.Count.EqualTo(6));
+        Assert.Multiple(() =>
+        {
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 2, 3, 59, 58))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 2, 3, 59, 59))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 2, 4, 0, 0))));
+            series[3].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
+            series[4].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
+            series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
+        });
+    }
+    
+    [Test]
+    public void SeriesMonthlyPeriodRecurring_SecondDay_Seconds_NoEndDate()
+    {
+        var currentDate = new DateTime(2023, 6, 2, 3, 59, 57);
+        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        {
+            Name = "Send email",
+            IsEnabled = true,
+            StartDate = new DateTime(2023, 1, 1),
+            EveryAfterMonths = 1,
+            EveryAfter = 1,
+            IntervalType = IntervalType.Seconds,
+            StartingTime = new TimeSpan(2, 0, 0),
+            EndingTime = new TimeSpan(4, 0, 0),
+            Day = Day.Day,
+            Position = Position.Second,
+        };
+
+        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        Assert.That(series, Has.Count.EqualTo(6));
+        Assert.Multiple(() =>
+        {
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 2, 3, 59, 58))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 2, 3, 59, 59))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 2, 4, 0, 0))));
+            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 2, 2, 0, 0))));
+            series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 2, 2, 0, 1))));
+            series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 2, 2, 0, 2))));
+        });
+    }
+    
+    [Test]
+    public void SeriesMonthlyPeriodRecurring_ThirdDay_Hours()
+    {
+        var currentDate = new DateTime(2023, 5, 17, 1, 0, 0);
+        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        {
+            Name = "Send email",
+            IsEnabled = true,
+            StartDate = new DateTime(2023, 1, 1),
+            EndDate = new DateTime(2023, 6, 28),
+            EveryAfterMonths = 1,
+            EveryAfter = 1,
+            IntervalType = IntervalType.Hours,
+            StartingTime = new TimeSpan(2, 0, 0),
+            EndingTime = new TimeSpan(4, 0, 0),
+            Day = Day.Day,
+            Position = Position.Third,
+        };
+
+        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        Assert.That(series, Has.Count.EqualTo(6));
+        Assert.Multiple(() =>
+        {
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 3, 2, 0, 0))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 3, 3, 0, 0))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 3, 4, 0, 0))));
+            series[3].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
+            series[4].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
+            series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
+        });
+    }
+
+    [Test]
+    public void SeriesMonthlyPeriodRecurring_ThirdDay_Hours_NoEndDate()
+    {
+        var currentDate = new DateTime(2023, 5, 17, 1, 0, 0);
+        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        {
+            Name = "Send email",
+            IsEnabled = true,
+            StartDate = new DateTime(2023, 1, 1),
+            EveryAfterMonths = 1,
+            EveryAfter = 1,
+            IntervalType = IntervalType.Hours,
+            StartingTime = new TimeSpan(2, 0, 0),
+            EndingTime = new TimeSpan(4, 0, 0),
+            Day = Day.Day,
+            Position = Position.Third,
+        };
+
+        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        Assert.That(series, Has.Count.EqualTo(6));
+        Assert.Multiple(() =>
+        {
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 3, 2, 0, 0))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 3, 3, 0, 0))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 3, 4, 0, 0))));
+            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 3, 2, 0, 0))));
+            series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 3, 3, 0, 0))));
+            series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 3, 4, 0, 0))));
+        });
+    }
+    
+    [Test]
+    public void SeriesMonthlyPeriodRecurring_ThirdDay_Minutes()
+    {
+        var currentDate = new DateTime(2023, 6, 3, 1, 0, 0);
+        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        {
+            Name = "Send email",
+            IsEnabled = true,
+            StartDate = new DateTime(2023, 1, 1),
+            EndDate = new DateTime(2023, 6, 28),
+            EveryAfterMonths = 1,
+            EveryAfter = 30,
+            IntervalType = IntervalType.Minutes,
+            StartingTime = new TimeSpan(2, 0, 0),
+            EndingTime = new TimeSpan(4, 0, 0),
+            Day = Day.Day,
+            Position = Position.Third,
+        };
+
+        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        Assert.That(series, Has.Count.EqualTo(6));
+        Assert.Multiple(() =>
+        {
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 3, 2, 0, 0))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 3, 2, 30, 0))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 3, 3, 0, 0))));
+            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 3, 3, 30, 0))));
+            series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 3, 4, 0, 0))));
+            series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
+        });
+    }
+    
+    [Test]
+    public void SeriesMonthlyPeriodRecurring_ThirdDay_Minutes_NoEndDate()
+    {
+        var currentDate = new DateTime(2023, 5, 20, 1, 0, 0);
+        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        {
+            Name = "Send email",
+            IsEnabled = true,
+            StartDate = new DateTime(2023, 1, 1),
+            EveryAfterMonths = 1,
+            EveryAfter = 30,
+            IntervalType = IntervalType.Minutes,
+            StartingTime = new TimeSpan(2, 0, 0),
+            EndingTime = new TimeSpan(4, 0, 0),
+            Day = Day.Day,
+            Position = Position.Third,
+        };
+
+        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        Assert.That(series, Has.Count.EqualTo(6));
+        Assert.Multiple(() =>
+        {
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 3, 2, 0, 0))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 3, 2, 30, 0))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 3, 3, 0, 0))));
+            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 3, 3, 30, 0))));
+            series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 3, 4, 0, 0))));
+            series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 3, 2, 0, 0))));
+        });
+    }
+    
+     [Test]
+    public void SeriesMonthlyPeriodRecurring_ThirdDay_Seconds()
+    {
+        var currentDate = new DateTime(2023, 6, 3, 3, 59, 57);
+        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        {
+            Name = "Send email",
+            IsEnabled = true,
+            StartDate = new DateTime(2023, 1, 1),
+            EndDate = new DateTime(2023, 6, 28),
+            EveryAfterMonths = 1,
+            EveryAfter = 1,
+            IntervalType = IntervalType.Seconds,
+            StartingTime = new TimeSpan(2, 0, 0),
+            EndingTime = new TimeSpan(4, 0, 0),
+            Day = Day.Day,
+            Position = Position.Third,
+        };
+
+        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        Assert.That(series, Has.Count.EqualTo(6));
+        Assert.Multiple(() =>
+        {
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 3, 3, 59, 58))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 3, 3, 59, 59))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 3, 4, 0, 0))));
+            series[3].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
+            series[4].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
+            series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
+        });
+    }
+    
+    [Test]
+    public void SeriesMonthlyPeriodRecurring_ThirdDay_Seconds_NoEndDate()
+    {
+        var currentDate = new DateTime(2023, 6, 3, 3, 59, 57);
+        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        {
+            Name = "Send email",
+            IsEnabled = true,
+            StartDate = new DateTime(2023, 1, 1),
+            EveryAfterMonths = 1,
+            EveryAfter = 1,
+            IntervalType = IntervalType.Seconds,
+            StartingTime = new TimeSpan(2, 0, 0),
+            EndingTime = new TimeSpan(4, 0, 0),
+            Day = Day.Day,
+            Position = Position.Third,
+        };
+
+        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        Assert.That(series, Has.Count.EqualTo(6));
+        Assert.Multiple(() =>
+        {
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 3, 3, 59, 58))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 3, 3, 59, 59))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 3, 4, 0, 0))));
+            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 3, 2, 0, 0))));
+            series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 3, 2, 0, 1))));
+            series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 3, 2, 0, 2))));
+        });
+    }
+    
+    [Test]
+    public void SeriesMonthlyPeriodRecurring_FourthDay_Hours()
+    {
+        var currentDate = new DateTime(2023, 5, 23, 1, 0, 0);
+        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        {
+            Name = "Send email",
+            IsEnabled = true,
+            StartDate = new DateTime(2023, 1, 1),
+            EndDate = new DateTime(2023, 6, 28),
+            EveryAfterMonths = 1,
+            EveryAfter = 1,
+            IntervalType = IntervalType.Hours,
+            StartingTime = new TimeSpan(2, 0, 0),
+            EndingTime = new TimeSpan(4, 0, 0),
+            Day = Day.Day,
+            Position = Position.Fourth,
+        };
+
+        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        Assert.That(series, Has.Count.EqualTo(6));
+        Assert.Multiple(() =>
+        {
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 4, 2, 0, 0))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 4, 3, 0, 0))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 4, 4, 0, 0))));
+            series[3].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
+            series[4].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
+            series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
+        });
+    }
+
+    [Test]
+    public void SeriesMonthlyPeriodRecurring_FourthDay_Hours_NoEndDate()
+    {
+        var currentDate = new DateTime(2023, 5, 23, 1, 0, 0);
+        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        {
+            Name = "Send email",
+            IsEnabled = true,
+            StartDate = new DateTime(2023, 1, 1),
+            EveryAfterMonths = 1,
+            EveryAfter = 1,
+            IntervalType = IntervalType.Hours,
+            StartingTime = new TimeSpan(2, 0, 0),
+            EndingTime = new TimeSpan(4, 0, 0),
+            Day = Day.Day,
+            Position = Position.Fourth,
+        };
+
+        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        Assert.That(series, Has.Count.EqualTo(6));
+        Assert.Multiple(() =>
+        {
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 4, 2, 0, 0))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 4, 3, 0, 0))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 4, 4, 0, 0))));
+            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 4, 2, 0, 0))));
+            series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 4, 3, 0, 0))));
+            series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 4, 4, 0, 0))));
+        });
+    }
+    
+    [Test]
+    public void SeriesMonthlyPeriodRecurring_FourthDay_Minutes()
+    {
+        var currentDate = new DateTime(2023, 6, 4, 1, 0, 0);
+        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        {
+            Name = "Send email",
+            IsEnabled = true,
+            StartDate = new DateTime(2023, 1, 1),
+            EndDate = new DateTime(2023, 7, 1),
+            EveryAfterMonths = 1,
+            EveryAfter = 30,
+            IntervalType = IntervalType.Minutes,
+            StartingTime = new TimeSpan(2, 0, 0),
+            EndingTime = new TimeSpan(4, 0, 0),
+            Day = Day.Day,
+            Position = Position.Fourth,
+        };
+
+        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        Assert.That(series, Has.Count.EqualTo(6));
+        Assert.Multiple(() =>
+        {
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 4, 2, 0, 0))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 4, 2, 30, 0))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 4, 3, 0, 0))));
+            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 4, 3, 30, 0))));
+            series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 4, 4, 0, 0))));
+            series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
+        });
+    }
+    
+    [Test]
+    public void SeriesMonthlyPeriodRecurring_FourthDay_Minutes_NoEndDate()
+    {
+        var currentDate = new DateTime(2023, 6, 4, 1, 0, 0);
+        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        {
+            Name = "Send email",
+            IsEnabled = true,
+            StartDate = new DateTime(2023, 1, 1),
+            EveryAfterMonths = 1,
+            EveryAfter = 30,
+            IntervalType = IntervalType.Minutes,
+            StartingTime = new TimeSpan(2, 0, 0),
+            EndingTime = new TimeSpan(4, 0, 0),
+            Day = Day.Day,
+            Position = Position.Fourth,
+        };
+
+        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        Assert.That(series, Has.Count.EqualTo(6));
+        Assert.Multiple(() =>
+        {
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 4, 2, 0, 0))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 4, 2, 30, 0))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 4, 3, 0, 0))));
+            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 4, 3, 30, 0))));
+            series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 4, 4, 0, 0))));
+            series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 4, 2, 0, 0))));
+        });
+    }
+    
+     [Test]
+    public void SeriesMonthlyPeriodRecurring_FourthDay_Seconds()
+    {
+        var currentDate = new DateTime(2023, 6, 4, 3, 59, 57);
+        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        {
+            Name = "Send email",
+            IsEnabled = true,
+            StartDate = new DateTime(2023, 1, 1),
+            EndDate = new DateTime(2023, 6, 28),
+            EveryAfterMonths = 1,
+            EveryAfter = 1,
+            IntervalType = IntervalType.Seconds,
+            StartingTime = new TimeSpan(2, 0, 0),
+            EndingTime = new TimeSpan(4, 0, 0),
+            Day = Day.Day,
+            Position = Position.Fourth,
+        };
+
+        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        Assert.That(series, Has.Count.EqualTo(6));
+        Assert.Multiple(() =>
+        {
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 4, 3, 59, 58))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 4, 3, 59, 59))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 4, 4, 0, 0))));
+            series[3].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
+            series[4].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
+            series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
+        });
+    }
+    
+    [Test]
+    public void SeriesMonthlyPeriodRecurring_FourthDay_Seconds_NoEndDate()
+    {
+        var currentDate = new DateTime(2023, 6, 4, 3, 59, 57);
+        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        {
+            Name = "Send email",
+            IsEnabled = true,
+            StartDate = new DateTime(2023, 1, 1),
+            EveryAfterMonths = 1,
+            EveryAfter = 1,
+            IntervalType = IntervalType.Seconds,
+            StartingTime = new TimeSpan(2, 0, 0),
+            EndingTime = new TimeSpan(4, 0, 0),
+            Day = Day.Day,
+            Position = Position.Fourth,
+        };
+
+        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        Assert.That(series, Has.Count.EqualTo(6));
+        Assert.Multiple(() =>
+        {
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 4, 3, 59, 58))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 4, 3, 59, 59))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 4, 4, 0, 0))));
+            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 4, 2, 0, 0))));
+            series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 4, 2, 0, 1))));
+            series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 4, 2, 0, 2))));
+        });
+    }
+    
+    [Test]
+    public void SeriesMonthlyPeriodRecurring_LastDay_Hours()
+    {
+        var currentDate = new DateTime(2023, 5, 31, 6, 0, 0);
+        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        {
+            Name = "Send email",
+            IsEnabled = true,
+            StartDate = new DateTime(2023, 1, 1),
+            EndDate = new DateTime(2023, 7, 1),
+            EveryAfterMonths = 1,
+            EveryAfter = 1,
+            IntervalType = IntervalType.Hours,
+            StartingTime = new TimeSpan(2, 0, 0),
+            EndingTime = new TimeSpan(4, 0, 0),
+            Day = Day.Day,
+            Position = Position.Last,
+        };
+
+        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        Assert.That(series, Has.Count.EqualTo(6));
+        Assert.Multiple(() =>
+        {
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 30, 2, 0, 0))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 30, 3, 0, 0))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 30, 4, 0, 0))));
+            series[3].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
+            series[4].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
+            series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
+        });
+    }
+
+    [Test]
+    public void SeriesMonthlyPeriodRecurring_LastDay_Hours_NoEndDate()
+    {
+        var currentDate = new DateTime(2023, 6, 15, 1, 0, 0);
+        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        {
+            Name = "Send email",
+            IsEnabled = true,
+            StartDate = new DateTime(2023, 1, 1),
+            EveryAfterMonths = 1,
+            EveryAfter = 1,
+            IntervalType = IntervalType.Hours,
+            StartingTime = new TimeSpan(2, 0, 0),
+            EndingTime = new TimeSpan(4, 0, 0),
+            Day = Day.Day,
+            Position = Position.Last,
+        };
+
+        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        Assert.That(series, Has.Count.EqualTo(6));
+        Assert.Multiple(() =>
+        {
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 30, 2, 0, 0))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 30, 3, 0, 0))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 30, 4, 0, 0))));
+            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 31, 2, 0, 0))));
+            series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 31, 3, 0, 0))));
+            series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 31, 4, 0, 0))));
+        });
+    }
+    
+    [Test]
+    public void SeriesMonthlyPeriodRecurring_LastDay_Minutes()
+    {
+        var currentDate = new DateTime(2023, 6, 26, 1, 0, 0);
+        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        {
+            Name = "Send email",
+            IsEnabled = true,
+            StartDate = new DateTime(2023, 1, 1),
+            EndDate = new DateTime(2023, 7, 1),
+            EveryAfterMonths = 1,
+            EveryAfter = 30,
+            IntervalType = IntervalType.Minutes,
+            StartingTime = new TimeSpan(2, 0, 0),
+            EndingTime = new TimeSpan(4, 0, 0),
+            Day = Day.Day,
+            Position = Position.Last,
+        };
+
+        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        Assert.That(series, Has.Count.EqualTo(6));
+        Assert.Multiple(() =>
+        {
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 30, 2, 0, 0))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 30, 2, 30, 0))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 30, 3, 0, 0))));
+            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 30, 3, 30, 0))));
+            series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 30, 4, 0, 0))));
+            series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
+        });
+    }
+    
+    [Test]
+    public void SeriesMonthlyPeriodRecurring_LastDay_Minutes_NoEndDate()
+    {
+        var currentDate = new DateTime(2023, 6, 26, 1, 0, 0);
+        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        {
+            Name = "Send email",
+            IsEnabled = true,
+            StartDate = new DateTime(2023, 1, 1),
+            EveryAfterMonths = 1,
+            EveryAfter = 30,
+            IntervalType = IntervalType.Minutes,
+            StartingTime = new TimeSpan(2, 0, 0),
+            EndingTime = new TimeSpan(4, 0, 0),
+            Day = Day.Day,
+            Position = Position.Last,
+        };
+        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        Assert.That(series, Has.Count.EqualTo(6));
+        Assert.Multiple(() =>
+        {
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 30, 2, 0, 0))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 30, 2, 30, 0))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 30, 3, 0, 0))));
+            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 30, 3, 30, 0))));
+            series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 30, 4, 0, 0))));
+            series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 31, 2, 0, 0))));
+        });
+    }
+    
+     [Test]
+    public void SeriesMonthlyPeriodRecurring_LastDay_Seconds()
+    {
+        var currentDate = new DateTime(2023, 6, 30, 3, 59, 57);
+        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        {
+            Name = "Send email",
+            IsEnabled = true,
+            StartDate = new DateTime(2023, 1, 1),
+            EndDate = new DateTime(2023, 7, 1),
+            EveryAfterMonths = 1,
+            EveryAfter = 1,
+            IntervalType = IntervalType.Seconds,
+            StartingTime = new TimeSpan(2, 0, 0),
+            EndingTime = new TimeSpan(4, 0, 0),
+            Day = Day.Day,
+            Position = Position.Last,
+        };
+
+        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        Assert.That(series, Has.Count.EqualTo(6));
+        Assert.Multiple(() =>
+        {
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 30, 3, 59, 58))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 30, 3, 59, 59))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 30, 4, 0, 0))));
+            series[3].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
+            series[4].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
+            series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
+        });
+    }
+    
+    [Test]
+    public void SeriesMonthlyPeriodRecurring_LastDay_Seconds_NoEndDate()
+    {
+        var currentDate = new DateTime(2023, 6, 30, 3, 59, 57);
+        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        {
+            Name = "Send email",
+            IsEnabled = true,
+            StartDate = new DateTime(2023, 1, 1),
+            EveryAfterMonths = 1,
+            EveryAfter = 1,
+            IntervalType = IntervalType.Seconds,
+            StartingTime = new TimeSpan(2, 0, 0),
+            EndingTime = new TimeSpan(4, 0, 0),
+            Day = Day.Day,
+            Position = Position.Last,
+        };
+
+        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        Assert.That(series, Has.Count.EqualTo(6));
+        Assert.Multiple(() =>
+        {
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 30, 3, 59, 58))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 30, 3, 59, 59))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 30, 4, 0, 0))));
+            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 31, 2, 0, 0))));
+            series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 31, 2, 0, 1))));
+            series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 31, 2, 0, 2))));
+        });
+    }
+    
     [Test]
     public void SeriesMonthlyPeriodRecurring_FirstMonday_Hours()
     {

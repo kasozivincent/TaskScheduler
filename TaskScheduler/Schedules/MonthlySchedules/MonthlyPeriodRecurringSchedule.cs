@@ -105,15 +105,15 @@ public class MonthlyPeriodRecurringSchedule : MonthlySchedule
             _ => GetDayDate(position, Convert(day), month, year)
         };
     }
-    private static DateTime DayDate(Position position, int month, int year)
+    private  DateTime DayDate(Position position, int month, int year)
     {
         return position switch
         {
-            Position.First => new DateTime(year, month, 1),
-            Position.Second => new DateTime(year, month, 2),
-            Position.Third => new DateTime(year, month, 3),
-            Position.Fourth => new DateTime(year, month, 4),
-            _ => new DateTime(year, month, DateTime.DaysInMonth(year, month))
+            Position.First => new DateTime(year, month, 1,StartingTime.Hours, StartingTime.Minutes, StartingTime.Seconds),
+            Position.Second => new DateTime(year, month, 2,StartingTime.Hours, StartingTime.Minutes, StartingTime.Seconds),
+            Position.Third => new DateTime(year, month, 3,StartingTime.Hours, StartingTime.Minutes, StartingTime.Seconds),
+            Position.Fourth => new DateTime(year, month, 4,StartingTime.Hours, StartingTime.Minutes, StartingTime.Seconds),
+            _ => new DateTime(year, month, DateTime.DaysInMonth(year, month),StartingTime.Hours, StartingTime.Minutes, StartingTime.Seconds)
         };
     }
     private  DateTime GetWeekendDate(Position position, int month, int year)

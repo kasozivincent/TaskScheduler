@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices.JavaScript;
 using LanguageExt;
 using TaskScheduler.Enums;
 
@@ -10,9 +9,7 @@ public class MonthlyPeriodOnceSchedule: MonthlySchedule
 {
     public Day Day { get; set; }
     public Position Position {get; set; }
-    
     public TimeSpan ExecutionTime { get; set; }
-    
     public override Either<string, DateTime> GetNextExecutionDate(DateTime currentDate)
     {
         if (IsEnabled == false)
@@ -49,6 +46,8 @@ public class MonthlyPeriodOnceSchedule: MonthlySchedule
                 if (currentDate.TimeOfDay >= ExecutionTime)
                 {
                     var newMonth = startingDate.AddMonths(EveryAfterMonths);
+                    if (!ValidateCurrentDate(GetDateOfDay(Position, Day, newMonth.Month, newMonth.Year))) 
+                        return "Current date is past end date!";
                     return GetDateOfDay(Position, Day, newMonth.Month, newMonth.Year);
                 }
             }
@@ -58,16 +57,18 @@ public class MonthlyPeriodOnceSchedule: MonthlySchedule
                 return targetDate;
             }
             var nextMonth = startingDate.AddMonths(EveryAfterMonths);
+            if (!ValidateCurrentDate(GetDateOfDay(Position, Day, nextMonth.Month, nextMonth.Year))) 
+                return "Current date is past end date!";
             return GetDateOfDay(Position, Day, nextMonth.Month, nextMonth.Year);
         }
+        if (!ValidateCurrentDate(GetDateOfDay(Position, Day, startingDate.Month, startingDate.Year))) 
+            return "Current date is past end date!";
         return GetDateOfDay(Position, Day, startingDate.Month, startingDate.Year);
     }
-
     public override Either<string, ScheduleDetails> GetTaskDescription(DateTime currentDate)
     {
         throw new NotImplementedException();
     }
-
     protected override bool ValidateCurrentDate(DateTime currentDate)
     {
         if (EndDate.IsNone) 
@@ -77,8 +78,6 @@ public class MonthlyPeriodOnceSchedule: MonthlySchedule
             return false;
         return endDate.Date != currentDate.Date || currentDate.TimeOfDay <= endDate.TimeOfDay;
     }
-
-   
     private DateTime GetExactStartDate(int month, int year)
     {
         var date = GetDateOfDay(Position, Day, month, year);
@@ -96,15 +95,15 @@ public class MonthlyPeriodOnceSchedule: MonthlySchedule
             _ => GetDayDate(position, Convert(day), month, year)
         };
     }
-    private static DateTime DayDate(Position position, int month, int year)
+    private  DateTime DayDate(Position position, int month, int year)
     {
         return position switch
         {
-            Position.First => new DateTime(year, month, 1),
-            Position.Second => new DateTime(year, month, 2),
-            Position.Third => new DateTime(year, month, 3),
-            Position.Fourth => new DateTime(year, month, 4),
-            _ => new DateTime(year, month, DateTime.DaysInMonth(year, month))
+            Position.First => new DateTime(year, month, 1, ExecutionTime.Hours, ExecutionTime.Minutes, ExecutionTime.Seconds),
+            Position.Second => new DateTime(year, month, 2, ExecutionTime.Hours, ExecutionTime.Minutes, ExecutionTime.Seconds),
+            Position.Third => new DateTime(year, month, 3, ExecutionTime.Hours, ExecutionTime.Minutes, ExecutionTime.Seconds),
+            Position.Fourth => new DateTime(year, month, 4, ExecutionTime.Hours, ExecutionTime.Minutes, ExecutionTime.Seconds),
+            _ => new DateTime(year, month, DateTime.DaysInMonth(year, month), ExecutionTime.Hours, ExecutionTime.Minutes, ExecutionTime.Seconds)
         };
     }
     private  DateTime GetWeekendDate(Position position, int month, int year)
