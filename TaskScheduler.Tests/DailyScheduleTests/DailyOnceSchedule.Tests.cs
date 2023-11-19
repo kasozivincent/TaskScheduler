@@ -14,6 +14,7 @@ public class DailyOnceScheduleTests
         var dailyOnceSchedule = new DailyOnceSchedule
         {
             Name = "Send email",
+            IsEnabled = true,
             StartDate = new DateTime(2020, 1, 1),
             EndDate = new DateTime(2020, 5, 9),
             ExecutionTime = new TimeSpan(2, 0, 0)
@@ -90,6 +91,7 @@ public class DailyOnceScheduleTests
         var dailyOnceSchedule = new DailyOnceSchedule
         {
             Name = "Send email",
+            IsEnabled = true,
             StartDate = new DateTime(2020, 1, 1),
             ExecutionTime = new TimeSpan(2, 0, 0)
         };
