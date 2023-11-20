@@ -49,9 +49,10 @@ public class MonthlyDayOnceSchedule : MonthlySchedule
         }
     }
 
-    public override Either<string, ScheduleDetails> GetTaskDescription(DateTime currentDate)
+    public override string GetTaskDescription()
     {
-        throw new NotImplementedException();
+        return $"Occurs every {MonthlyDay} every {EveryAfterMonths}(s) at {ExecutionTime}." +
+               $"Schedule will be used starting on {StartDate}";
     }
     
     private DateTime GetExactStartingDate()

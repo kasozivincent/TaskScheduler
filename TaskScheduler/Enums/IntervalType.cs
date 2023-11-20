@@ -2,7 +2,7 @@
 
 public enum IntervalType
 {
-    Hours,
-    Minutes,
-    Seconds
+    Hour,
+    Minute,
+    Second
 }

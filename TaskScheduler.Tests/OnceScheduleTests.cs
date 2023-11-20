@@ -80,7 +80,7 @@ public class OnceScheduleTests
     }
 
     [Test]
-    public void GetTaskDescription_CurrentDateBeforeExecutionDate_ReturnsScheduleDetails()
+    public void GetTaskDescription_ReturnsScheduleDetails()
     {
         var currentDate = new DateTime(2022, 1, 1);
         var schedule = new OnceSchedule
@@ -89,25 +89,8 @@ public class OnceScheduleTests
             ExecutionDate = new DateTime(2022, 1, 10)
         };
 
-        var result = schedule.GetTaskDescription(currentDate);
+        var result = (string)schedule.GetTaskDescription();
+        Assert.That(result, Is.EqualTo($"Task will occur on {schedule.ExecutionDate}"));
 
-        result.ShouldBeRight(value => Assert.That(value, 
-            Is.EqualTo(new ScheduleDetails(new DateTime(2022, 1, 10), 
-                $"Schedule will execute on {new DateTime(2022, 1, 10)}"))));
-    }
-
-    [Test]
-    public void GetTaskDescription_CurrentDateAfterExecutionDate_ReturnsPastExecutionDateError()
-    {
-        var currentDate = new DateTime(2022, 1, 15);
-        var schedule = new OnceSchedule
-        {
-            Name = "Schedule 5",
-            ExecutionDate = new DateTime(2022, 1, 10)
-        };
-
-        var result = schedule.GetTaskDescription(currentDate);
-        
-        result.ShouldBeLeft(error => Assert.That(error, Is.EqualTo("Current Date is past execution date")));
     }
 }

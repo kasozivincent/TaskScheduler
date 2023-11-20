@@ -21,7 +21,7 @@ public class MonthlyDayRecurringScheduleTests
             EveryAfterMonths = 1,
             MonthlyDay = 4,
             EveryAfter = 0,
-            IntervalType = IntervalType.Hours,
+            IntervalType = IntervalType.Hour,
             StartingTime = new TimeSpan(2, 0, 0),
             EndingTime = new TimeSpan(4, 0, 0)
         };
@@ -52,7 +52,7 @@ public class MonthlyDayRecurringScheduleTests
             EveryAfterMonths = 1,
             MonthlyDay = 4,
             EveryAfter = 1,
-            IntervalType = IntervalType.Hours,
+            IntervalType = IntervalType.Hour,
             StartingTime = new TimeSpan(6, 0, 0),
             EndingTime = new TimeSpan(4, 0, 0)
         };
@@ -83,7 +83,7 @@ public class MonthlyDayRecurringScheduleTests
             EveryAfterMonths = 1,
             MonthlyDay = -4,
             EveryAfter = 4,
-            IntervalType = IntervalType.Hours,
+            IntervalType = IntervalType.Hour,
             StartingTime = new TimeSpan(2, 0, 0),
             EndingTime = new TimeSpan(4, 0, 0)
         };
@@ -114,7 +114,7 @@ public class MonthlyDayRecurringScheduleTests
             EveryAfterMonths = 0,
             MonthlyDay = 4,
             EveryAfter = 1,
-            IntervalType = IntervalType.Hours,
+            IntervalType = IntervalType.Hour,
             StartingTime = new TimeSpan(2, 0, 0),
             EndingTime = new TimeSpan(4, 0, 0)
         };
@@ -145,7 +145,7 @@ public class MonthlyDayRecurringScheduleTests
             EveryAfterMonths = 1,
             MonthlyDay = 4,
             EveryAfter = 0,
-            IntervalType = IntervalType.Hours,
+            IntervalType = IntervalType.Hour,
             StartingTime = new TimeSpan(2, 0, 0),
             EndingTime = new TimeSpan(4, 0, 0)
         };
@@ -176,7 +176,7 @@ public class MonthlyDayRecurringScheduleTests
             EveryAfterMonths = 1,
             MonthlyDay = 4,
             EveryAfter = 0,
-            IntervalType = IntervalType.Hours,
+            IntervalType = IntervalType.Hour,
             StartingTime = new TimeSpan(2, 0, 0),
             EndingTime = new TimeSpan(4, 0, 0)
         };
@@ -195,7 +195,7 @@ public class MonthlyDayRecurringScheduleTests
     }
 
     [Test]
-    public void SeriesMonthlyDayRecurring_CurrentDay_Equal_To_MonthDay_BeforeStartingTime_Hours()
+    public void SeriesMonthlyDayRecurring_CurrentDay_Equal_To_MonthDay_BeforeStartingTime_Hour()
     {
         var currentDate = new DateTime(2020, 7, 4, 1, 0, 0);
         var monthlyDayRecurringSchedule = new MonthlyDayRecurringSchedule
@@ -207,7 +207,7 @@ public class MonthlyDayRecurringScheduleTests
             EveryAfterMonths = 2,
             MonthlyDay = 4,
             EveryAfter = 1,
-            IntervalType = IntervalType.Hours,
+            IntervalType = IntervalType.Hour,
             StartingTime = new TimeSpan(2, 0, 0),
             EndingTime = new TimeSpan(4, 0, 0)
         };
@@ -230,7 +230,7 @@ public class MonthlyDayRecurringScheduleTests
     }
     
     [Test]
-    public void SeriesMonthlyDayRecurring_CurrentDay_Equal_To_MonthDay_BeforeStartingTime_Hours_NoEndDate()
+    public void SeriesMonthlyDayRecurring_CurrentDay_Equal_To_MonthDay_BeforeStartingTime_Hour_NoEndDate()
     {
         var currentDate = new DateTime(2020, 7, 4, 1, 0, 0);
         var monthlyDayRecurringSchedule = new MonthlyDayRecurringSchedule
@@ -241,7 +241,7 @@ public class MonthlyDayRecurringScheduleTests
             EveryAfterMonths = 2,
             MonthlyDay = 4,
             EveryAfter = 1,
-            IntervalType = IntervalType.Hours,
+            IntervalType = IntervalType.Hour,
             StartingTime = new TimeSpan(2, 0, 0),
             EndingTime = new TimeSpan(4, 0, 0)
         };
@@ -264,7 +264,7 @@ public class MonthlyDayRecurringScheduleTests
     }
     
     [Test]
-    public void SeriesMonthlyDayRecurring_CurrentDay_Equal_To_MonthDay_BeforeStartingTime_Minutes()
+    public void SeriesMonthlyDayRecurring_CurrentDay_Equal_To_MonthDay_BeforeStartingTime_Minute()
     {
         var currentDate = new DateTime(2020, 9, 4, 1, 0, 0);
         var monthlyDayRecurringSchedule = new MonthlyDayRecurringSchedule
@@ -276,7 +276,7 @@ public class MonthlyDayRecurringScheduleTests
             EveryAfterMonths = 2,
             MonthlyDay = 4,
             EveryAfter = 30,
-            IntervalType = IntervalType.Minutes,
+            IntervalType = IntervalType.Minute,
             StartingTime = new TimeSpan(2, 0, 0),
             EndingTime = new TimeSpan(4, 0, 0)
         };
@@ -299,7 +299,7 @@ public class MonthlyDayRecurringScheduleTests
     }
     
     [Test]
-    public void SeriesMonthlyDayRecurring_CurrentDay_Equal_To_MonthDay_BeforeStartingTime_Minutes_NoEndDate()
+    public void SeriesMonthlyDayRecurring_CurrentDay_Equal_To_MonthDay_BeforeStartingTime_Minute_NoEndDate()
     {
         var currentDate = new DateTime(2020, 9, 4, 1, 0, 0);
         var monthlyDayRecurringSchedule = new MonthlyDayRecurringSchedule
@@ -310,7 +310,7 @@ public class MonthlyDayRecurringScheduleTests
             EveryAfterMonths = 2,
             MonthlyDay = 4,
             EveryAfter = 30,
-            IntervalType = IntervalType.Minutes,
+            IntervalType = IntervalType.Minute,
             StartingTime = new TimeSpan(2, 0, 0),
             EndingTime = new TimeSpan(4, 0, 0)
         };
@@ -333,7 +333,7 @@ public class MonthlyDayRecurringScheduleTests
     }
     
     [Test]
-    public void SeriesMonthlyDayRecurring_CurrentDay_Equal_To_MonthDay_BeforeStartingTime_Seconds()
+    public void SeriesMonthlyDayRecurring_CurrentDay_Equal_To_MonthDay_BeforeStartingTime_Second()
     {
         var currentDate = new DateTime(2020, 9, 4, 3, 58, 0);
         var monthlyDayRecurringSchedule = new MonthlyDayRecurringSchedule
@@ -345,7 +345,7 @@ public class MonthlyDayRecurringScheduleTests
             EveryAfterMonths = 2,
             MonthlyDay = 4,
             EveryAfter = 30,
-            IntervalType = IntervalType.Seconds,
+            IntervalType = IntervalType.Second,
             StartingTime = new TimeSpan(2, 0, 0),
             EndingTime = new TimeSpan(4, 0, 0)
         };
@@ -368,7 +368,7 @@ public class MonthlyDayRecurringScheduleTests
     }
     
     [Test]
-    public void SeriesMonthlyDayRecurring_CurrentDay_Equal_To_MonthDay_BeforeStartingTime_Seconds_NoEndDate()
+    public void SeriesMonthlyDayRecurring_CurrentDay_Equal_To_MonthDay_BeforeStartingTime_Second_NoEndDate()
     {
         var currentDate = new DateTime(2020, 9, 4, 3, 58, 0);
         var monthlyDayRecurringSchedule = new MonthlyDayRecurringSchedule
@@ -379,7 +379,7 @@ public class MonthlyDayRecurringScheduleTests
             EveryAfterMonths = 2,
             MonthlyDay = 4,
             EveryAfter = 30,
-            IntervalType = IntervalType.Seconds,
+            IntervalType = IntervalType.Second,
             StartingTime = new TimeSpan(2, 0, 0),
             EndingTime = new TimeSpan(4, 0, 0)
         };
@@ -402,7 +402,7 @@ public class MonthlyDayRecurringScheduleTests
     }
     
      [Test]
-    public void SeriesMonthlyDayRecurring_CurrentDay_Equal_To_MonthDay_Equal_To_StartingTime_Hours()
+    public void SeriesMonthlyDayRecurring_CurrentDay_Equal_To_MonthDay_Equal_To_StartingTime_Hour()
     {
         var currentDate = new DateTime(2020, 7, 4, 2, 0, 0);
         var monthlyDayRecurringSchedule = new MonthlyDayRecurringSchedule
@@ -414,7 +414,7 @@ public class MonthlyDayRecurringScheduleTests
             EveryAfterMonths = 2,
             MonthlyDay = 4,
             EveryAfter = 1,
-            IntervalType = IntervalType.Hours,
+            IntervalType = IntervalType.Hour,
             StartingTime = new TimeSpan(2, 0, 0),
             EndingTime = new TimeSpan(4, 0, 0)
         };
@@ -437,7 +437,7 @@ public class MonthlyDayRecurringScheduleTests
     }
     
     [Test]
-    public void SeriesMonthlyDayRecurring_CurrentDay_Equal_To_MonthDay_Equal_To_StartingTime_Hours_NoEndDate()
+    public void SeriesMonthlyDayRecurring_CurrentDay_Equal_To_MonthDay_Equal_To_StartingTime_Hour_NoEndDate()
     {
         var currentDate = new DateTime(2020, 7, 4, 2, 0, 0);
         var monthlyDayRecurringSchedule = new MonthlyDayRecurringSchedule
@@ -448,7 +448,7 @@ public class MonthlyDayRecurringScheduleTests
             EveryAfterMonths = 2,
             MonthlyDay = 4,
             EveryAfter = 1,
-            IntervalType = IntervalType.Hours,
+            IntervalType = IntervalType.Hour,
             StartingTime = new TimeSpan(2, 0, 0),
             EndingTime = new TimeSpan(4, 0, 0)
         };
@@ -471,7 +471,7 @@ public class MonthlyDayRecurringScheduleTests
     }
     
     [Test]
-    public void SeriesMonthlyDayRecurring_CurrentDay_Equal_To_MonthDay_Equal_To_StartingTime_Minutes()
+    public void SeriesMonthlyDayRecurring_CurrentDay_Equal_To_MonthDay_Equal_To_StartingTime_Minute()
     {
         var currentDate = new DateTime(2020, 9, 4, 2, 0, 0);
         var monthlyDayRecurringSchedule = new MonthlyDayRecurringSchedule
@@ -483,7 +483,7 @@ public class MonthlyDayRecurringScheduleTests
             EveryAfterMonths = 2,
             MonthlyDay = 4,
             EveryAfter = 30,
-            IntervalType = IntervalType.Minutes,
+            IntervalType = IntervalType.Minute,
             StartingTime = new TimeSpan(2, 0, 0),
             EndingTime = new TimeSpan(4, 0, 0)
         };
@@ -506,7 +506,7 @@ public class MonthlyDayRecurringScheduleTests
     }
     
     [Test]
-    public void SeriesMonthlyDayRecurring_CurrentDay_Equal_To_MonthDay_Equal_To_StartingTime_Minutes_NoEndDate()
+    public void SeriesMonthlyDayRecurring_CurrentDay_Equal_To_MonthDay_Equal_To_StartingTime_Minute_NoEndDate()
     {
         var currentDate = new DateTime(2020, 9, 4, 2, 0, 0);
         var monthlyDayRecurringSchedule = new MonthlyDayRecurringSchedule
@@ -517,7 +517,7 @@ public class MonthlyDayRecurringScheduleTests
             EveryAfterMonths = 2,
             MonthlyDay = 4,
             EveryAfter = 30,
-            IntervalType = IntervalType.Minutes,
+            IntervalType = IntervalType.Minute,
             StartingTime = new TimeSpan(2, 0, 0),
             EndingTime = new TimeSpan(4, 0, 0)
         };
@@ -540,7 +540,7 @@ public class MonthlyDayRecurringScheduleTests
     }
     
     [Test]
-    public void SeriesMonthlyDayRecurring_CurrentDay_Equal_To_MonthDay_Equal_To_StartingTime_Seconds()
+    public void SeriesMonthlyDayRecurring_CurrentDay_Equal_To_MonthDay_Equal_To_StartingTime_Second()
     {
         var currentDate = new DateTime(2020, 9, 4, 2, 0, 0);
         var monthlyDayRecurringSchedule = new MonthlyDayRecurringSchedule
@@ -552,7 +552,7 @@ public class MonthlyDayRecurringScheduleTests
             EveryAfterMonths = 2,
             MonthlyDay = 4,
             EveryAfter = 30,
-            IntervalType = IntervalType.Seconds,
+            IntervalType = IntervalType.Second,
             StartingTime = new TimeSpan(2, 0, 0),
             EndingTime = new TimeSpan(4, 0, 0)
         };
@@ -575,7 +575,7 @@ public class MonthlyDayRecurringScheduleTests
     }
     
     [Test]
-    public void SeriesMonthlyDayRecurring_CurrentDay_Equal_To_MonthDay_Equal_To_StartingTime_Seconds_NoEndDate()
+    public void SeriesMonthlyDayRecurring_CurrentDay_Equal_To_MonthDay_Equal_To_StartingTime_Second_NoEndDate()
     {
         var currentDate = new DateTime(2020, 9, 4, 2, 0, 0);
         var monthlyDayRecurringSchedule = new MonthlyDayRecurringSchedule
@@ -586,7 +586,7 @@ public class MonthlyDayRecurringScheduleTests
             EveryAfterMonths = 2,
             MonthlyDay = 4,
             EveryAfter = 30,
-            IntervalType = IntervalType.Seconds,
+            IntervalType = IntervalType.Second,
             StartingTime = new TimeSpan(2, 0, 0),
             EndingTime = new TimeSpan(4, 0, 0)
         };
@@ -610,7 +610,7 @@ public class MonthlyDayRecurringScheduleTests
 
 
     [Test]
-    public void SeriesMonthlyDayRecurring_CurrentDay_Equal_To_MonthlyDay_Equal_To_EndingTime_Hours()
+    public void SeriesMonthlyDayRecurring_CurrentDay_Equal_To_MonthlyDay_Equal_To_EndingTime_Hour()
     {
         var currentDate = new DateTime(2020, 7, 4, 2, 0, 0);
         var monthlyDayRecurringSchedule = new MonthlyDayRecurringSchedule
@@ -622,7 +622,7 @@ public class MonthlyDayRecurringScheduleTests
             EveryAfterMonths = 2,
             MonthlyDay = 4,
             EveryAfter = 1,
-            IntervalType = IntervalType.Hours,
+            IntervalType = IntervalType.Hour,
             StartingTime = new TimeSpan(2, 0, 0),
             EndingTime = new TimeSpan(4, 0, 0)
         };
@@ -645,7 +645,7 @@ public class MonthlyDayRecurringScheduleTests
     }
     
     [Test]
-    public void SeriesMonthlyDayRecurring_CurrentDay_Equal_To_MonthlyDay_Equal_To_EndingTime_Hours_NoEndDate()
+    public void SeriesMonthlyDayRecurring_CurrentDay_Equal_To_MonthlyDay_Equal_To_EndingTime_Hour_NoEndDate()
     {
         var currentDate = new DateTime(2020, 7, 4, 4, 0, 0);
         var monthlyDayRecurringSchedule = new MonthlyDayRecurringSchedule
@@ -656,7 +656,7 @@ public class MonthlyDayRecurringScheduleTests
             EveryAfterMonths = 2,
             MonthlyDay = 4,
             EveryAfter = 1,
-            IntervalType = IntervalType.Hours,
+            IntervalType = IntervalType.Hour,
             StartingTime = new TimeSpan(2, 0, 0),
             EndingTime = new TimeSpan(4, 0, 0)
         };
@@ -679,7 +679,7 @@ public class MonthlyDayRecurringScheduleTests
     }
     
     [Test]
-    public void SeriesMonthlyDayRecurring_CurrentDay_Equal_To_MonthlyDay_Equal_To_EndingTime_Minutes()
+    public void SeriesMonthlyDayRecurring_CurrentDay_Equal_To_MonthlyDay_Equal_To_EndingTime_Minute()
     {
         var currentDate = new DateTime(2020, 9, 4, 2, 0, 0);
         var monthlyDayRecurringSchedule = new MonthlyDayRecurringSchedule
@@ -691,7 +691,7 @@ public class MonthlyDayRecurringScheduleTests
             EveryAfterMonths = 2,
             MonthlyDay = 4,
             EveryAfter = 30,
-            IntervalType = IntervalType.Minutes,
+            IntervalType = IntervalType.Minute,
             StartingTime = new TimeSpan(2, 0, 0),
             EndingTime = new TimeSpan(4, 0, 0)
         };
@@ -714,7 +714,7 @@ public class MonthlyDayRecurringScheduleTests
     }
     
     [Test]
-    public void SeriesMonthlyDayRecurring_CurrentDay_Equal_To_MonthlyDay_Equal_To_EndingTime_Minutes_NoEndDate()
+    public void SeriesMonthlyDayRecurring_CurrentDay_Equal_To_MonthlyDay_Equal_To_EndingTime_Minute_NoEndDate()
     {
         var currentDate = new DateTime(2020, 9, 4, 4, 0, 0);
         var monthlyDayRecurringSchedule = new MonthlyDayRecurringSchedule
@@ -725,7 +725,7 @@ public class MonthlyDayRecurringScheduleTests
             EveryAfterMonths = 2,
             MonthlyDay = 4,
             EveryAfter = 30,
-            IntervalType = IntervalType.Minutes,
+            IntervalType = IntervalType.Minute,
             StartingTime = new TimeSpan(2, 0, 0),
             EndingTime = new TimeSpan(4, 0, 0)
         };
@@ -748,7 +748,7 @@ public class MonthlyDayRecurringScheduleTests
     }
     
     [Test]
-    public void SeriesMonthlyDayRecurring_CurrentDay_Equal_To_MonthlyDay_Equal_To_EndingTime_Seconds()
+    public void SeriesMonthlyDayRecurring_CurrentDay_Equal_To_MonthlyDay_Equal_To_EndingTime_Second()
     {
         var currentDate = new DateTime(2020, 9, 4, 2, 0, 0);
         var monthlyDayRecurringSchedule = new MonthlyDayRecurringSchedule
@@ -760,7 +760,7 @@ public class MonthlyDayRecurringScheduleTests
             EveryAfterMonths = 2,
             MonthlyDay = 4,
             EveryAfter = 30,
-            IntervalType = IntervalType.Seconds,
+            IntervalType = IntervalType.Second,
             StartingTime = new TimeSpan(2, 0, 0),
             EndingTime = new TimeSpan(4, 0, 0)
         };
@@ -783,7 +783,7 @@ public class MonthlyDayRecurringScheduleTests
     }
     
     [Test]
-    public void SeriesMonthlyDayRecurring_CurrentDay_Equal_To_MonthlyDay_Equal_To_EndingTime_Seconds_NoEndDate()
+    public void SeriesMonthlyDayRecurring_CurrentDay_Equal_To_MonthlyDay_Equal_To_EndingTime_Second_NoEndDate()
     {
         var currentDate = new DateTime(2020, 9, 4, 2, 0, 0);
         var monthlyDayRecurringSchedule = new MonthlyDayRecurringSchedule
@@ -794,7 +794,7 @@ public class MonthlyDayRecurringScheduleTests
             EveryAfterMonths = 2,
             MonthlyDay = 4,
             EveryAfter = 30,
-            IntervalType = IntervalType.Seconds,
+            IntervalType = IntervalType.Second,
             StartingTime = new TimeSpan(2, 0, 0),
             EndingTime = new TimeSpan(4, 0, 0)
         };
@@ -817,7 +817,7 @@ public class MonthlyDayRecurringScheduleTests
     }
 
     [Test]
-    public void SeriesMonthlyDayRecurring_CurrentDay_Equal_To_MonthlyDay_In_Interval_Hours()
+    public void SeriesMonthlyDayRecurring_CurrentDay_Equal_To_MonthlyDay_In_Interval_Hour()
     {
         var currentDate = new DateTime(2020, 7, 4, 3, 0, 0);
         var monthlyDayRecurringSchedule = new MonthlyDayRecurringSchedule
@@ -829,7 +829,7 @@ public class MonthlyDayRecurringScheduleTests
             EveryAfterMonths = 2,
             MonthlyDay = 4,
             EveryAfter = 1,
-            IntervalType = IntervalType.Hours,
+            IntervalType = IntervalType.Hour,
             StartingTime = new TimeSpan(2, 0, 0),
             EndingTime = new TimeSpan(4, 0, 0)
         };
@@ -852,7 +852,7 @@ public class MonthlyDayRecurringScheduleTests
     }
     
     [Test]
-    public void SeriesMonthlyDayRecurring_CurrentDay_Equal_To_MonthlyDay_In_Interval_Hours_NoEndDate()
+    public void SeriesMonthlyDayRecurring_CurrentDay_Equal_To_MonthlyDay_In_Interval_Hour_NoEndDate()
     {
         var currentDate = new DateTime(2020, 7, 4, 3, 0, 0);
         var monthlyDayRecurringSchedule = new MonthlyDayRecurringSchedule
@@ -863,7 +863,7 @@ public class MonthlyDayRecurringScheduleTests
             EveryAfterMonths = 2,
             MonthlyDay = 4,
             EveryAfter = 1,
-            IntervalType = IntervalType.Hours,
+            IntervalType = IntervalType.Hour,
             StartingTime = new TimeSpan(2, 0, 0),
             EndingTime = new TimeSpan(4, 0, 0)
         };
@@ -886,7 +886,7 @@ public class MonthlyDayRecurringScheduleTests
     }
     
     [Test]
-    public void SeriesMonthlyDayRecurring_CurrentDay_Equal_To_MonthlyDay_In_Interval_Minutes()
+    public void SeriesMonthlyDayRecurring_CurrentDay_Equal_To_MonthlyDay_In_Interval_Minute()
     {
         var currentDate = new DateTime(2020, 9, 4, 2, 30, 0);
         var monthlyDayRecurringSchedule = new MonthlyDayRecurringSchedule
@@ -898,7 +898,7 @@ public class MonthlyDayRecurringScheduleTests
             EveryAfterMonths = 2,
             MonthlyDay = 4,
             EveryAfter = 30,
-            IntervalType = IntervalType.Minutes,
+            IntervalType = IntervalType.Minute,
             StartingTime = new TimeSpan(2, 0, 0),
             EndingTime = new TimeSpan(4, 0, 0)
         };
@@ -921,7 +921,7 @@ public class MonthlyDayRecurringScheduleTests
     }
     
     [Test]
-    public void SeriesMonthlyDayRecurring_CurrentDay_Equal_To_MonthlyDay_In_Interval_Minutes_NoEndDate()
+    public void SeriesMonthlyDayRecurring_CurrentDay_Equal_To_MonthlyDay_In_Interval_Minute_NoEndDate()
     {
         var currentDate = new DateTime(2020, 9, 4, 2, 30, 0);
         var monthlyDayRecurringSchedule = new MonthlyDayRecurringSchedule
@@ -932,7 +932,7 @@ public class MonthlyDayRecurringScheduleTests
             EveryAfterMonths = 2,
             MonthlyDay = 4,
             EveryAfter = 30,
-            IntervalType = IntervalType.Minutes,
+            IntervalType = IntervalType.Minute,
             StartingTime = new TimeSpan(2, 0, 0),
             EndingTime = new TimeSpan(4, 0, 0)
         };
@@ -955,7 +955,7 @@ public class MonthlyDayRecurringScheduleTests
     }
     
     [Test]
-    public void SeriesMonthlyDayRecurring_CurrentDay_Equal_To_MonthlyDay_In_Interval_Seconds()
+    public void SeriesMonthlyDayRecurring_CurrentDay_Equal_To_MonthlyDay_In_Interval_Second()
     {
         var currentDate = new DateTime(2020, 9, 4, 3, 58, 0);
         var monthlyDayRecurringSchedule = new MonthlyDayRecurringSchedule
@@ -967,7 +967,7 @@ public class MonthlyDayRecurringScheduleTests
             EveryAfterMonths = 2,
             MonthlyDay = 4,
             EveryAfter = 30,
-            IntervalType = IntervalType.Seconds,
+            IntervalType = IntervalType.Second,
             StartingTime = new TimeSpan(2, 0, 0),
             EndingTime = new TimeSpan(4, 0, 0)
         };
@@ -990,7 +990,7 @@ public class MonthlyDayRecurringScheduleTests
     }
     
     [Test]
-    public void SeriesMonthlyDayRecurring_CurrentDay_Equal_To_MonthlyDay_In_Interval_Seconds_NoEndDate()
+    public void SeriesMonthlyDayRecurring_CurrentDay_Equal_To_MonthlyDay_In_Interval_Second_NoEndDate()
     {
         var currentDate = new DateTime(2020, 9, 4, 3, 58, 0);
         var monthlyDayRecurringSchedule = new MonthlyDayRecurringSchedule
@@ -1001,7 +1001,7 @@ public class MonthlyDayRecurringScheduleTests
             EveryAfterMonths = 2,
             MonthlyDay = 4,
             EveryAfter = 30,
-            IntervalType = IntervalType.Seconds,
+            IntervalType = IntervalType.Second,
             StartingTime = new TimeSpan(2, 0, 0),
             EndingTime = new TimeSpan(4, 0, 0)
         };
@@ -1024,7 +1024,7 @@ public class MonthlyDayRecurringScheduleTests
     }
 
     [Test]
-    public void SeriesMonthlyDayRecurring_CurrentDay_Not_Equal_To_MonthDay_Hours()
+    public void SeriesMonthlyDayRecurring_CurrentDay_Not_Equal_To_MonthDay_Hour()
     {
         var currentDate = new DateTime(2020, 7, 5, 1, 0, 0);
         var monthlyDayRecurringSchedule = new MonthlyDayRecurringSchedule
@@ -1036,7 +1036,7 @@ public class MonthlyDayRecurringScheduleTests
             EveryAfterMonths = 2,
             MonthlyDay = 4,
             EveryAfter = 1,
-            IntervalType = IntervalType.Hours,
+            IntervalType = IntervalType.Hour,
             StartingTime = new TimeSpan(2, 0, 0),
             EndingTime = new TimeSpan(4, 0, 0)
         };
@@ -1059,7 +1059,7 @@ public class MonthlyDayRecurringScheduleTests
     }
 
     [Test]
-    public void SeriesMonthlyDayRecurring_CurrentDay_Not_Equal_To_MonthDay_Hours_NoEndDate()
+    public void SeriesMonthlyDayRecurring_CurrentDay_Not_Equal_To_MonthDay_Hour_NoEndDate()
     {
         var currentDate = new DateTime(2020, 7, 5, 1, 0, 0);
         var monthlyDayRecurringSchedule = new MonthlyDayRecurringSchedule
@@ -1070,7 +1070,7 @@ public class MonthlyDayRecurringScheduleTests
             EveryAfterMonths = 2,
             MonthlyDay = 4,
             EveryAfter = 1,
-            IntervalType = IntervalType.Hours,
+            IntervalType = IntervalType.Hour,
             StartingTime = new TimeSpan(2, 0, 0),
             EndingTime = new TimeSpan(4, 0, 0)
         };
@@ -1093,22 +1093,22 @@ public class MonthlyDayRecurringScheduleTests
     }
 
     [Test]
-    public void SeriesMonthlyDayRecurring_CurrentDay_Not_Equal_To_MonthDay_Minutes()
+    public void SeriesMonthlyDayRecurring_CurrentDay_Not_Equal_To_MonthDay_Minute()
     {
     }
     
     [Test]
-    public void SeriesMonthlyDayRecurring_CurrentDay_Not_Equal_To_MonthDay_Minutes_NoEndDate()
+    public void SeriesMonthlyDayRecurring_CurrentDay_Not_Equal_To_MonthDay_Minute_NoEndDate()
     {
     }
     
     [Test]
-    public void SeriesMonthlyDayRecurring_CurrentDay_Not_Equal_To_MonthDay_Seconds()
+    public void SeriesMonthlyDayRecurring_CurrentDay_Not_Equal_To_MonthDay_Second()
     {
     }
     
     [Test]
-    public void SeriesMonthlyDayRecurring_CurrentDay_Not_Equal_To_MonthDay_Seconds_NoEndDate()
+    public void SeriesMonthlyDayRecurring_CurrentDay_Not_Equal_To_MonthDay_Second_NoEndDate()
     {
     }
 }

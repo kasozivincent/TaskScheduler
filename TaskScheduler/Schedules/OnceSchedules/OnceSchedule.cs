@@ -13,10 +13,10 @@ public class OnceSchedule : ScheduleConfiguration
             ? ExecutionDate
               : "Current Date is past execution date";
 
-    public override Either<string, ScheduleDetails> GetTaskDescription(DateTime currentDate)
-        => ValidateCurrentDate(currentDate) 
-        ? new ScheduleDetails(ExecutionDate, $"Schedule will execute on {ExecutionDate}")
-        : "Current Date is past execution date";
+    public override string GetTaskDescription()
+    {
+        return $"Task will occur on {ExecutionDate}";
+    }
 
     private bool ValidateCurrentDate(DateTime currentDate)
     {

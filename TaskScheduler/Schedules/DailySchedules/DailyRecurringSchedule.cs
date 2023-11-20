@@ -36,17 +36,18 @@ public class DailyRecurringSchedule : RecurringSchedule
         {
             return IntervalType switch
             {
-                IntervalType.Hours => GetNextWholeHour(currentDate),
-                IntervalType.Minutes => currentDate.AddMinutes(EveryAfter),
+                IntervalType.Hour => GetNextWholeHour(currentDate),
+                IntervalType.Minute => currentDate.AddMinutes(EveryAfter),
                 _ => currentDate.AddSeconds(EveryAfter)
             };
         }
         return date.AddDays(1);
     }
 
-    public override Either<string, ScheduleDetails> GetTaskDescription(DateTime currentDate)
+    public override string GetTaskDescription()
     {
-        throw new NotImplementedException();
+        return $"Occurs everyday every {EveryAfter} {IntervalType}(s) between {StartingTime}" +
+               $"and {EndingTime}. Schedule will be used starting on {StartDate}";
     }
     
     private DateTime GetNextWholeHour(DateTime time)

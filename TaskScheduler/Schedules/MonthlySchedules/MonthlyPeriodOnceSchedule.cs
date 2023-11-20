@@ -65,9 +65,10 @@ public class MonthlyPeriodOnceSchedule: MonthlySchedule
             return "Current date is past end date!";
         return GetDateOfDay(Position, Day, startingDate.Month, startingDate.Year);
     }
-    public override Either<string, ScheduleDetails> GetTaskDescription(DateTime currentDate)
+    public override string GetTaskDescription()
     {
-        throw new NotImplementedException();
+        return $"Occurs every {Position} {Day} of every {EveryAfterMonths}(s) at {ExecutionTime}." +
+               $"Schedule will be used starting on {StartDate}";
     }
     protected override bool ValidateCurrentDate(DateTime currentDate)
     {

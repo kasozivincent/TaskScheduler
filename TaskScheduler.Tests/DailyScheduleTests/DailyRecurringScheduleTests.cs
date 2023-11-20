@@ -3,13 +3,36 @@ using TaskScheduler.Enums;
 using TaskScheduler.Extensions;
 using TaskScheduler.Schedules.DailySchedules;
 
-namespace TaskScheduler.Tests;
+namespace TaskScheduler.Tests.DailyScheduleTests;
 
 [TestFixture]
 public class DailyRecurringScheduleTests
 {
     [Test]
-    public void SeriesDailyRecurring_CurrentDateTime_BeforeStartingTime_Hours()
+    public void DailyRecurring_Description()
+    {
+        var dailyRecurringSchedule = new DailyRecurringSchedule
+        {
+            Name = "Check email",
+            IsEnabled = true,
+            StartDate = new DateTime(2020, 1, 1),
+            EndDate = new DateTime(2020, 5, 8),
+            EveryAfter = 1,
+            IntervalType = IntervalType.Hour,
+            StartingTime = new TimeSpan(2, 0, 0),
+            EndingTime = new TimeSpan(4, 0, 0),
+        };
+        
+        var description = (string)dailyRecurringSchedule.GetTaskDescription();
+        var expected = $"Occurs everyday every 1 Hour(s) between {new TimeSpan(2, 0, 0)}" +
+                       $"and {new TimeSpan(4, 0, 0)}. Schedule will be used starting on " +
+                       $"{new DateTime(2020, 1, 1)}";
+        
+        Assert.That(description, Is.EqualTo(expected));
+    }
+    
+    [Test]
+    public void SeriesDailyRecurring_CurrentDateTime_BeforeStartingTime_Hour()
     {
         var currentDate = new DateTime(2020, 5, 7, 1, 0, 0);
         var dailyRecurringSchedule = new DailyRecurringSchedule
@@ -19,7 +42,7 @@ public class DailyRecurringScheduleTests
             StartDate = new DateTime(2020, 1, 1),
             EndDate = new DateTime(2020, 5, 8),
             EveryAfter = 1,
-            IntervalType = IntervalType.Hours,
+            IntervalType = IntervalType.Hour,
             StartingTime = new TimeSpan(2, 0, 0),
             EndingTime = new TimeSpan(4, 0, 0),
         };
@@ -42,7 +65,7 @@ public class DailyRecurringScheduleTests
     }
 
     [Test]
-    public void SeriesDailyRecurring_CurrentDateTime_BeforeStartingTime_Hours_NoEndDate()
+    public void SeriesDailyRecurring_CurrentDateTime_BeforeStartingTime_Hour_NoEndDate()
     {
         var currentDate = new DateTime(2020, 5, 7, 1, 0, 0);
         var dailyRecurringSchedule = new DailyRecurringSchedule
@@ -51,7 +74,7 @@ public class DailyRecurringScheduleTests
             IsEnabled = true,
             StartDate = new DateTime(2020, 1, 1),
             EveryAfter = 1,
-            IntervalType = IntervalType.Hours,
+            IntervalType = IntervalType.Hour,
             StartingTime = new TimeSpan(2, 0, 0),
             EndingTime = new TimeSpan(4, 0, 0),
         };
@@ -74,7 +97,7 @@ public class DailyRecurringScheduleTests
     }
 
     [Test]
-    public void SeriesDailyRecurring_CurrentDateTime_BeforeStartingTime_Minutes()
+    public void SeriesDailyRecurring_CurrentDateTime_BeforeStartingTime_Minute()
     {
         var currentDate = new DateTime(2020, 5, 8, 1, 0, 0);
         var dailyRecurringSchedule = new DailyRecurringSchedule
@@ -84,7 +107,7 @@ public class DailyRecurringScheduleTests
             StartDate = new DateTime(2020, 1, 1),
             EndDate = new DateTime(2020, 5, 8),
             EveryAfter = 30,
-            IntervalType = IntervalType.Minutes,
+            IntervalType = IntervalType.Minute,
             StartingTime = new TimeSpan(2, 0, 0),
             EndingTime = new TimeSpan(4, 0, 0),
         };
@@ -107,7 +130,7 @@ public class DailyRecurringScheduleTests
     }
     
     [Test]
-    public void SeriesDailyRecurring_CurrentDateTime_BeforeStartingTime_Minutes_NoEndDate()
+    public void SeriesDailyRecurring_CurrentDateTime_BeforeStartingTime_Minute_NoEndDate()
     {
         var currentDate = new DateTime(2020, 5, 8, 1, 0, 0);
         var dailyRecurringSchedule = new DailyRecurringSchedule
@@ -116,7 +139,7 @@ public class DailyRecurringScheduleTests
             IsEnabled = true,
             StartDate = new DateTime(2020, 1, 1),
             EveryAfter = 30,
-            IntervalType = IntervalType.Minutes,
+            IntervalType = IntervalType.Minute,
             StartingTime = new TimeSpan(2, 0, 0),
             EndingTime = new TimeSpan(4, 0, 0),
         };
@@ -139,7 +162,7 @@ public class DailyRecurringScheduleTests
     }
 
     [Test]
-    public void SeriesDailyRecurring_CurrentDateTime_BeforeStartingTime_Seconds()
+    public void SeriesDailyRecurring_CurrentDateTime_BeforeStartingTime_Second()
     {
         var currentDate = new DateTime(2020, 5, 8, 1, 0, 0);
         var dailyRecurringSchedule = new DailyRecurringSchedule
@@ -149,7 +172,7 @@ public class DailyRecurringScheduleTests
             StartDate = new DateTime(2020, 1, 1),
             EndDate = new DateTime(2021, 2, 9),
             EveryAfter = 30,
-            IntervalType = IntervalType.Seconds,
+            IntervalType = IntervalType.Second,
             StartingTime = new TimeSpan(2, 0, 0),
             EndingTime = new TimeSpan(4, 0, 0),
         };
@@ -172,7 +195,7 @@ public class DailyRecurringScheduleTests
     }
     
     [Test]
-    public void SeriesDailyRecurring_CurrentDateTime_BeforeStartingTime_Seconds_NoEndDate()
+    public void SeriesDailyRecurring_CurrentDateTime_BeforeStartingTime_Second_NoEndDate()
     {
         var currentDate = new DateTime(2020, 5, 8, 1, 0, 0);
         var dailyRecurringSchedule = new DailyRecurringSchedule
@@ -181,7 +204,7 @@ public class DailyRecurringScheduleTests
             IsEnabled = true,
             StartDate = new DateTime(2020, 1, 1),
             EveryAfter = 30,
-            IntervalType = IntervalType.Seconds,
+            IntervalType = IntervalType.Second,
             StartingTime = new TimeSpan(2, 0, 0),
             EndingTime = new TimeSpan(4, 0, 0),
         };
@@ -204,7 +227,7 @@ public class DailyRecurringScheduleTests
     }
 
     [Test]
-    public void SeriesDailyRecurring_CurrentDateTime_Equal_To_StartingTime_Hours()
+    public void SeriesDailyRecurring_CurrentDateTime_Equal_To_StartingTime_Hour()
     {
         var currentDate = new DateTime(2020, 5, 7, 2, 0, 0);
         var dailyRecurringSchedule = new DailyRecurringSchedule
@@ -214,7 +237,7 @@ public class DailyRecurringScheduleTests
             StartDate = new DateTime(2020, 1, 1),
             EndDate = new DateTime(2020, 5, 8),
             EveryAfter = 1,
-            IntervalType = IntervalType.Hours,
+            IntervalType = IntervalType.Hour,
             StartingTime = new TimeSpan(2, 0, 0),
             EndingTime = new TimeSpan(4, 0, 0),
         };
@@ -237,7 +260,7 @@ public class DailyRecurringScheduleTests
     }
 
     [Test]
-    public void SeriesDailyRecurring_CurrentDateTime_Equal_To_StartingTime_Hours_NoEndDate()
+    public void SeriesDailyRecurring_CurrentDateTime_Equal_To_StartingTime_Hour_NoEndDate()
     {
         var currentDate = new DateTime(2020, 5, 7, 2, 0, 0);
         var dailyRecurringSchedule = new DailyRecurringSchedule
@@ -246,7 +269,7 @@ public class DailyRecurringScheduleTests
             IsEnabled = true,
             StartDate = new DateTime(2020, 1, 1),
             EveryAfter = 1,
-            IntervalType = IntervalType.Hours,
+            IntervalType = IntervalType.Hour,
             StartingTime = new TimeSpan(2, 0, 0),
             EndingTime = new TimeSpan(4, 0, 0),
         };
@@ -269,7 +292,7 @@ public class DailyRecurringScheduleTests
     }
 
     [Test]
-    public void SeriesDailyRecurring_CurrentDateTime_Equal_To_StartingTime_Minutes()
+    public void SeriesDailyRecurring_CurrentDateTime_Equal_To_StartingTime_Minute()
     {
         var currentDate = new DateTime(2020, 5, 8, 2, 0, 0);
         var dailyRecurringSchedule = new DailyRecurringSchedule
@@ -279,7 +302,7 @@ public class DailyRecurringScheduleTests
             StartDate = new DateTime(2020, 1, 1),
             EndDate = new DateTime(2020, 5, 8),
             EveryAfter = 30,
-            IntervalType = IntervalType.Minutes,
+            IntervalType = IntervalType.Minute,
             StartingTime = new TimeSpan(2, 0, 0),
             EndingTime = new TimeSpan(4, 0, 0),
         };
@@ -302,7 +325,7 @@ public class DailyRecurringScheduleTests
     }
     
     [Test]
-    public void SeriesDailyRecurring_CurrentDateTime_Equal_To_StartingTime_Minutes_NoEndDate()
+    public void SeriesDailyRecurring_CurrentDateTime_Equal_To_StartingTime_Minute_NoEndDate()
     {
         var currentDate = new DateTime(2020, 5, 8, 2, 0, 0);
         var dailyRecurringSchedule = new DailyRecurringSchedule
@@ -311,7 +334,7 @@ public class DailyRecurringScheduleTests
             IsEnabled = true,
             StartDate = new DateTime(2020, 1, 1),
             EveryAfter = 30,
-            IntervalType = IntervalType.Minutes,
+            IntervalType = IntervalType.Minute,
             StartingTime = new TimeSpan(2, 0, 0),
             EndingTime = new TimeSpan(4, 0, 0),
         };
@@ -334,7 +357,7 @@ public class DailyRecurringScheduleTests
     }
     
     [Test]
-    public void SeriesDailyRecurring_CurrentDateTime_Equal_To_StartingTime_Seconds()
+    public void SeriesDailyRecurring_CurrentDateTime_Equal_To_StartingTime_Second()
     {
         var currentDate = new DateTime(2020, 5, 8, 2, 0, 0);
         var dailyRecurringSchedule = new DailyRecurringSchedule
@@ -344,7 +367,7 @@ public class DailyRecurringScheduleTests
             StartDate = new DateTime(2020, 1, 1),
             EndDate = new DateTime(2021, 2, 9),
             EveryAfter = 30,
-            IntervalType = IntervalType.Seconds,
+            IntervalType = IntervalType.Second,
             StartingTime = new TimeSpan(2, 0, 0),
             EndingTime = new TimeSpan(4, 0, 0),
         };
@@ -367,7 +390,7 @@ public class DailyRecurringScheduleTests
     }
     
     [Test]
-    public void SeriesDailyRecurring_CurrentDateTime_Equal_To_StartingTime_Seconds_NoEndDate()
+    public void SeriesDailyRecurring_CurrentDateTime_Equal_To_StartingTime_Second_NoEndDate()
     {
         var currentDate = new DateTime(2020, 5, 8, 2, 0, 0);
         var dailyRecurringSchedule = new DailyRecurringSchedule
@@ -376,7 +399,7 @@ public class DailyRecurringScheduleTests
             IsEnabled = true,
             StartDate = new DateTime(2020, 1, 1),
             EveryAfter = 30,
-            IntervalType = IntervalType.Seconds,
+            IntervalType = IntervalType.Second,
             StartingTime = new TimeSpan(2, 0, 0),
             EndingTime = new TimeSpan(4, 0, 0),
         };
@@ -399,7 +422,7 @@ public class DailyRecurringScheduleTests
     }
 
     [Test]
-    public void SeriesDailyRecurring_CurrentDateTime_Equal_To_EndingTime_Hours()
+    public void SeriesDailyRecurring_CurrentDateTime_Equal_To_EndingTime_Hour()
     {
         var currentDate = new DateTime(2020, 5, 7, 4, 0, 0);
         var dailyRecurringSchedule = new DailyRecurringSchedule
@@ -409,7 +432,7 @@ public class DailyRecurringScheduleTests
             StartDate = new DateTime(2020, 1, 1),
             EndDate = new DateTime(2020, 5, 8),
             EveryAfter = 1,
-            IntervalType = IntervalType.Hours,
+            IntervalType = IntervalType.Hour,
             StartingTime = new TimeSpan(2, 0, 0),
             EndingTime = new TimeSpan(4, 0, 0),
         };
@@ -432,7 +455,7 @@ public class DailyRecurringScheduleTests
     }
     
     [Test]
-    public void SeriesDailyRecurring_CurrentDateTime_Equal_To_EndingTime_Hours_NoEndDate()
+    public void SeriesDailyRecurring_CurrentDateTime_Equal_To_EndingTime_Hour_NoEndDate()
     {
         var currentDate = new DateTime(2020, 5, 7, 4, 0, 0);
         var dailyRecurringSchedule = new DailyRecurringSchedule
@@ -441,7 +464,7 @@ public class DailyRecurringScheduleTests
             IsEnabled = true,
             StartDate = new DateTime(2020, 1, 1),
             EveryAfter = 1,
-            IntervalType = IntervalType.Hours,
+            IntervalType = IntervalType.Hour,
             StartingTime = new TimeSpan(2, 0, 0),
             EndingTime = new TimeSpan(4, 0, 0),
         };
@@ -464,7 +487,7 @@ public class DailyRecurringScheduleTests
     }
     
     [Test]
-    public void SeriesDailyRecurring_CurrentDateTime_Equal_To_EndingTime_Minutes()
+    public void SeriesDailyRecurring_CurrentDateTime_Equal_To_EndingTime_Minute()
     {
         var currentDate = new DateTime(2020, 5, 7, 4, 0, 0);
         var dailyRecurringSchedule = new DailyRecurringSchedule
@@ -474,7 +497,7 @@ public class DailyRecurringScheduleTests
             StartDate = new DateTime(2020, 1, 1),
             EndDate = new DateTime(2020, 5, 8),
             EveryAfter = 30,
-            IntervalType = IntervalType.Minutes,
+            IntervalType = IntervalType.Minute,
             StartingTime = new TimeSpan(2, 0, 0),
             EndingTime = new TimeSpan(4, 0, 0),
         };
@@ -497,7 +520,7 @@ public class DailyRecurringScheduleTests
     }
     
     [Test]
-    public void SeriesDailyRecurring_CurrentDateTime_Equal_To_EndingTime_Minutes_NoEndDate()
+    public void SeriesDailyRecurring_CurrentDateTime_Equal_To_EndingTime_Minute_NoEndDate()
     {
         var currentDate = new DateTime(2020, 5, 8, 4, 0, 0);
         var dailyRecurringSchedule = new DailyRecurringSchedule
@@ -506,7 +529,7 @@ public class DailyRecurringScheduleTests
             IsEnabled = true,
             StartDate = new DateTime(2020, 1, 1),
             EveryAfter = 30,
-            IntervalType = IntervalType.Minutes,
+            IntervalType = IntervalType.Minute,
             StartingTime = new TimeSpan(2, 0, 0),
             EndingTime = new TimeSpan(4, 0, 0),
         };
@@ -529,42 +552,42 @@ public class DailyRecurringScheduleTests
     }
     
     [Test]
-    public void SeriesDailyRecurring_CurrentDateTime_Equal_To_EndingTime_Seconds()
+    public void SeriesDailyRecurring_CurrentDateTime_Equal_To_EndingTime_Second()
     {
     }
     
     [Test]
-    public void SeriesDailyRecurring_CurrentDateTime_Equal_To_EndingTime_Seconds_NoEndDate()
+    public void SeriesDailyRecurring_CurrentDateTime_Equal_To_EndingTime_Second_NoEndDate()
     {
     }
 
     [Test]
-    public void SeriesDailyRecurring_CurrentDateTime_AfterEndingTime_Hours()
+    public void SeriesDailyRecurring_CurrentDateTime_AfterEndingTime_Hour()
     {
     }
     
     [Test]
-    public void SeriesDailyRecurring_CurrentDateTime_AfterEndingTime_Hours_NoEndDate()
+    public void SeriesDailyRecurring_CurrentDateTime_AfterEndingTime_Hour_NoEndDate()
     {
     }
     
     [Test]
-    public void SeriesDailyRecurring_CurrentDateTime_AfterEndingTime_Minutes()
+    public void SeriesDailyRecurring_CurrentDateTime_AfterEndingTime_Minute()
     {
     }
     
     [Test]
-    public void SeriesDailyRecurring_CurrentDateTime_AfterEndingTime_Minutes_NoEndDate()
+    public void SeriesDailyRecurring_CurrentDateTime_AfterEndingTime_Minute_NoEndDate()
     {
     }
     
     [Test]
-    public void SeriesDailyRecurring_CurrentDateTime_AfterEndingTime_Seconds()
+    public void SeriesDailyRecurring_CurrentDateTime_AfterEndingTime_Second()
     {
     }
     
     [Test]
-    public void SeriesDailyRecurring_CurrentDateTime_AfterEndingTime_Seconds_NoEndDate()
+    public void SeriesDailyRecurring_CurrentDateTime_AfterEndingTime_Second_NoEndDate()
     {
     }
 }

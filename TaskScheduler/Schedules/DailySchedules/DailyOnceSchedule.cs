@@ -28,25 +28,9 @@ public class DailyOnceSchedule : RecurringSchedule
             : date;
     }
 
-    public override Either<string, ScheduleDetails> GetTaskDescription(DateTime currentDate)
+    public override string GetTaskDescription()
     {
-        if (IsEnabled == false)
-            return "Schedule was cancelled!";
-        if (EndDate.IsSome)
-        {
-            if(StartDate > EndDate)
-                return "Start date can't be later than end date";
-        }
-        if (currentDate < StartDate)
-            return new ScheduleDetails(StartDate, $"Occurs every day. Schedule will be used starting on {StartDate}");
-        if (!ValidateCurrentDate(currentDate)) 
-            return "Current date is past end date!";
-        var date = new DateTime(currentDate.Year, currentDate.Month, currentDate.Day,
-            ExecutionTime.Hours, ExecutionTime.Minutes, ExecutionTime.Seconds);
-
-        return currentDate.TimeOfDay >= ExecutionTime 
-            ? new ScheduleDetails(date.AddDays(1), $"Occurs every day. Schedule will be used starting on {StartDate}") 
-            : new ScheduleDetails(date, $"Occurs every day. Schedule will be used starting on {StartDate}");
+        return $"Occurs everyday. Schedule will be used starting on {StartDate}";
     }
     
     protected override bool ValidateCurrentDate(DateTime currentDate) 

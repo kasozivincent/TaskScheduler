@@ -53,8 +53,8 @@ public class MonthlyPeriodRecurringSchedule : MonthlySchedule
                 {
                     return IntervalType switch
                     {
-                        IntervalType.Hours => currentDate.AddHours(EveryAfter),
-                        IntervalType.Minutes => currentDate.AddMinutes(EveryAfter),
+                        IntervalType.Hour => currentDate.AddHours(EveryAfter),
+                        IntervalType.Minute => currentDate.AddMinutes(EveryAfter),
                         _ => currentDate.AddSeconds(EveryAfter)
                     };
                 }
@@ -73,9 +73,11 @@ public class MonthlyPeriodRecurringSchedule : MonthlySchedule
         return GetDateOfDay(Position, Day, startingDate.Month, startingDate.Year);
     }
 
-    public override Either<string, ScheduleDetails> GetTaskDescription(DateTime currentDate)
+    public override string GetTaskDescription()
     {
-        throw new NotImplementedException();
+        return $"Occurs the {Position} {Day} of every {EveryAfterMonths} month(s) every" +
+               $"{EveryAfter} {IntervalType}(s) between {StartingTime} and {EndingTime}" +
+               $"starting on {StartDate}";
     }
 
     protected override bool ValidateCurrentDate(DateTime currentDate)
