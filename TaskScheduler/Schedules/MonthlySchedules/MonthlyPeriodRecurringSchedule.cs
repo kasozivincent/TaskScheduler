@@ -76,8 +76,8 @@ public class MonthlyPeriodRecurringSchedule : MonthlySchedule
     public override string GetTaskDescription()
     {
         return $"Occurs the {Position} {Day} of every {EveryAfterMonths} month(s) every" +
-               $"{EveryAfter} {IntervalType}(s) between {StartingTime} and {EndingTime}" +
-               $"starting on {StartDate}";
+               $" {EveryAfter} {IntervalType}(s) between {StartingTime} and {EndingTime}" +
+               $" starting on {StartDate}";
     }
 
     protected override bool ValidateCurrentDate(DateTime currentDate)

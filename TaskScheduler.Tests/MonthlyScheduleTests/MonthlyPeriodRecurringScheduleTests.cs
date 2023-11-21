@@ -28,8 +28,8 @@ public class MonthlyPeriodRecurringScheduleTests
 
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the First Day of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
 
@@ -68,8 +68,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = (string)monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the First Day of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -107,8 +107,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = (string)monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the First Day of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -146,8 +146,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = (string)monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the First Day of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -184,8 +184,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = (string)monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the First Day of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -223,8 +223,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = (string)monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the First Day of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -261,8 +261,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = (string)monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the First Day of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -299,8 +299,8 @@ public class MonthlyPeriodRecurringScheduleTests
         });
         var description = (string)monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Second Day of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -337,8 +337,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = (string)monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Second Day of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -377,8 +377,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = (string)monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Second Day of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -511,8 +511,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = (string)monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Third Day of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -548,8 +548,8 @@ public class MonthlyPeriodRecurringScheduleTests
         });
         var description = (string)monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Third Day of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -587,8 +587,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = (string)monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Third Day of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -625,8 +625,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = (string)monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Third Day of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -664,8 +664,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = (string)monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Third Day of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -702,8 +702,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = (string)monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Third Day of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -741,8 +741,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = (string)monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Day of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -779,8 +779,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Day of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -818,8 +818,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Day of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -856,8 +856,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Day of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -895,8 +895,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Day of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -933,8 +933,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Day of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -972,8 +972,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Last Day of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -1010,8 +1010,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Last Day of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -1049,8 +1049,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Last Day of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -1086,8 +1086,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Last Day of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -1125,8 +1125,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Last Day of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -1163,8 +1163,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Last Day of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -1202,8 +1202,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the First Monday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -1240,8 +1240,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the First Monday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -1279,8 +1279,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the First Monday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -1317,8 +1317,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the First Monday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -1356,8 +1356,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the First Monday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -1394,8 +1394,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the First Monday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -1433,8 +1433,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Second Monday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -1471,8 +1471,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Second Monday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -1510,8 +1510,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Second Monday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -1548,8 +1548,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Second Monday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -1587,8 +1587,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Second Monday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -1625,8 +1625,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Second Monday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -1664,8 +1664,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Third Monday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -1702,8 +1702,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Third Monday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -1741,8 +1741,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Third Monday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -1779,8 +1779,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Third Monday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -1818,8 +1818,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Third Monday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -1856,8 +1856,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Third Monday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -1895,8 +1895,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Monday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -1933,8 +1933,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Monday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -1972,8 +1972,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Monday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -2010,8 +2010,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Monday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -2049,8 +2049,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Monday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -2087,8 +2087,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Monday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -2126,8 +2126,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Last Monday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -2164,8 +2164,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Last Monday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -2203,8 +2203,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Last Monday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -2240,8 +2240,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Last Monday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -2279,8 +2279,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Last Monday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -2317,8 +2317,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Last Monday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -2356,8 +2356,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the First WeekendDay of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -2394,8 +2394,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the First WeekendDay of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -2433,8 +2433,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the First WeekendDay of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -2471,8 +2471,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the First WeekendDay of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -2510,8 +2510,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the First WeekendDay of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -2548,8 +2548,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the First WeekendDay of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -2587,8 +2587,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Second WeekendDay of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -2625,8 +2625,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Second WeekendDay of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -2664,8 +2664,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Second WeekendDay of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -2702,8 +2702,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Second WeekendDay of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -2741,8 +2741,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Second WeekendDay of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -2779,8 +2779,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Second WeekendDay of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -2818,8 +2818,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Third WeekendDay of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -2856,8 +2856,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Third WeekendDay of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -2895,8 +2895,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Third WeekendDay of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -2933,8 +2933,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Third WeekendDay of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -2972,8 +2972,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Third WeekendDay of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -3010,8 +3010,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Third WeekendDay of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -3049,8 +3049,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Fourth WeekendDay of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -3087,8 +3087,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Fourth WeekendDay of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -3126,8 +3126,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Fourth WeekendDay of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -3164,8 +3164,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Fourth WeekendDay of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -3203,8 +3203,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Fourth WeekendDay of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -3241,8 +3241,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Fourth WeekendDay of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -3280,8 +3280,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Last WeekendDay of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -3318,8 +3318,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Last WeekendDay of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -3357,8 +3357,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Last WeekendDay of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -3395,8 +3395,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Last WeekendDay of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -3434,8 +3434,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Last WeekendDay of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -3472,8 +3472,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Last WeekendDay of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -3511,8 +3511,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the First Tuesday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -3549,8 +3549,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the First Tuesday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -3588,8 +3588,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the First Tuesday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -3626,8 +3626,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the First Tuesday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -3665,8 +3665,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the First Tuesday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -3703,8 +3703,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the First Tuesday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -3742,8 +3742,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Second Tuesday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -3779,8 +3779,8 @@ public class MonthlyPeriodRecurringScheduleTests
         });
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Second Tuesday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -3818,8 +3818,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Second Tuesday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -3856,8 +3856,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Second Tuesday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -3895,8 +3895,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Second Tuesday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -3933,8 +3933,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Second Tuesday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         
         Assert.That(description, Is.EqualTo(expected));
     }
@@ -3972,8 +3972,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Third Tuesday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
 
@@ -4009,8 +4009,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Third Tuesday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -4047,8 +4047,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Third Tuesday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -4084,8 +4084,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Third Tuesday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -4122,8 +4122,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Third Tuesday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -4159,8 +4159,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Third Tuesday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -4197,8 +4197,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Tuesday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
 
@@ -4234,8 +4234,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Tuesday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -4272,8 +4272,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Tuesday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -4309,8 +4309,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Tuesday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -4347,8 +4347,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Tuesday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -4384,8 +4384,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Tuesday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -4422,8 +4422,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Last Tuesday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
 
@@ -4459,8 +4459,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Last Tuesday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -4497,8 +4497,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Last Tuesday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -4534,8 +4534,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Last Tuesday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -4572,8 +4572,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Last Tuesday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -4609,8 +4609,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Last Tuesday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -4647,8 +4647,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the First Wednesday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -4684,8 +4684,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the First Wednesday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -4722,8 +4722,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the First Wednesday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -4759,8 +4759,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the First Wednesday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -4797,8 +4797,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the First Wednesday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -4834,8 +4834,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the First Wednesday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -4872,8 +4872,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Second Wednesday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -4909,8 +4909,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Second Wednesday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -4947,8 +4947,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Second Wednesday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -4984,8 +4984,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Second Wednesday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -5022,8 +5022,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Second Wednesday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -5059,8 +5059,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Second Wednesday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -5097,8 +5097,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Third Wednesday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
 
@@ -5134,8 +5134,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Third Wednesday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -5172,8 +5172,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Third Wednesday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -5209,8 +5209,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Third Wednesday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -5247,8 +5247,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Third Wednesday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -5284,8 +5284,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Third Wednesday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -5322,8 +5322,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Wednesday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
 
@@ -5359,8 +5359,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Wednesday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -5397,8 +5397,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Wednesday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -5434,8 +5434,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Wednesday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -5472,8 +5472,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Wednesday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -5509,8 +5509,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Wednesday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -5547,8 +5547,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Last Wednesday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
 
@@ -5584,8 +5584,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Last Wednesday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -5622,8 +5622,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Last Wednesday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -5659,8 +5659,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Last Wednesday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -5697,8 +5697,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Last Wednesday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -5734,8 +5734,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Last Wednesday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -5772,8 +5772,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the First Thursday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -5809,8 +5809,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the First Thursday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -5847,8 +5847,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the First Thursday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -5884,8 +5884,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the First Thursday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -5922,8 +5922,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the First Thursday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -5959,8 +5959,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the First Thursday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -5997,8 +5997,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Second Thursday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -6034,8 +6034,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Second Thursday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -6072,8 +6072,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Second Thursday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -6109,8 +6109,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Second Thursday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -6147,8 +6147,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Second Thursday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -6184,8 +6184,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Second Thursday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -6222,8 +6222,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Third Thursday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
 
@@ -6259,8 +6259,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Third Thursday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -6297,8 +6297,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Third Thursday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -6334,8 +6334,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Third Thursday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -6372,8 +6372,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Third Thursday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -6409,8 +6409,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Third Thursday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -6447,8 +6447,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Thursday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
 
@@ -6484,8 +6484,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Thursday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -6522,8 +6522,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Thursday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -6559,8 +6559,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Thursday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -6597,8 +6597,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Thursday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -6634,8 +6634,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Thursday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -6672,8 +6672,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Last Thursday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
 
@@ -6709,8 +6709,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Last Thursday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -6747,8 +6747,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Last Thursday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -6784,8 +6784,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Last Thursday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -6822,8 +6822,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Last Thursday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -6859,8 +6859,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Last Thursday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -6897,8 +6897,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the First Friday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -6934,8 +6934,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the First Friday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -6972,8 +6972,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the First Friday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -7009,8 +7009,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the First Friday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -7047,8 +7047,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the First Friday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -7084,8 +7084,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the First Friday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -7122,8 +7122,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Second Friday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -7159,8 +7159,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Second Friday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -7197,8 +7197,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Second Friday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -7234,8 +7234,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Second Friday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -7272,8 +7272,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Second Friday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -7309,8 +7309,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Second Friday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -7347,8 +7347,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Third Friday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
 
@@ -7384,8 +7384,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Third Friday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -7422,8 +7422,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Third Friday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -7459,8 +7459,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Third Friday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -7497,8 +7497,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Third Friday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -7534,8 +7534,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Third Friday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -7572,8 +7572,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Friday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
 
@@ -7609,8 +7609,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Friday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -7647,8 +7647,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
                 var expected = $"Occurs the Fourth Friday of every 1 month(s) every" +
-                               $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                               $"starting on {new DateTime(2023, 1, 1)}";
+                               $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                               $" starting on {new DateTime(2023, 1, 1)}";
                 Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -7684,8 +7684,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Friday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -7722,8 +7722,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Friday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -7759,8 +7759,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Friday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -7797,8 +7797,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Last Friday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
 
@@ -7834,8 +7834,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Last Friday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -7872,8 +7872,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Last Friday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -7909,8 +7909,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Last Friday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -7947,8 +7947,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Last Friday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -7984,8 +7984,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Last Friday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -8022,8 +8022,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the First Saturday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -8059,8 +8059,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the First Saturday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -8097,8 +8097,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the First Saturday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -8134,8 +8134,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the First Saturday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -8172,8 +8172,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the First Saturday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -8209,8 +8209,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the First Saturday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -8247,8 +8247,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Second Saturday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -8283,8 +8283,8 @@ public class MonthlyPeriodRecurringScheduleTests
         });
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Second Saturday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -8320,8 +8320,8 @@ public class MonthlyPeriodRecurringScheduleTests
         });
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Second Saturday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -8356,8 +8356,8 @@ public class MonthlyPeriodRecurringScheduleTests
         });
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Second Saturday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -8394,8 +8394,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Second Saturday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -8430,8 +8430,8 @@ public class MonthlyPeriodRecurringScheduleTests
         });
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Second Saturday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -8467,8 +8467,8 @@ public class MonthlyPeriodRecurringScheduleTests
         });
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Third Saturday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
 
@@ -8503,8 +8503,8 @@ public class MonthlyPeriodRecurringScheduleTests
         });
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Third Saturday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -8540,8 +8540,8 @@ public class MonthlyPeriodRecurringScheduleTests
         });
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Third Saturday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -8576,8 +8576,8 @@ public class MonthlyPeriodRecurringScheduleTests
         });
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Third Saturday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -8613,8 +8613,8 @@ public class MonthlyPeriodRecurringScheduleTests
         });
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Third Saturday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -8650,8 +8650,8 @@ public class MonthlyPeriodRecurringScheduleTests
         
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Third Saturday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -8687,8 +8687,8 @@ public class MonthlyPeriodRecurringScheduleTests
         });
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Saturday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
 
@@ -8723,8 +8723,8 @@ public class MonthlyPeriodRecurringScheduleTests
         });
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Saturday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -8760,8 +8760,8 @@ public class MonthlyPeriodRecurringScheduleTests
         });
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Saturday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -8796,8 +8796,8 @@ public class MonthlyPeriodRecurringScheduleTests
         });
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Saturday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -8833,8 +8833,8 @@ public class MonthlyPeriodRecurringScheduleTests
         });
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Saturday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -8869,8 +8869,8 @@ public class MonthlyPeriodRecurringScheduleTests
         });
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Saturday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -8906,8 +8906,8 @@ public class MonthlyPeriodRecurringScheduleTests
         });
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Last Saturday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
 
@@ -8942,8 +8942,8 @@ public class MonthlyPeriodRecurringScheduleTests
         });
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Last Saturday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -8979,8 +8979,8 @@ public class MonthlyPeriodRecurringScheduleTests
         });
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Last Saturday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -9015,8 +9015,8 @@ public class MonthlyPeriodRecurringScheduleTests
         });
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Last Saturday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -9052,8 +9052,8 @@ public class MonthlyPeriodRecurringScheduleTests
         });
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Last Saturday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -9088,8 +9088,8 @@ public class MonthlyPeriodRecurringScheduleTests
         });
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Last Saturday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -9125,8 +9125,8 @@ public class MonthlyPeriodRecurringScheduleTests
         });
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the First Sunday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -9161,8 +9161,8 @@ public class MonthlyPeriodRecurringScheduleTests
         });
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the First Sunday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -9198,8 +9198,8 @@ public class MonthlyPeriodRecurringScheduleTests
         });
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the First Sunday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -9234,8 +9234,8 @@ public class MonthlyPeriodRecurringScheduleTests
         });
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the First Sunday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -9271,8 +9271,8 @@ public class MonthlyPeriodRecurringScheduleTests
         });
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the First Sunday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -9307,8 +9307,8 @@ public class MonthlyPeriodRecurringScheduleTests
         });
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the First Sunday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -9344,8 +9344,8 @@ public class MonthlyPeriodRecurringScheduleTests
         });
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Second Sunday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -9380,8 +9380,8 @@ public class MonthlyPeriodRecurringScheduleTests
         });
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Second Sunday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -9417,8 +9417,8 @@ public class MonthlyPeriodRecurringScheduleTests
         });
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Second Sunday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -9453,8 +9453,8 @@ public class MonthlyPeriodRecurringScheduleTests
         });
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Second Sunday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -9490,8 +9490,8 @@ public class MonthlyPeriodRecurringScheduleTests
         });
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Second Sunday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -9526,8 +9526,8 @@ public class MonthlyPeriodRecurringScheduleTests
         });
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Second Sunday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -9563,8 +9563,8 @@ public class MonthlyPeriodRecurringScheduleTests
         });
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Third Sunday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
 
@@ -9599,8 +9599,8 @@ public class MonthlyPeriodRecurringScheduleTests
         });
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Third Sunday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -9636,8 +9636,8 @@ public class MonthlyPeriodRecurringScheduleTests
         });
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Third Sunday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -9672,8 +9672,8 @@ public class MonthlyPeriodRecurringScheduleTests
         });
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Third Sunday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -9709,8 +9709,8 @@ public class MonthlyPeriodRecurringScheduleTests
         });
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Third Sunday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -9745,8 +9745,8 @@ public class MonthlyPeriodRecurringScheduleTests
         });
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Third Sunday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -9782,8 +9782,8 @@ public class MonthlyPeriodRecurringScheduleTests
         });
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Sunday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
 
@@ -9818,8 +9818,8 @@ public class MonthlyPeriodRecurringScheduleTests
         });
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Sunday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -9855,8 +9855,8 @@ public class MonthlyPeriodRecurringScheduleTests
         });
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Sunday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -9891,8 +9891,8 @@ public class MonthlyPeriodRecurringScheduleTests
         });
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Sunday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -9928,8 +9928,8 @@ public class MonthlyPeriodRecurringScheduleTests
         });
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Sunday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -9964,8 +9964,8 @@ public class MonthlyPeriodRecurringScheduleTests
         });
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Sunday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -10001,8 +10001,8 @@ public class MonthlyPeriodRecurringScheduleTests
         });
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Last Sunday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
 
@@ -10037,8 +10037,8 @@ public class MonthlyPeriodRecurringScheduleTests
         });
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Last Sunday of every 1 month(s) every" +
-                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -10074,8 +10074,8 @@ public class MonthlyPeriodRecurringScheduleTests
         });
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Last Sunday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -10110,8 +10110,8 @@ public class MonthlyPeriodRecurringScheduleTests
         });
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Last Sunday of every 1 month(s) every" +
-                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -10147,8 +10147,8 @@ public class MonthlyPeriodRecurringScheduleTests
         });
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Last Sunday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
     
@@ -10183,8 +10183,8 @@ public class MonthlyPeriodRecurringScheduleTests
         });
         var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the Last Sunday of every 1 month(s) every" +
-                       $"1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $"starting on {new DateTime(2023, 1, 1)}";
+                       $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $" starting on {new DateTime(2023, 1, 1)}";
         Assert.That(description, Is.EqualTo(expected));
     }
 }
