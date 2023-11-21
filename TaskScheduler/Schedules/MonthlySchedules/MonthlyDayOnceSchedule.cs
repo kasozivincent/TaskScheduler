@@ -7,7 +7,6 @@ public class MonthlyDayOnceSchedule : MonthlySchedule
 {
     public int MonthlyDay { get; set; }
     public TimeSpan ExecutionTime { get; set; }
-   
     public override Either<string, DateTime> GetNextExecutionDate(DateTime currentDate)
     {
         if (IsEnabled == false)
@@ -48,13 +47,11 @@ public class MonthlyDayOnceSchedule : MonthlySchedule
             startingDate = startingDate.AddMonths(EveryAfterMonths);
         }
     }
-
     public override string GetTaskDescription()
     {
         return $"Occurs every {MonthlyDay} every {EveryAfterMonths}(s) at {ExecutionTime}." +
                $"Schedule will be used starting on {StartDate}";
     }
-    
     private DateTime GetExactStartingDate()
     {
         if (StartDate.Day == MonthlyDay)
@@ -64,7 +61,6 @@ public class MonthlyDayOnceSchedule : MonthlySchedule
         var exactDate = StartDate.AddMonths(1);
         return new DateTime(exactDate.Year, exactDate.Month, MonthlyDay);
     }
-
     protected override bool ValidateCurrentDate(DateTime currentDate)
     {
         if (EndDate.IsNone) 

@@ -91,10 +91,4 @@ public class MonthlyDayRecurringSchedule : MonthlySchedule
         return true;
     }
     
-    private DateTime GetNextWholeHour(DateTime time)
-    {
-        var nextHour = time.AddHours(EveryAfter);
-        var nextWholeHour = new DateTime(nextHour.Year, nextHour.Month, nextHour.Day, nextHour.Hour, 0, 0);
-        return nextWholeHour;
-    }
 }

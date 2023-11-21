@@ -219,7 +219,7 @@ public class WeeklyOnceScheduleTests
             series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 11, 15, 2, 0, 0))));
             series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 11, 29, 2, 0, 0))));
             series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 12, 13, 2, 0, 0))));
-            series[3].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
+            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 12, 27, 2, 0, 0))));
             series[4].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
@@ -292,7 +292,7 @@ public class WeeklyOnceScheduleTests
             series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 11, 16, 2, 0, 0))));
             series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 11, 30, 2, 0, 0))));
             series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 12, 14, 2, 0, 0))));
-            series[3].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
+            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 12, 28, 2, 0, 0))));
             series[4].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
