@@ -26,7 +26,7 @@ public class WeeklyOnceSchedule : WeeklySchedule
         var startWeek = GetStartingWeek();
         var exactWeek = ComputeWeek(startWeek, currentDate).ToList();
 
-        if (exactWeek[0] > currentDate)
+        if (exactWeek[0].Date > currentDate.Date) // hmm
         {
             foreach (var date in exactWeek.Where(date => Days.Contains(date.DayOfWeek)))
                 return ValidateNextDate(date);
@@ -42,7 +42,7 @@ public class WeeklyOnceSchedule : WeeklySchedule
         while (true)
         {
             currentDate = currentDate.AddDays(1);
-            if (currentDate > exactWeek[6])
+            if (currentDate.Date > exactWeek[6].Date)
             {
                 var newWeek = AddWeek(exactWeek, EveryAfterWeeks);
                 foreach (var date in newWeek.Where(date => Days.Contains(date.DayOfWeek)))

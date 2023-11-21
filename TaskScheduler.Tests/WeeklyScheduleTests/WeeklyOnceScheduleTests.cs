@@ -589,8 +589,8 @@ public class WeeklyOnceScheduleTests
             series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 11, 7, 2, 0, 0))));
             series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 11, 20, 2, 0, 0))));
             series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 11, 21, 2, 0, 0))));
-            series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 12, 3, 2, 0, 0))));
-            series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 12, 4, 2, 0, 0))));
+            series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 12, 4, 2, 0, 0))));
+            series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 12, 5, 2, 0, 0))));
             series[6].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 12, 18, 2, 0, 0))));
             series[7].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 12, 19, 2, 0, 0))));
             series[8].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
@@ -607,7 +607,42 @@ public class WeeklyOnceScheduleTests
     [Test]
     public void WeeklySeries_Monday_Tuesday_NoEndDate()
     {
+         var currentDate = new DateTime(2023, 11, 5);
+        var schedule = new WeeklyOnceSchedule
+        {
+            Name = "Go to Spain",
+            IsEnabled = true,
+            StartDate = new DateTime(2023, 11, 1),
+            EveryAfterWeeks = 2,
+            ExecutionTime = new TimeSpan(2, 0, 0),
+            Days = new List<DayOfWeek>
+            {
+                DayOfWeek.Monday,
+                DayOfWeek.Tuesday
+            }
+        };
+
+        var series = schedule.WeeklyOnceScheduleSeries(currentDate, 10);
+        Assert.That(series, Has.Count.EqualTo(10));
+        Assert.Multiple(() =>
+        {
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 11, 6, 2, 0, 0))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 11, 7, 2, 0, 0))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 11, 20, 2, 0, 0))));
+            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 11, 21, 2, 0, 0))));
+            series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 12, 4, 2, 0, 0))));
+            series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 12, 5, 2, 0, 0))));
+            series[6].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 12, 18, 2, 0, 0))));
+            series[7].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 12, 19, 2, 0, 0))));
+            series[8].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2024, 1, 1, 2, 0, 0))));
+            series[9].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2024, 1, 2, 2, 0, 0))));
+        });
         
+        var description = (string)schedule.GetTaskDescription();
+        var expected = $"Occurs every week on Monday and Tuesday at {new TimeSpan(2, 0, 0)}. Schedule will be used" +
+                       $"starting on {new DateTime(2023, 11, 1)}";
+        
+        Assert.That(description, Is.EqualTo(expected));
     }
     
     [Test]
@@ -696,7 +731,7 @@ public class WeeklyOnceScheduleTests
     [Test]
     public void WeeklySeries_Thursday_Sunday()
     {
-         var currentDate = new DateTime(2023, 11, 5);
+        var currentDate = new DateTime(2023, 11, 5);
         var schedule = new WeeklyOnceSchedule
         {
             Name = "Go to Spain",
@@ -738,7 +773,125 @@ public class WeeklyOnceScheduleTests
     [Test]
     public void WeeklySeries_Thursday_Sunday_NoEndDate()
     {
+         var currentDate = new DateTime(2023, 11, 5);
+        var schedule = new WeeklyOnceSchedule
+        {
+            Name = "Go to Spain",
+            IsEnabled = true,
+            StartDate = new DateTime(2023, 11, 1),
+            EveryAfterWeeks = 2,
+            ExecutionTime = new TimeSpan(2, 0, 0),
+            Days = new List<DayOfWeek>
+            {
+                DayOfWeek.Thursday,
+                DayOfWeek.Sunday
+            }
+        };
+
+        var series = schedule.WeeklyOnceScheduleSeries(currentDate, 10);
+        Assert.That(series, Has.Count.EqualTo(10));
+        Assert.Multiple(() =>
+        {
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 11, 5, 2, 0, 0))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 11, 16, 2, 0, 0))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 11, 19, 2, 0, 0))));
+            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 11, 30, 2, 0, 0))));
+            series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 12, 3, 2, 0, 0))));
+            series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 12, 14, 2, 0, 0))));
+            series[6].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 12, 17, 2, 0, 0))));
+            series[7].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 12, 28, 2, 0, 0))));
+            series[8].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 12, 31, 2, 0, 0))));
+            series[9].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2024, 1, 11, 2, 0, 0))));
+        });
         
+        var description = (string)schedule.GetTaskDescription();
+        var expected = $"Occurs every week on Sunday and Thursday at {new TimeSpan(2, 0, 0)}. Schedule will be used" +
+                       $"starting on {new DateTime(2023, 11, 1)}";
+        
+        Assert.That(description, Is.EqualTo(expected));
+    }
+
+    [Test]
+    public void WeeklySeries_Monday_Saturday()
+    {
+        var currentDate = new DateTime(2023, 11, 5);
+        var schedule = new WeeklyOnceSchedule
+        {
+            Name = "Go to Spain",
+            IsEnabled = true,
+            StartDate = new DateTime(2023, 11, 1),
+            EndDate = new DateTime(2023, 12, 31),
+            EveryAfterWeeks = 2,
+            ExecutionTime = new TimeSpan(2, 0, 0),
+            Days = new List<DayOfWeek>
+            {
+                DayOfWeek.Monday,
+                DayOfWeek.Saturday
+            }
+        };
+
+        var series = schedule.WeeklyOnceScheduleSeries(currentDate, 10);
+        Assert.That(series, Has.Count.EqualTo(10));
+        Assert.Multiple(() =>
+        {
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 11, 6, 2, 0, 0))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 11, 18, 2, 0, 0))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 11, 20, 2, 0, 0))));
+            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 12, 2, 2, 0, 0))));
+            series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 12, 4, 2, 0, 0))));
+            series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 12, 16, 2, 0, 0))));
+            series[6].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 12, 18, 2, 0, 0))));
+            series[7].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 12, 30, 2, 0, 0))));
+            series[9].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
+            series[9].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
+        });
+        
+        var description = (string)schedule.GetTaskDescription();
+        var expected = $"Occurs every week on Monday and Saturday at {new TimeSpan(2, 0, 0)}. Schedule will be used" +
+                       $"starting on {new DateTime(2023, 11, 1)}";
+        
+        Assert.That(description, Is.EqualTo(expected));
+    }
+    
+    [Test]
+    public void WeeklySeries_Monday_Saturday_NoEndDate()
+    {
+        var currentDate = new DateTime(2023, 11, 5);
+        var schedule = new WeeklyOnceSchedule
+        {
+            Name = "Go to Spain",
+            IsEnabled = true,
+            StartDate = new DateTime(2023, 11, 1),
+            EveryAfterWeeks = 2,
+            ExecutionTime = new TimeSpan(2, 0, 0),
+            Days = new List<DayOfWeek>
+            {
+                DayOfWeek.Monday,
+                DayOfWeek.Saturday
+            }
+        };
+
+        var series = schedule.WeeklyOnceScheduleSeries(currentDate, 10);
+        Assert.That(series, Has.Count.EqualTo(10));
+        Assert.Multiple(() =>
+        {
+            series[0].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 11, 6, 2, 0, 0))));
+            series[1].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 11, 18, 2, 0, 0))));
+            series[2].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 11, 20, 2, 0, 0))));
+            series[3].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 12, 2, 2, 0, 0))));
+            series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 12, 4, 2, 0, 0))));
+            series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 12, 16, 2, 0, 0))));
+            series[6].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 12, 18, 2, 0, 0))));
+            series[7].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 12, 30, 2, 0, 0))));
+            series[8].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2024, 1, 1, 2, 0, 0))));
+            series[9].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2024, 1, 13, 2, 0, 0))));
+        });
+        
+        var description = (string)schedule.GetTaskDescription();
+        var expected = $"Occurs every week on Monday and Saturday at {new TimeSpan(2, 0, 0)}. Schedule will be used" +
+                       $"starting on {new DateTime(2023, 11, 1)}";
+        
+        Assert.That(description, Is.EqualTo(expected));
     }
     #endregion
 }

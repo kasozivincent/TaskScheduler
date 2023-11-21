@@ -5,6 +5,9 @@
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=10bec59c_002D0da3_002D4152_002Db7f0_002D894863990186/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="SeriesMonthlyTheOnce_LastDay_NoEndDate" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;Solution /&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=17f7f1a1_002Dd53d_002D4b53_002D8298_002D4582c20e38af/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="WeeklySeries_Wednesday_Friday" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;Solution /&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=1d85a4de_002Dbe31_002D4c24_002D8175_002Da1061076b064/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from Solution" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;Solution /&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
@@ -39,8 +42,6 @@
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=aea5f22b_002Dacee_002D4603_002D9a95_002D06743f392cb0/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="SeriesMonthlyPeriodRecurring_SecondDay_Seconds" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;Solution /&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=eb3d192c_002Db9f0_002D4837_002Db5fe_002D3ddfd3a570dd/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="WeeklySeries_Thursday_NoEndDate" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;NUnit3x::FF9D36DB-DA2B-4FDD-A6A4-B34BEA5366C5::net7.0::TaskScheduler.Tests.WeeklyScheduleTests.WeeklyOnceScheduleTests&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=eb3d192c_002Db9f0_002D4837_002Db5fe_002D3ddfd3a570dd/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="WeeklySeries_Thursday_NoEndDate" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;Solution /&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
