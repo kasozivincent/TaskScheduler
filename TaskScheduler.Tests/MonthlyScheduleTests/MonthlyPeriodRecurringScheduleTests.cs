@@ -26,7 +26,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.First,
         };
 
-        var description = (string)monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
         var expected = $"Occurs the First Day of every 1 month(s) every" +
                        $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $"starting on {new DateTime(2023, 1, 1)}";
@@ -258,6 +258,13 @@ public class MonthlyPeriodRecurringScheduleTests
             series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 1, 2, 0, 1))));
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 1, 2, 0, 2))));
         });
+        
+        var description = (string)monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var expected = $"Occurs the First Day of every 1 month(s) every" +
+                       $"30 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $"starting on {new DateTime(2023, 1, 1)}";
+        
+        Assert.That(description, Is.EqualTo(expected));
     }
     
      [Test]
@@ -290,6 +297,12 @@ public class MonthlyPeriodRecurringScheduleTests
             series[4].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
+        var description = (string)monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var expected = $"Occurs the Second Day of every 1 month(s) every" +
+                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $"starting on {new DateTime(2023, 1, 1)}";
+        
+        Assert.That(description, Is.EqualTo(expected));
     }
     
     [Test]
@@ -321,7 +334,15 @@ public class MonthlyPeriodRecurringScheduleTests
             series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 2, 3, 0, 0))));
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 2, 4, 0, 0))));
         });
+        
+        var description = (string)monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var expected = $"Occurs the Second Day of every 1 month(s) every" +
+                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $"starting on {new DateTime(2023, 1, 1)}";
+        
+        Assert.That(description, Is.EqualTo(expected));
     }
+    
     
     [Test]
     public void SeriesMonthlyPeriodRecurring_SecondDay_Minute()
@@ -353,7 +374,15 @@ public class MonthlyPeriodRecurringScheduleTests
             series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 2, 4, 0, 0))));
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
+        
+        var description = (string)monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var expected = $"Occurs the Second Day of every 1 month(s) every" +
+                       $"30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $"starting on {new DateTime(2023, 1, 1)}";
+        
+        Assert.That(description, Is.EqualTo(expected));
     }
+    
     
     [Test]
     public void SeriesMonthlyPeriodRecurringSecondDay_Minute_NoEndDate()
@@ -479,6 +508,13 @@ public class MonthlyPeriodRecurringScheduleTests
             series[4].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
+        
+        var description = (string)monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var expected = $"Occurs the Third Day of every 1 month(s) every" +
+                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $"starting on {new DateTime(2023, 1, 1)}";
+        
+        Assert.That(description, Is.EqualTo(expected));
     }
 
     [Test]
@@ -510,6 +546,12 @@ public class MonthlyPeriodRecurringScheduleTests
             series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 3, 3, 0, 0))));
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 3, 4, 0, 0))));
         });
+        var description = (string)monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var expected = $"Occurs the Third Day of every 1 month(s) every" +
+                       $"1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
+                       $"starting on {new DateTime(2023, 1, 1)}";
+        
+        Assert.That(description, Is.EqualTo(expected));
     }
     
     [Test]
