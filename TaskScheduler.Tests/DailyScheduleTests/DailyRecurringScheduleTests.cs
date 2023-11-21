@@ -62,6 +62,13 @@ public class DailyRecurringScheduleTests
             series[8].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
             series[9].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
+        
+        var description = (string)dailyRecurringSchedule.GetTaskDescription();
+        var expected = $"Occurs everyday every 1 {IntervalType.Hour}(s) between {new TimeSpan(2, 0, 0)}" +
+                       $"and {new TimeSpan(4, 0, 0)}. Schedule will be used starting on " +
+                       $"{new DateTime(2020, 1, 1)}";
+        
+        Assert.That(description, Is.EqualTo(expected));
     }
 
     [Test]
@@ -94,6 +101,13 @@ public class DailyRecurringScheduleTests
             series[8].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2020, 5, 9, 4, 0, 0))));
             series[9].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2020, 5, 10, 2, 0, 0))));
         });
+        
+        var description = (string)dailyRecurringSchedule.GetTaskDescription();
+        var expected = $"Occurs everyday every 1 {IntervalType.Hour}(s) between {new TimeSpan(2, 0, 0)}" +
+                       $"and {new TimeSpan(4, 0, 0)}. Schedule will be used starting on " +
+                       $"{new DateTime(2020, 1, 1)}";
+        
+        Assert.That(description, Is.EqualTo(expected));
     }
 
     [Test]
@@ -127,6 +141,13 @@ public class DailyRecurringScheduleTests
             series[8].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
             series[9].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
+        
+        var description = (string)dailyRecurringSchedule.GetTaskDescription();
+        var expected = $"Occurs everyday every 30 {IntervalType.Minute}(s) between {new TimeSpan(2, 0, 0)}" +
+                       $"and {new TimeSpan(4, 0, 0)}. Schedule will be used starting on " +
+                       $"{new DateTime(2020, 1, 1)}";
+        
+        Assert.That(description, Is.EqualTo(expected));
     }
     
     [Test]
@@ -159,6 +180,13 @@ public class DailyRecurringScheduleTests
             series[8].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2020, 5, 9, 3, 30, 0))));
             series[9].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2020, 5, 9, 4, 0, 0))));
         });
+        
+        var description = (string)dailyRecurringSchedule.GetTaskDescription();
+        var expected = $"Occurs everyday every 30 {IntervalType.Minute}(s) between {new TimeSpan(2, 0, 0)}" +
+                       $"and {new TimeSpan(4, 0, 0)}. Schedule will be used starting on " +
+                       $"{new DateTime(2020, 1, 1)}";
+        
+        Assert.That(description, Is.EqualTo(expected));
     }
 
     [Test]
@@ -192,6 +220,13 @@ public class DailyRecurringScheduleTests
             series[8].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2020, 5, 8, 2, 4, 0))));
             series[9].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2020, 5, 8, 2, 4, 30))));
         });
+        
+        var description = (string)dailyRecurringSchedule.GetTaskDescription();
+        var expected = $"Occurs everyday every 30 {IntervalType.Second}(s) between {new TimeSpan(2, 0, 0)}" +
+                       $"and {new TimeSpan(4, 0, 0)}. Schedule will be used starting on " +
+                       $"{new DateTime(2020, 1, 1)}";
+        
+        Assert.That(description, Is.EqualTo(expected));
     }
     
     [Test]
@@ -224,6 +259,13 @@ public class DailyRecurringScheduleTests
             series[8].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2020, 5, 8, 2, 4, 0))));
             series[9].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2020, 5, 8, 2, 4, 30))));
         });
+        
+        var description = (string)dailyRecurringSchedule.GetTaskDescription();
+        var expected = $"Occurs everyday every 30 {IntervalType.Second}(s) between {new TimeSpan(2, 0, 0)}" +
+                       $"and {new TimeSpan(4, 0, 0)}. Schedule will be used starting on " +
+                       $"{new DateTime(2020, 1, 1)}";
+        
+        Assert.That(description, Is.EqualTo(expected));
     }
 
     [Test]
@@ -257,6 +299,13 @@ public class DailyRecurringScheduleTests
             series[8].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
             series[9].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
+        
+        var description = (string)dailyRecurringSchedule.GetTaskDescription();
+        var expected = $"Occurs everyday every 1 {IntervalType.Hour}(s) between {new TimeSpan(2, 0, 0)}" +
+                       $"and {new TimeSpan(4, 0, 0)}. Schedule will be used starting on " +
+                       $"{new DateTime(2020, 1, 1)}";
+        
+        Assert.That(description, Is.EqualTo(expected));
     }
 
     [Test]
@@ -289,6 +338,13 @@ public class DailyRecurringScheduleTests
             series[8].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2020, 5, 10, 2, 0, 0))));
             series[9].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2020, 5, 10, 3, 0, 0))));
         });
+        
+        var description = (string)dailyRecurringSchedule.GetTaskDescription();
+        var expected = $"Occurs everyday every 1 {IntervalType.Hour}(s) between {new TimeSpan(2, 0, 0)}" +
+                       $"and {new TimeSpan(4, 0, 0)}. Schedule will be used starting on " +
+                       $"{new DateTime(2020, 1, 1)}";
+        
+        Assert.That(description, Is.EqualTo(expected));
     }
 
     [Test]
@@ -322,6 +378,13 @@ public class DailyRecurringScheduleTests
             series[8].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
             series[9].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
+        
+        var description = (string)dailyRecurringSchedule.GetTaskDescription();
+        var expected = $"Occurs everyday every 30 {IntervalType.Minute}(s) between {new TimeSpan(2, 0, 0)}" +
+                       $"and {new TimeSpan(4, 0, 0)}. Schedule will be used starting on " +
+                       $"{new DateTime(2020, 1, 1)}";
+        
+        Assert.That(description, Is.EqualTo(expected));
     }
     
     [Test]
@@ -354,6 +417,13 @@ public class DailyRecurringScheduleTests
             series[8].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2020, 5, 9, 4, 0, 0))));
             series[9].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2020, 5, 10, 2, 0, 0))));
         });
+        
+        var description = (string)dailyRecurringSchedule.GetTaskDescription();
+        var expected = $"Occurs everyday every 30 {IntervalType.Minute}(s) between {new TimeSpan(2, 0, 0)}" +
+                       $"and {new TimeSpan(4, 0, 0)}. Schedule will be used starting on " +
+                       $"{new DateTime(2020, 1, 1)}";
+        
+        Assert.That(description, Is.EqualTo(expected));
     }
     
     [Test]
@@ -387,6 +457,13 @@ public class DailyRecurringScheduleTests
             series[8].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2020, 5, 8, 2, 4, 30))));
             series[9].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2020, 5, 8, 2, 5, 0))));
         });
+        
+        var description = (string)dailyRecurringSchedule.GetTaskDescription();
+        var expected = $"Occurs everyday every 30 {IntervalType.Second}(s) between {new TimeSpan(2, 0, 0)}" +
+                       $"and {new TimeSpan(4, 0, 0)}. Schedule will be used starting on " +
+                       $"{new DateTime(2020, 1, 1)}";
+        
+        Assert.That(description, Is.EqualTo(expected));
     }
     
     [Test]
@@ -419,6 +496,13 @@ public class DailyRecurringScheduleTests
             series[8].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2020, 5, 8, 2, 4, 30))));
             series[9].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2020, 5, 8, 2, 5, 0))));
         });
+        
+        var description = (string)dailyRecurringSchedule.GetTaskDescription();
+        var expected = $"Occurs everyday every 30 {IntervalType.Second}(s) between {new TimeSpan(2, 0, 0)}" +
+                       $"and {new TimeSpan(4, 0, 0)}. Schedule will be used starting on " +
+                       $"{new DateTime(2020, 1, 1)}";
+        
+        Assert.That(description, Is.EqualTo(expected));
     }
 
     [Test]
@@ -452,6 +536,13 @@ public class DailyRecurringScheduleTests
             series[8].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
             series[9].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
+        
+        var description = (string)dailyRecurringSchedule.GetTaskDescription();
+        var expected = $"Occurs everyday every 1 {IntervalType.Hour}(s) between {new TimeSpan(2, 0, 0)}" +
+                       $"and {new TimeSpan(4, 0, 0)}. Schedule will be used starting on " +
+                       $"{new DateTime(2020, 1, 1)}";
+        
+        Assert.That(description, Is.EqualTo(expected));
     }
     
     [Test]
@@ -484,6 +575,13 @@ public class DailyRecurringScheduleTests
             series[8].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2020, 5, 10, 4, 0, 0))));
             series[9].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2020, 5, 11, 2, 0, 0))));
         });
+        
+        var description = (string)dailyRecurringSchedule.GetTaskDescription();
+        var expected = $"Occurs everyday every 1 {IntervalType.Hour}(s) between {new TimeSpan(2, 0, 0)}" +
+                       $"and {new TimeSpan(4, 0, 0)}. Schedule will be used starting on " +
+                       $"{new DateTime(2020, 1, 1)}";
+        
+        Assert.That(description, Is.EqualTo(expected));
     }
     
     [Test]
@@ -517,6 +615,13 @@ public class DailyRecurringScheduleTests
             series[8].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
             series[9].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
+        
+        var description = (string)dailyRecurringSchedule.GetTaskDescription();
+        var expected = $"Occurs everyday every 30 {IntervalType.Minute}(s) between {new TimeSpan(2, 0, 0)}" +
+                       $"and {new TimeSpan(4, 0, 0)}. Schedule will be used starting on " +
+                       $"{new DateTime(2020, 1, 1)}";
+        
+        Assert.That(description, Is.EqualTo(expected));
     }
     
     [Test]
@@ -549,6 +654,13 @@ public class DailyRecurringScheduleTests
             series[8].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2020, 5, 10, 3, 30, 0))));
             series[9].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2020, 5, 10, 4, 0, 0))));
         });
+        
+        var description = (string)dailyRecurringSchedule.GetTaskDescription();
+        var expected = $"Occurs everyday every 30 {IntervalType.Minute}(s) between {new TimeSpan(2, 0, 0)}" +
+                       $"and {new TimeSpan(4, 0, 0)}. Schedule will be used starting on " +
+                       $"{new DateTime(2020, 1, 1)}";
+        
+        Assert.That(description, Is.EqualTo(expected));
     }
     
     [Test]

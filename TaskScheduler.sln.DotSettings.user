@@ -16,6 +16,17 @@
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=4b85ac61_002Dc8f7_002D4bbf_002D8feb_002D1496c6e4599d/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from Solution #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;Solution /&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=531e2c27_002Dc325_002D47b8_002D8104_002D8291a9d6bba1/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="SeriesMonday" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::FF9D36DB-DA2B-4FDD-A6A4-B34BEA5366C5::net7.0::TaskScheduler.Tests.WeeklyScheduleTests.WeeklyOnceScheduleTests.SeriesMonday&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::FF9D36DB-DA2B-4FDD-A6A4-B34BEA5366C5::net7.0::TaskScheduler.Tests.WeeklyScheduleTests.WeeklyRecurringScheduleTests.SeriesMonday&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::FF9D36DB-DA2B-4FDD-A6A4-B34BEA5366C5::net7.0::TaskScheduler.Tests.WeeklyScheduleTests.WeeklyOnceScheduleTests.WeeklySeries_Tuesday&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::FF9D36DB-DA2B-4FDD-A6A4-B34BEA5366C5::net7.0::TaskScheduler.Tests.WeeklyScheduleTests.WeeklyOnceScheduleTests.WeeklySeries_Wednesday&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::FF9D36DB-DA2B-4FDD-A6A4-B34BEA5366C5::net7.0::TaskScheduler.Tests.WeeklyScheduleTests.WeeklyOnceScheduleTests.WeeklySeries_Thursday&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::FF9D36DB-DA2B-4FDD-A6A4-B34BEA5366C5::net7.0::TaskScheduler.Tests.WeeklyScheduleTests.WeeklyOnceScheduleTests.WeeklySeries_Friday&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::FF9D36DB-DA2B-4FDD-A6A4-B34BEA5366C5::net7.0::TaskScheduler.Tests.WeeklyScheduleTests.WeeklyOnceScheduleTests&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=547bda61_002D9430_002D4f09_002Db3f7_002D6b44121e116b/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="SeriesMonthlyDayOnce_CurrentDay_Equal_To_MonthDay_After_ExecutionTime" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;Solution /&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
@@ -25,6 +36,11 @@
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=98809008_002D5ce6_002D4841_002Dbae7_002D13fcd54bce89/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="SeriesMonthlyPeriodRecurring_LastMonday_Seconds" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;Solution /&gt;&#xD;
 &lt;/SessionState&gt;</s:String>
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=aea5f22b_002Dacee_002D4603_002D9a95_002D06743f392cb0/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="SeriesMonthlyPeriodRecurring_SecondDay_Seconds" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=aea5f22b_002Dacee_002D4603_002D9a95_002D06743f392cb0/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="SeriesMonthlyPeriodRecurring_SecondDay_Seconds" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
   &lt;Solution /&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=eb3d192c_002Db9f0_002D4837_002Db5fe_002D3ddfd3a570dd/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="WeeklySeries_Thursday_NoEndDate" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::FF9D36DB-DA2B-4FDD-A6A4-B34BEA5366C5::net7.0::TaskScheduler.Tests.WeeklyScheduleTests.WeeklyOnceScheduleTests&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

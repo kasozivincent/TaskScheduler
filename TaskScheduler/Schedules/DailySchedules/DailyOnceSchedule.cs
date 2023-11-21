@@ -16,10 +16,11 @@ public class DailyOnceSchedule : RecurringSchedule
             if(StartDate > EndDate)
                 return "Start date can't be later than end date";
         }
-        if (currentDate < StartDate)
-            return StartDate;
         if (!ValidateCurrentDate(currentDate)) 
             return "Current date is past end date!";
+        if (currentDate < StartDate)
+            return StartDate;
+        
         var date = new DateTime(currentDate.Year, currentDate.Month, currentDate.Day,
             ExecutionTime.Hours, ExecutionTime.Minutes, ExecutionTime.Seconds);
 
