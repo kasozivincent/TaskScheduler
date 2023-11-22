@@ -1,60 +1,49 @@
-﻿using LanguageExt.UnitTesting;
+﻿using LanguageExt;
+using LanguageExt.UnitTesting;
 using TaskScheduler.Enums;
 using TaskScheduler.Extensions;
 using TaskScheduler.Schedules.MonthlySchedules;
+using static LanguageExt.Prelude;
 
 namespace TaskScheduler.Tests.MonthlyScheduleTests;
 
 [TestFixture]
 public class MonthlyPeriodRecurringScheduleTests
 {
-    [Test]
-    public void MonthlyPeriodRecurring_TaskDescription()
+    private MonthlyPeriodRecurringSchedule CreateSchedule(
+        IntervalType intervalType,
+        Day day,
+        Position position,
+        bool isEnabled = true,
+        Option<DateTime> endDate = default,
+        int everyAfterMonths = 1,
+        int everyAfter = 1
+        )
     {
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
-            Name = "Send email",
-            IsEnabled = true,
+            Name = "Schedule Name",
+            IsEnabled = isEnabled,
             StartDate = new DateTime(2023, 1, 1),
-            EndDate = new DateTime(2023, 6, 28),
-            EveryAfterMonths = 1,
-            EveryAfter = 1,
-            IntervalType = IntervalType.Hour,
+            EndDate = endDate,
+            EveryAfterMonths = everyAfterMonths,
+            EveryAfter = everyAfter,
+            IntervalType = intervalType,
             StartingTime = new TimeSpan(2, 0, 0),
             EndingTime = new TimeSpan(4, 0, 0),
-            Day = Day.Day,
-            Position = Position.First,
+            Day = day,
+            Position = position,
         };
-
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
-        var expected = $"Occurs the First Day of every 1 month(s) every" +
-                       $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
-                       $" starting on {new DateTime(2023, 1, 1)}";
-        
-        Assert.That(description, Is.EqualTo(expected));
-
+        return schedule;
     }
     
     [Test]
     public void SeriesMonthlyPeriodRecurring_FirstDay_Hour()
     {
         var currentDate = new DateTime(2023, 5, 5, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
-        {
-            Name = "Send email",
-            IsEnabled = true,
-            StartDate = new DateTime(2023, 1, 1),
-            EndDate = new DateTime(2023, 6, 28),
-            EveryAfterMonths = 1,
-            EveryAfter = 1,
-            IntervalType = IntervalType.Hour,
-            StartingTime = new TimeSpan(2, 0, 0),
-            EndingTime = new TimeSpan(4, 0, 0),
-            Day = Day.Day,
-            Position = Position.First,
-        };
+        var schedule = CreateSchedule(IntervalType.Hour, Day.Day, Position.First, endDate:new DateTime(2023, 6, 28));
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -66,7 +55,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = (string)monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = (string)schedule.GetTaskDescription();
         var expected = $"Occurs the First Day of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -78,7 +67,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FirstDay_Hour_NoEndDate()
     {
         var currentDate = new DateTime(2023, 5, 5, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -93,7 +82,7 @@ public class MonthlyPeriodRecurringScheduleTests
         };
 
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -105,7 +94,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 1, 4, 0, 0))));
         });
         
-        var description = (string)monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = (string)schedule.GetTaskDescription();
         var expected = $"Occurs the First Day of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -117,7 +106,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FirstDay_Minute()
     {
         var currentDate = new DateTime(2023, 6, 1, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -132,7 +121,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.First,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -144,7 +133,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = (string)monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = (string)schedule.GetTaskDescription();
         var expected = $"Occurs the First Day of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -156,7 +145,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FirstDay_Minute_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 1, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -170,7 +159,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.First,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -182,7 +171,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 1, 2, 0, 0))));
         });
         
-        var description = (string)monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = (string)schedule.GetTaskDescription();
         var expected = $"Occurs the First Day of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -194,7 +183,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FirstDay_Second()
     {
         var currentDate = new DateTime(2023, 6, 1, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -209,7 +198,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.First,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -221,7 +210,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = (string)monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = (string)schedule.GetTaskDescription();
         var expected = $"Occurs the First Day of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -233,7 +222,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FirstDay_Second_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 1, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -247,7 +236,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.First,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -259,7 +248,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 1, 2, 0, 2))));
         });
         
-        var description = (string)monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = (string)schedule.GetTaskDescription();
         var expected = $"Occurs the First Day of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -271,7 +260,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_SecondDay_Hour()
     {
         var currentDate = new DateTime(2023, 5, 5, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -286,7 +275,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Second,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -297,7 +286,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[4].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
-        var description = (string)monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = (string)schedule.GetTaskDescription();
         var expected = $"Occurs the Second Day of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -309,7 +298,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_SecondDay_Hour_NoEndDate()
     {
         var currentDate = new DateTime(2023, 5, 5, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -323,7 +312,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Second,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -335,7 +324,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 2, 4, 0, 0))));
         });
         
-        var description = (string)monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = (string)schedule.GetTaskDescription();
         var expected = $"Occurs the Second Day of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -348,7 +337,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_SecondDay_Minute()
     {
         var currentDate = new DateTime(2023, 6, 1, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -363,7 +352,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Second,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -375,7 +364,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = (string)monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = (string)schedule.GetTaskDescription();
         var expected = $"Occurs the Second Day of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -388,7 +377,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurringSecondDay_Minute_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 2, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -402,7 +391,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Second,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -419,7 +408,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_SecondDay_Second()
     {
         var currentDate = new DateTime(2023, 6, 2, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -434,7 +423,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Second,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -451,7 +440,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_SecondDay_Second_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 2, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -465,7 +454,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Second,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -482,7 +471,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_ThirdDay_Hour()
     {
         var currentDate = new DateTime(2023, 5, 17, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -497,7 +486,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Third,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -509,7 +498,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = (string)monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = (string)schedule.GetTaskDescription();
         var expected = $"Occurs the Third Day of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -521,7 +510,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_ThirdDay_Hour_NoEndDate()
     {
         var currentDate = new DateTime(2023, 5, 17, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -535,7 +524,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Third,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -546,7 +535,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 3, 3, 0, 0))));
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 3, 4, 0, 0))));
         });
-        var description = (string)monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = (string)schedule.GetTaskDescription();
         var expected = $"Occurs the Third Day of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -558,7 +547,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_ThirdDay_Minute()
     {
         var currentDate = new DateTime(2023, 6, 3, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -573,7 +562,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Third,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -585,7 +574,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = (string)monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = (string)schedule.GetTaskDescription();
         var expected = $"Occurs the Third Day of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -597,7 +586,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_ThirdDay_Minute_NoEndDate()
     {
         var currentDate = new DateTime(2023, 5, 20, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -611,7 +600,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Third,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -623,7 +612,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 3, 2, 0, 0))));
         });
         
-        var description = (string)monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = (string)schedule.GetTaskDescription();
         var expected = $"Occurs the Third Day of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -635,7 +624,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_ThirdDay_Second()
     {
         var currentDate = new DateTime(2023, 6, 3, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -650,7 +639,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Third,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -662,7 +651,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = (string)monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = (string)schedule.GetTaskDescription();
         var expected = $"Occurs the Third Day of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -674,7 +663,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_ThirdDay_Second_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 3, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -688,7 +677,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Third,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -700,7 +689,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 3, 2, 0, 2))));
         });
         
-        var description = (string)monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = (string)schedule.GetTaskDescription();
         var expected = $"Occurs the Third Day of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -712,7 +701,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FourthDay_Hour()
     {
         var currentDate = new DateTime(2023, 5, 23, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -727,7 +716,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Fourth,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -739,7 +728,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = (string)monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = (string)schedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Day of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -751,7 +740,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FourthDay_Hour_NoEndDate()
     {
         var currentDate = new DateTime(2023, 5, 23, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -765,7 +754,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Fourth,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -777,7 +766,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 4, 4, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Day of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -789,7 +778,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FourthDay_Minute()
     {
         var currentDate = new DateTime(2023, 6, 4, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -804,7 +793,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Fourth,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -816,7 +805,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Day of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -828,7 +817,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FourthDay_Minute_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 4, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -842,7 +831,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Fourth,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -854,7 +843,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 4, 2, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Day of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -866,7 +855,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FourthDay_Second()
     {
         var currentDate = new DateTime(2023, 6, 4, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -881,7 +870,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Fourth,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -893,7 +882,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Day of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -905,7 +894,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FourthDay_Second_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 4, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -919,7 +908,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Fourth,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -931,7 +920,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 4, 2, 0, 2))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Day of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -943,7 +932,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_LastDay_Hour()
     {
         var currentDate = new DateTime(2023, 5, 31, 6, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -958,7 +947,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Last,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -970,7 +959,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Last Day of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -982,7 +971,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_LastDay_Hour_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 15, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -996,7 +985,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Last,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -1008,7 +997,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 31, 4, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Last Day of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -1020,7 +1009,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_LastDay_Minute()
     {
         var currentDate = new DateTime(2023, 6, 26, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -1035,7 +1024,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Last,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -1047,7 +1036,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Last Day of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -1059,7 +1048,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_LastDay_Minute_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 26, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -1072,7 +1061,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Day = Day.Day,
             Position = Position.Last,
         };
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -1084,7 +1073,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 31, 2, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Last Day of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -1096,7 +1085,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_LastDay_Second()
     {
         var currentDate = new DateTime(2023, 6, 30, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -1111,7 +1100,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Last,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -1123,7 +1112,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Last Day of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -1135,7 +1124,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_LastDay_Second_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 30, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -1149,7 +1138,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Last,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -1161,7 +1150,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 31, 2, 0, 2))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Last Day of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -1173,7 +1162,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FirstMonday_Hour()
     {
         var currentDate = new DateTime(2023, 5, 5, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -1188,7 +1177,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.First,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -1200,7 +1189,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the First Monday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -1212,7 +1201,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FirstMonday_Hour_NoEndDate()
     {
         var currentDate = new DateTime(2023, 5, 5, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -1226,7 +1215,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.First,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -1238,7 +1227,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 3, 4, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the First Monday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -1250,7 +1239,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FirstMonday_Minute()
     {
         var currentDate = new DateTime(2023, 6, 5, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -1265,7 +1254,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.First,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -1277,7 +1266,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the First Monday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -1289,7 +1278,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FirstMonday_Minute_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 5, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -1303,7 +1292,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.First,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -1315,7 +1304,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 3, 2, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the First Monday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -1327,7 +1316,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FirstMonday_Second()
     {
         var currentDate = new DateTime(2023, 6, 5, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -1342,7 +1331,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.First,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -1354,7 +1343,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the First Monday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -1366,7 +1355,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FirstMonday_Second_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 5, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -1380,7 +1369,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.First,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -1392,7 +1381,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 3, 2, 0, 2))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the First Monday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -1404,7 +1393,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_SecondMonday_Hour()
     {
         var currentDate = new DateTime(2023, 5, 5, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -1419,7 +1408,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Second,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -1431,7 +1420,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Second Monday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -1443,7 +1432,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_SecondMonday_Hour_NoEndDate()
     {
         var currentDate = new DateTime(2023, 5, 5, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -1457,7 +1446,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Second,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -1469,7 +1458,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 12, 4, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Second Monday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -1481,7 +1470,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_SecondMonday_Minute()
     {
         var currentDate = new DateTime(2023, 6, 5, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -1496,7 +1485,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Second,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -1508,7 +1497,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Second Monday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -1520,7 +1509,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurringSecondMonday_Minute_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 5, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -1534,7 +1523,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Second,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -1546,7 +1535,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 10, 2, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Second Monday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -1558,7 +1547,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_SecondMonday_Second()
     {
         var currentDate = new DateTime(2023, 6, 12, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -1573,7 +1562,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Second,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -1585,7 +1574,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Second Monday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -1597,7 +1586,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_SecondMonday_Second_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 12, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -1611,7 +1600,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Second,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -1623,7 +1612,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 10, 2, 0, 2))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Second Monday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -1635,7 +1624,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_ThirdMonday_Hour()
     {
         var currentDate = new DateTime(2023, 5, 17, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -1650,7 +1639,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Third,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -1662,7 +1651,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Third Monday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -1674,7 +1663,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_ThirdMonday_Hour_NoEndDate()
     {
         var currentDate = new DateTime(2023, 5, 17, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -1688,7 +1677,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Third,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -1700,7 +1689,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 17, 4, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Third Monday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -1712,7 +1701,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_ThirdMonday_Minute()
     {
         var currentDate = new DateTime(2023, 6, 5, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -1727,7 +1716,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Third,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -1739,7 +1728,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Third Monday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -1751,7 +1740,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_ThirdMonday_Minute_NoEndDate()
     {
         var currentDate = new DateTime(2023, 5, 20, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -1765,7 +1754,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Third,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -1777,7 +1766,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 17, 2, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Third Monday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -1789,7 +1778,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_ThirdMonday_Second()
     {
         var currentDate = new DateTime(2023, 6, 19, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -1804,7 +1793,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Third,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -1816,7 +1805,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Third Monday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -1828,7 +1817,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_ThirdMonday_Second_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 19, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -1842,7 +1831,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Third,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -1854,7 +1843,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 17, 2, 0, 2))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Third Monday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -1866,7 +1855,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FourthMonday_Hour()
     {
         var currentDate = new DateTime(2023, 5, 23, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -1881,7 +1870,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Fourth,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -1893,7 +1882,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Monday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -1905,7 +1894,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FourthMonday_Hour_NoEndDate()
     {
         var currentDate = new DateTime(2023, 5, 23, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -1919,7 +1908,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Fourth,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -1931,7 +1920,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 24, 4, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Monday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -1943,7 +1932,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FourthMonday_Minute()
     {
         var currentDate = new DateTime(2023, 6, 26, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -1958,7 +1947,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Fourth,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -1970,7 +1959,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Monday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -1982,7 +1971,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FourthMonday_Minute_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 26, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -1996,7 +1985,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Fourth,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -2008,7 +1997,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 24, 2, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Monday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -2020,7 +2009,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FourthMonday_Second()
     {
         var currentDate = new DateTime(2023, 6, 26, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -2035,7 +2024,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Fourth,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -2047,7 +2036,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Monday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -2059,7 +2048,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FourthMonday_Second_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 26, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -2073,7 +2062,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Fourth,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -2085,7 +2074,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 24, 2, 0, 2))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Monday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -2097,7 +2086,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_LastMonday_Hour()
     {
         var currentDate = new DateTime(2023, 5, 30, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -2112,7 +2101,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Last,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -2124,7 +2113,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Last Monday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -2136,7 +2125,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_LastMonday_Hour_NoEndDate()
     {
         var currentDate = new DateTime(2023, 5, 30, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -2150,7 +2139,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Last,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -2162,7 +2151,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 31, 4, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Last Monday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -2174,7 +2163,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_LastMonday_Minute()
     {
         var currentDate = new DateTime(2023, 6, 26, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -2189,7 +2178,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Last,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -2201,7 +2190,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Last Monday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -2213,7 +2202,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_LastMonday_Minute_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 26, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -2226,7 +2215,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Day = Day.Monday,
             Position = Position.Last,
         };
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -2238,7 +2227,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 31, 2, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Last Monday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -2250,7 +2239,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_LastMonday_Second()
     {
         var currentDate = new DateTime(2023, 6, 26, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -2265,7 +2254,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Last,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -2277,7 +2266,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Last Monday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -2289,7 +2278,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_LastMonday_Second_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 26, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -2303,7 +2292,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Last,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -2315,7 +2304,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 31, 2, 0, 2))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Last Monday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -2327,7 +2316,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FirstWeekEnd_Hour()
     {
         var currentDate = new DateTime(2023, 5, 7, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -2342,7 +2331,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.First,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -2354,7 +2343,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the First WeekendDay of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -2366,7 +2355,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FirstWeekEnd_Hour_NoEndDate()
     {
         var currentDate = new DateTime(2023, 5, 7, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -2380,7 +2369,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.First,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -2392,7 +2381,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 1, 4, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the First WeekendDay of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -2404,7 +2393,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FirstWeekEnd_Minute()
     {
         var currentDate = new DateTime(2023, 6, 3, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -2419,7 +2408,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.First,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -2431,7 +2420,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the First WeekendDay of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -2443,7 +2432,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FirstWeekEnd_Minute_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 3, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -2457,7 +2446,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.First,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -2469,7 +2458,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 1, 2, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the First WeekendDay of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -2481,7 +2470,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FirstWeekEnd_Second()
     {
         var currentDate = new DateTime(2023, 6, 3, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -2496,7 +2485,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.First,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -2508,7 +2497,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the First WeekendDay of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -2520,7 +2509,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FirstWeekEnd_Second_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 3, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -2534,7 +2523,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.First,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -2546,7 +2535,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 1, 2, 0, 2))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the First WeekendDay of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -2558,7 +2547,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_SecondWeekEnd_Hour()
     {
         var currentDate = new DateTime(2023, 5, 8, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -2573,7 +2562,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Second,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -2585,7 +2574,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Second WeekendDay of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -2597,7 +2586,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_SecondWeekEnd_Hour_NoEndDate()
     {
         var currentDate = new DateTime(2023, 5, 8, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -2611,7 +2600,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Second,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -2623,7 +2612,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 2, 4, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Second WeekendDay of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -2635,7 +2624,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_SecondWeekEnd_Minute()
     {
         var currentDate = new DateTime(2023, 6, 4, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -2650,7 +2639,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Second,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -2662,7 +2651,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Second WeekendDay of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -2674,7 +2663,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurringSecondWeekEnd_Minute_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 4, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -2688,7 +2677,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Second,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -2700,7 +2689,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 2, 2, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Second WeekendDay of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -2712,7 +2701,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_SecondWeekEnd_Second()
     {
         var currentDate = new DateTime(2023, 6, 4, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -2727,7 +2716,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Second,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -2739,7 +2728,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Second WeekendDay of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -2751,7 +2740,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_SecondWeekEnd_Second_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 4, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -2765,7 +2754,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Second,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -2777,7 +2766,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 2, 2, 0, 2))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Second WeekendDay of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -2789,7 +2778,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_ThirdWeekEnd_Hour()
     {
         var currentDate = new DateTime(2023, 5, 14, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -2804,7 +2793,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Third,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -2816,7 +2805,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Third WeekendDay of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -2828,7 +2817,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_ThirdWeekEnd_Hour_NoEndDate()
     {
         var currentDate = new DateTime(2023, 5, 14, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -2842,7 +2831,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Third,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -2854,7 +2843,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 8, 4, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Third WeekendDay of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -2866,7 +2855,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_ThirdWeekEnd_Minute()
     {
         var currentDate = new DateTime(2023, 6, 10, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -2881,7 +2870,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Third,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -2893,7 +2882,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Third WeekendDay of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -2905,7 +2894,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_ThirdWeekEnd_Minute_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 10, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -2919,7 +2908,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Third,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -2931,7 +2920,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 8, 2, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Third WeekendDay of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -2943,7 +2932,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_ThirdWeekEnd_Second()
     {
         var currentDate = new DateTime(2023, 6, 10, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -2958,7 +2947,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Third,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -2970,7 +2959,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Third WeekendDay of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -2982,7 +2971,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_ThirdWeekEnd_Second_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 10, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -2996,7 +2985,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Third,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -3008,7 +2997,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 8, 2, 0, 2))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Third WeekendDay of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -3020,7 +3009,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FourthWeekEnd_Hour()
     {
         var currentDate = new DateTime(2023, 5, 15, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -3035,7 +3024,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Fourth,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -3047,7 +3036,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Fourth WeekendDay of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -3059,7 +3048,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FourthWeekEnd_Hour_NoEndDate()
     {
         var currentDate = new DateTime(2023, 5, 15, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -3073,7 +3062,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Fourth,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -3085,7 +3074,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 9, 4, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Fourth WeekendDay of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -3097,7 +3086,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FourthWeekEnd_Minute()
     {
         var currentDate = new DateTime(2023, 6, 11, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -3112,7 +3101,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Fourth,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -3124,7 +3113,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Fourth WeekendDay of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -3136,7 +3125,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FourthWeekEnd_Minute_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 11, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -3150,7 +3139,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Fourth,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -3162,7 +3151,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 9, 2, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Fourth WeekendDay of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -3174,7 +3163,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FourthWeekEnd_Second()
     {
         var currentDate = new DateTime(2023, 6, 11, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -3189,7 +3178,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Fourth,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -3201,7 +3190,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Fourth WeekendDay of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -3213,7 +3202,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FourthWeekEnd_Second_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 11, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -3227,7 +3216,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Fourth,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -3239,7 +3228,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 9, 2, 0, 2))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Fourth WeekendDay of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -3251,7 +3240,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_LastWeekEnd_Hour()
     {
         var currentDate = new DateTime(2023, 5, 29, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -3266,7 +3255,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Last,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -3278,7 +3267,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Last WeekendDay of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -3290,7 +3279,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_LastWeekEnd_Hour_NoEndDate()
     {
         var currentDate = new DateTime(2023, 5, 29, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -3304,7 +3293,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Last,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -3316,7 +3305,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 30, 4, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Last WeekendDay of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -3328,7 +3317,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_LastWeekEnd_Minute()
     {
         var currentDate = new DateTime(2023, 6, 25, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -3343,7 +3332,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Last,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -3355,7 +3344,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Last WeekendDay of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -3367,7 +3356,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_LastWeekEnd_Minute_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 25, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -3381,7 +3370,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Last,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -3393,7 +3382,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 30, 2, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Last WeekendDay of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -3405,7 +3394,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_LastWeekEnd_Second()
     {
         var currentDate = new DateTime(2023, 6, 25, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -3420,7 +3409,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Last,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -3432,7 +3421,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Last WeekendDay of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -3444,7 +3433,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_LastWeekEnd_Second_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 25, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -3458,7 +3447,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Last,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -3470,7 +3459,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 30, 2, 0, 2))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Last WeekendDay of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -3482,7 +3471,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FirstTuesday_Hour()
     {
         var currentDate = new DateTime(2023, 5, 5, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -3497,7 +3486,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.First,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -3509,7 +3498,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the First Tuesday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -3521,7 +3510,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FirstTuesday_Hour_NoEndDate()
     {
         var currentDate = new DateTime(2023, 5, 5, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -3535,7 +3524,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.First,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -3547,7 +3536,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 4, 4, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the First Tuesday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -3559,7 +3548,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FirstTuesday_Minute()
     {
         var currentDate = new DateTime(2023, 6, 6, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -3574,7 +3563,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.First,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -3586,7 +3575,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the First Tuesday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -3598,7 +3587,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FirstTuesday_Minute_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 6, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -3612,7 +3601,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.First,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -3624,7 +3613,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 4, 2, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the First Tuesday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -3636,7 +3625,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FirstTuesday_Second()
     {
         var currentDate = new DateTime(2023, 6, 6, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -3651,7 +3640,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.First,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -3663,7 +3652,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the First Tuesday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -3675,7 +3664,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FirstTuesday_Second_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 6, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -3689,7 +3678,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.First,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -3701,7 +3690,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 4, 2, 0, 2))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the First Tuesday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -3713,7 +3702,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_SecondTuesday_Hour()
     {
         var currentDate = new DateTime(2023, 5, 10, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -3728,7 +3717,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Second,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -3740,7 +3729,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Second Tuesday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -3752,7 +3741,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_SecondTuesday_Hour_NoEndDate()
     {
         var currentDate = new DateTime(2023, 5, 10, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -3766,7 +3755,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Second,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -3777,7 +3766,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 11, 3, 0, 0))));
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 11, 4, 0, 0))));
         });
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Second Tuesday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -3789,7 +3778,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_SecondTuesday_Minute()
     {
         var currentDate = new DateTime(2023, 6, 13, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -3804,7 +3793,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Second,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -3816,7 +3805,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Second Tuesday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -3828,7 +3817,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurringSecondTuesday_Minute_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 13, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -3842,7 +3831,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Second,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -3854,7 +3843,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 11, 2, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Second Tuesday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -3866,7 +3855,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_SecondTuesday_Second()
     {
         var currentDate = new DateTime(2023, 6, 13, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -3881,7 +3870,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Second,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -3893,7 +3882,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Second Tuesday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -3905,7 +3894,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_SecondTuesday_Second_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 13, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -3919,7 +3908,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Second,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -3931,7 +3920,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 11, 2, 0, 2))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Second Tuesday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -3943,7 +3932,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_ThirdTuesday_Hour()
     {
         var currentDate = new DateTime(2023, 5, 16, 6, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -3958,7 +3947,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Third,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -3970,7 +3959,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Third Tuesday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -3981,7 +3970,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_ThirdTuesday_Hour_NoEndDate()
     {
         var currentDate = new DateTime(2023, 5, 16, 4, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -3995,7 +3984,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Third,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -4007,7 +3996,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 18, 4, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Third Tuesday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -4018,7 +4007,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_ThirdTuesday_Minute()
     {
         var currentDate = new DateTime(2023, 6, 20, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -4033,7 +4022,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Third,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -4045,7 +4034,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Third Tuesday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -4056,7 +4045,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_ThirdTuesday_Minute_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 20, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -4070,7 +4059,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Third,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -4082,7 +4071,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 18, 2, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Third Tuesday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -4093,7 +4082,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_ThirdTuesday_Second()
     {
         var currentDate = new DateTime(2023, 6, 20, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -4108,7 +4097,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Third,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -4120,7 +4109,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Third Tuesday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -4131,7 +4120,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_ThirdTuesday_Second_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 20, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -4145,7 +4134,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Third,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -4157,7 +4146,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 18, 2, 0, 2))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Third Tuesday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -4168,7 +4157,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FourthTuesday_Hour()
     {
         var currentDate = new DateTime(2023, 5, 23, 5, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -4183,7 +4172,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Fourth,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -4195,7 +4184,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Tuesday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -4206,7 +4195,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FourthTuesday_Hour_NoEndDate()
     {
         var currentDate = new DateTime(2023, 5, 23, 5, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -4220,7 +4209,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Fourth,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -4232,7 +4221,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 25, 4, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Tuesday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -4243,7 +4232,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FourthTuesday_Minute()
     {
         var currentDate = new DateTime(2023, 6, 27, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -4258,7 +4247,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Fourth,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -4270,7 +4259,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Tuesday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -4281,7 +4270,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FourthTuesday_Minute_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 27, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -4295,7 +4284,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Fourth,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -4307,7 +4296,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 25, 2, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Tuesday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -4318,7 +4307,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FourthTuesday_Second()
     {
         var currentDate = new DateTime(2023, 6, 27, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -4333,7 +4322,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Fourth,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -4345,7 +4334,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Tuesday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -4356,7 +4345,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FourthTuesday_Second_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 27, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -4370,7 +4359,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Fourth,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -4382,7 +4371,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 25, 2, 0, 2))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Tuesday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -4393,7 +4382,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_LastTuesday_Hour()
     {
         var currentDate = new DateTime(2023, 5, 31, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -4408,7 +4397,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Last,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -4420,7 +4409,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Last Tuesday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -4431,7 +4420,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_LastTuesday_Hour_NoEndDate()
     {
         var currentDate = new DateTime(2023, 5, 31, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -4445,7 +4434,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Last,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -4457,7 +4446,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 25, 4, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Last Tuesday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -4468,7 +4457,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_LastTuesday_Minute()
     {
         var currentDate = new DateTime(2023, 6, 27, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -4483,7 +4472,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Last,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -4495,7 +4484,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Last Tuesday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -4506,7 +4495,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_LastTuesday_Minute_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 27, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -4520,7 +4509,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Last,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -4532,7 +4521,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 25, 2, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Last Tuesday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -4543,7 +4532,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_LastTuesday_Second()
     {
         var currentDate = new DateTime(2023, 6, 27, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -4558,7 +4547,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Last,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -4570,7 +4559,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Last Tuesday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -4581,7 +4570,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_LastTuesday_Second_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 27, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -4595,7 +4584,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Last,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -4607,7 +4596,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 25, 2, 0, 2))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Last Tuesday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -4618,7 +4607,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FirstWednesday_Hour()
     {
         var currentDate = new DateTime(2023, 5, 5, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -4633,7 +4622,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.First,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -4645,7 +4634,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the First Wednesday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -4656,7 +4645,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FirstWednesday_Hour_NoEndDate()
     {
         var currentDate = new DateTime(2023, 5, 5, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -4670,7 +4659,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.First,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -4682,7 +4671,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 5, 4, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the First Wednesday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -4693,7 +4682,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FirstWednesday_Minute()
     {
         var currentDate = new DateTime(2023, 6, 7, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -4708,7 +4697,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.First,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -4720,7 +4709,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the First Wednesday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -4731,7 +4720,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FirstWednesday_Minute_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 7, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -4745,7 +4734,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.First,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -4757,7 +4746,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 5, 2, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the First Wednesday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -4768,7 +4757,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FirstWednesday_Second()
     {
         var currentDate = new DateTime(2023, 6, 7, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -4783,7 +4772,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.First,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -4795,7 +4784,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the First Wednesday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -4806,7 +4795,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FirstWednesday_Second_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 7, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -4820,7 +4809,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.First,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -4832,7 +4821,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 5, 2, 0, 2))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the First Wednesday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -4843,7 +4832,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_SecondWednesday_Hour()
     {
         var currentDate = new DateTime(2023, 5, 11, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -4858,7 +4847,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Second,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -4870,7 +4859,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Second Wednesday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -4881,7 +4870,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_SecondWednesday_Hour_NoEndDate()
     {
         var currentDate = new DateTime(2023, 5, 11, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -4895,7 +4884,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Second,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -4907,7 +4896,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 12, 4, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Second Wednesday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -4918,7 +4907,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_SecondWednesday_Minute()
     {
         var currentDate = new DateTime(2023, 6, 14, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -4933,7 +4922,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Second,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -4945,7 +4934,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Second Wednesday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -4956,7 +4945,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurringSecondWednesday_Minute_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 14, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -4970,7 +4959,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Second,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -4982,7 +4971,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 12, 2, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Second Wednesday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -4993,7 +4982,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_SecondWednesday_Second()
     {
         var currentDate = new DateTime(2023, 6, 14, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -5008,7 +4997,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Second,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -5020,7 +5009,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Second Wednesday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -5031,7 +5020,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_SecondWednesday_Second_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 14, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -5045,7 +5034,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Second,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -5057,7 +5046,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 12, 2, 0, 2))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Second Wednesday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -5068,7 +5057,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_ThirdWednesday_Hour()
     {
         var currentDate = new DateTime(2023, 5, 18, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -5083,7 +5072,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Third,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -5095,7 +5084,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Third Wednesday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -5106,7 +5095,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_ThirdWednesday_Hour_NoEndDate()
     {
         var currentDate = new DateTime(2023, 5, 18, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -5120,7 +5109,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Third,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -5132,7 +5121,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 19, 4, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Third Wednesday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -5143,7 +5132,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_ThirdWednesday_Minute()
     {
         var currentDate = new DateTime(2023, 6, 21, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -5158,7 +5147,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Third,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -5170,7 +5159,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Third Wednesday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -5181,7 +5170,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_ThirdWednesday_Minute_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 21, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -5195,7 +5184,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Third,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -5207,7 +5196,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 19, 2, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Third Wednesday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -5218,7 +5207,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_ThirdWednesday_Second()
     {
         var currentDate = new DateTime(2023, 6, 21, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -5233,7 +5222,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Third,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -5245,7 +5234,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Third Wednesday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -5256,7 +5245,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_ThirdWednesday_Second_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 21, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -5270,7 +5259,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Third,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -5282,7 +5271,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 19, 2, 0, 2))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Third Wednesday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -5293,7 +5282,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FourthWednesday_Hour()
     {
         var currentDate = new DateTime(2023, 5, 25, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -5308,7 +5297,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Fourth,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -5320,7 +5309,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Wednesday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -5331,7 +5320,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FourthWednesday_Hour_NoEndDate()
     {
         var currentDate = new DateTime(2023, 5, 25, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -5345,7 +5334,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Fourth,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -5357,7 +5346,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 26, 4, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Wednesday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -5368,7 +5357,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FourthWednesday_Minute()
     {
         var currentDate = new DateTime(2023, 6, 28, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -5383,7 +5372,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Fourth,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -5395,7 +5384,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Wednesday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -5406,7 +5395,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FourthWednesday_Minute_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 28, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -5420,7 +5409,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Fourth,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -5432,7 +5421,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 26, 2, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Wednesday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -5443,7 +5432,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FourthWednesday_Second()
     {
         var currentDate = new DateTime(2023, 6, 28, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -5458,7 +5447,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Fourth,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -5470,7 +5459,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Wednesday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -5481,7 +5470,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FourthWednesday_Second_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 28, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -5495,7 +5484,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Fourth,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -5507,7 +5496,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 26, 2, 0, 2))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Wednesday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -5518,7 +5507,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_LastWednesday_Hour()
     {
         var currentDate = new DateTime(2023, 5, 31, 6, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -5533,7 +5522,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Last,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -5545,7 +5534,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Last Wednesday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -5556,7 +5545,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_LastWednesday_Hour_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 5, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -5570,7 +5559,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Last,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -5582,7 +5571,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 26, 4, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Last Wednesday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -5593,7 +5582,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_LastWednesday_Minute()
     {
         var currentDate = new DateTime(2023, 6, 28, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -5608,7 +5597,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Last,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -5620,7 +5609,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Last Wednesday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -5631,7 +5620,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_LastWednesday_Minute_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 28, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -5645,7 +5634,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Last,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -5657,7 +5646,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 26, 2, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Last Wednesday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -5668,7 +5657,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_LastWednesday_Second()
     {
         var currentDate = new DateTime(2023, 6, 28, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -5683,7 +5672,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Last,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -5695,7 +5684,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Last Wednesday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -5706,7 +5695,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_LastWednesday_Second_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 28, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -5720,7 +5709,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Last,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -5732,7 +5721,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 26, 2, 0, 2))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Last Wednesday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -5743,7 +5732,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FirstThursday_Hour()
     {
         var currentDate = new DateTime(2023, 5, 5, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -5758,7 +5747,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.First,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -5770,7 +5759,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the First Thursday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -5781,7 +5770,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FirstThursday_Hour_NoEndDate()
     {
         var currentDate = new DateTime(2023, 5, 5, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -5795,7 +5784,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.First,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -5807,7 +5796,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 6, 4, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the First Thursday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -5818,7 +5807,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FirstThursday_Minute()
     {
         var currentDate = new DateTime(2023, 6, 1, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -5833,7 +5822,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.First,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -5845,7 +5834,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the First Thursday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -5856,7 +5845,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FirstThursday_Minute_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 1, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -5870,7 +5859,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.First,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -5882,7 +5871,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 6, 2, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the First Thursday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -5893,7 +5882,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FirstThursday_Second()
     {
         var currentDate = new DateTime(2023, 6, 1, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -5908,7 +5897,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.First,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -5920,7 +5909,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the First Thursday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -5931,7 +5920,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FirstThursday_Second_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 1, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -5945,7 +5934,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.First,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -5957,7 +5946,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 6, 2, 0, 2))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the First Thursday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -5968,7 +5957,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_SecondThursday_Hour()
     {
         var currentDate = new DateTime(2023, 5, 12, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -5983,7 +5972,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Second,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -5995,7 +5984,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Second Thursday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -6006,7 +5995,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_SecondThursday_Hour_NoEndDate()
     {
         var currentDate = new DateTime(2023, 5, 12, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -6020,7 +6009,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Second,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -6032,7 +6021,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 13, 4, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Second Thursday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -6043,7 +6032,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_SecondThursday_Minute()
     {
         var currentDate = new DateTime(2023, 6, 8, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -6058,7 +6047,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Second,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -6070,7 +6059,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Second Thursday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -6081,7 +6070,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurringSecondThursday_Minute_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 8, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -6095,7 +6084,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Second,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -6107,7 +6096,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 13, 2, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Second Thursday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -6118,7 +6107,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_SecondThursday_Second()
     {
         var currentDate = new DateTime(2023, 6, 8, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -6133,7 +6122,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Second,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -6145,7 +6134,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Second Thursday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -6156,7 +6145,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_SecondThursday_Second_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 8, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -6170,7 +6159,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Second,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -6182,7 +6171,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 13, 2, 0, 2))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Second Thursday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -6193,7 +6182,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_ThirdThursday_Hour()
     {
         var currentDate = new DateTime(2023, 5, 19, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -6208,7 +6197,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Third,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -6220,7 +6209,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Third Thursday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -6231,7 +6220,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_ThirdThursday_Hour_NoEndDate()
     {
         var currentDate = new DateTime(2023, 5, 19, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -6245,7 +6234,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Third,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -6257,7 +6246,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 20, 4, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Third Thursday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -6268,7 +6257,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_ThirdThursday_Minute()
     {
         var currentDate = new DateTime(2023, 6, 15, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -6283,7 +6272,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Third,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -6295,7 +6284,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Third Thursday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -6306,7 +6295,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_ThirdThursday_Minute_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 15, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -6320,7 +6309,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Third,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -6332,7 +6321,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 20, 2, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Third Thursday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -6343,7 +6332,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_ThirdThursday_Second()
     {
         var currentDate = new DateTime(2023, 6, 15, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -6358,7 +6347,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Third,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -6370,7 +6359,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Third Thursday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -6381,7 +6370,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_ThirdThursday_Second_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 15, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -6395,7 +6384,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Third,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -6407,7 +6396,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 20, 2, 0, 2))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Third Thursday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -6418,7 +6407,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FourthThursday_Hour()
     {
         var currentDate = new DateTime(2023, 5, 26, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -6433,7 +6422,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Fourth,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -6445,7 +6434,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Thursday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -6456,7 +6445,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FourthThursday_Hour_NoEndDate()
     {
         var currentDate = new DateTime(2023, 5, 26, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -6470,7 +6459,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Fourth,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -6482,7 +6471,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 27, 4, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Thursday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -6493,7 +6482,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FourthThursday_Minute()
     {
         var currentDate = new DateTime(2023, 6, 22, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -6508,7 +6497,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Fourth,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -6520,7 +6509,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Thursday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -6531,7 +6520,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FourthThursday_Minute_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 22, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -6545,7 +6534,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Fourth,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -6557,7 +6546,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 27, 2, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Thursday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -6568,7 +6557,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FourthThursday_Second()
     {
         var currentDate = new DateTime(2023, 6, 22, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -6583,7 +6572,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Fourth,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -6595,7 +6584,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Thursday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -6606,7 +6595,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FourthThursday_Second_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 22, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -6620,7 +6609,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Fourth,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -6632,7 +6621,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 27, 2, 0, 2))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Thursday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -6643,7 +6632,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_LastThursday_Hour()
     {
         var currentDate = new DateTime(2023, 5, 26, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -6658,7 +6647,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Last,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -6670,7 +6659,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Last Thursday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -6681,7 +6670,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_LastThursday_Hour_NoEndDate()
     {
         var currentDate = new DateTime(2023, 5, 26, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -6695,7 +6684,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Last,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -6707,7 +6696,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 27, 4, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Last Thursday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -6718,7 +6707,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_LastThursday_Minute()
     {
         var currentDate = new DateTime(2023, 6, 29, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -6733,7 +6722,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Last,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -6745,7 +6734,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Last Thursday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -6756,7 +6745,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_LastThursday_Minute_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 29, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -6770,7 +6759,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Last,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -6782,7 +6771,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 27, 2, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Last Thursday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -6793,7 +6782,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_LastThursday_Second()
     {
         var currentDate = new DateTime(2023, 6, 29, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -6808,7 +6797,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Last,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -6820,7 +6809,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Last Thursday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -6831,7 +6820,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_LastThursday_Second_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 29, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -6845,7 +6834,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Last,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -6857,7 +6846,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 27, 2, 0, 2))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Last Thursday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -6868,7 +6857,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FirstFriday_Hour()
     {
         var currentDate = new DateTime(2023, 5, 6, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -6883,7 +6872,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.First,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -6895,7 +6884,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the First Friday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -6906,7 +6895,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FirstFriday_Hour_NoEndDate()
     {
         var currentDate = new DateTime(2023, 5, 5, 6, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -6920,7 +6909,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.First,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -6932,7 +6921,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 7, 4, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the First Friday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -6943,7 +6932,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FirstFriday_Minute()
     {
         var currentDate = new DateTime(2023, 6, 2, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -6958,7 +6947,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.First,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -6970,7 +6959,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the First Friday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -6981,7 +6970,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FirstFriday_Minute_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 2, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -6995,7 +6984,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.First,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -7007,7 +6996,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 7, 2, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the First Friday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -7018,7 +7007,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FirstFriday_Second()
     {
         var currentDate = new DateTime(2023, 6, 2, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -7033,7 +7022,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.First,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -7045,7 +7034,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the First Friday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -7056,7 +7045,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FirstFriday_Second_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 2, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -7070,7 +7059,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.First,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -7082,7 +7071,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 7, 2, 0, 2))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the First Friday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -7093,7 +7082,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_SecondFriday_Hour()
     {
         var currentDate = new DateTime(2023, 5, 13, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -7108,7 +7097,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Second,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -7120,7 +7109,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Second Friday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -7131,7 +7120,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_SecondFriday_Hour_NoEndDate()
     {
         var currentDate = new DateTime(2023, 5, 13, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -7145,7 +7134,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Second,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -7157,7 +7146,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 14, 4, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Second Friday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -7168,7 +7157,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_SecondFriday_Minute()
     {
         var currentDate = new DateTime(2023, 6, 9, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -7183,7 +7172,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Second,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -7195,7 +7184,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Second Friday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -7206,7 +7195,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurringSecondFriday_Minute_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 9, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -7220,7 +7209,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Second,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -7232,7 +7221,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 14, 2, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Second Friday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -7243,7 +7232,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_SecondFriday_Second()
     {
         var currentDate = new DateTime(2023, 6, 9, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -7258,7 +7247,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Second,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -7270,7 +7259,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Second Friday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -7281,7 +7270,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_SecondFriday_Second_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 9, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -7295,7 +7284,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Second,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -7307,7 +7296,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 14, 2, 0, 2))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Second Friday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -7318,7 +7307,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_ThirdFriday_Hour()
     {
         var currentDate = new DateTime(2023, 5, 20, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -7333,7 +7322,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Third,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -7345,7 +7334,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Third Friday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -7356,7 +7345,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_ThirdFriday_Hour_NoEndDate()
     {
         var currentDate = new DateTime(2023, 5, 20, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -7370,7 +7359,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Third,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -7382,7 +7371,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 21, 4, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Third Friday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -7393,7 +7382,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_ThirdFriday_Minute()
     {
         var currentDate = new DateTime(2023, 6, 16, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -7408,7 +7397,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Third,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -7420,7 +7409,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Third Friday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -7431,7 +7420,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_ThirdFriday_Minute_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 16, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -7445,7 +7434,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Third,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -7457,7 +7446,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 21, 2, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Third Friday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -7468,7 +7457,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_ThirdFriday_Second()
     {
         var currentDate = new DateTime(2023, 6, 16, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -7483,7 +7472,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Third,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -7495,7 +7484,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Third Friday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -7506,7 +7495,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_ThirdFriday_Second_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 16, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -7520,7 +7509,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Third,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -7532,7 +7521,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 21, 2, 0, 2))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Third Friday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -7543,7 +7532,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FourthFriday_Hour()
     {
         var currentDate = new DateTime(2023, 5, 26, 4, 0, 1);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -7558,7 +7547,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Fourth,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -7570,7 +7559,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Friday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -7581,7 +7570,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FourthFriday_Hour_NoEndDate()
     {
         var currentDate = new DateTime(2023, 5, 27, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -7595,7 +7584,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Fourth,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -7607,7 +7596,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 28, 4, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Friday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -7618,7 +7607,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FourthFriday_Minute()
     {
         var currentDate = new DateTime(2023, 6, 23, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -7633,7 +7622,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Fourth,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -7645,7 +7634,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
                 var expected = $"Occurs the Fourth Friday of every 1 month(s) every" +
                                $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                                $" starting on {new DateTime(2023, 1, 1)}";
@@ -7656,7 +7645,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FourthFriday_Minute_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 23, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -7670,7 +7659,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Fourth,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -7682,7 +7671,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 28, 2, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Friday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -7693,7 +7682,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FourthFriday_Second()
     {
         var currentDate = new DateTime(2023, 6, 23, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -7708,7 +7697,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Fourth,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -7720,7 +7709,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Friday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -7731,7 +7720,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FourthFriday_Second_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 23, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -7745,7 +7734,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Fourth,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -7757,7 +7746,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 28, 2, 0, 2))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Friday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -7768,7 +7757,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_LastFriday_Hour()
     {
         var currentDate = new DateTime(2023, 5, 27, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -7783,7 +7772,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Last,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -7795,7 +7784,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Last Friday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -7806,7 +7795,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_LastFriday_Hour_NoEndDate()
     {
         var currentDate = new DateTime(2023, 5, 27, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -7820,7 +7809,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Last,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -7832,7 +7821,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 28, 4, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Last Friday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -7843,7 +7832,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_LastFriday_Minute()
     {
         var currentDate = new DateTime(2023, 6, 30, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -7858,7 +7847,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Last,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -7870,7 +7859,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Last Friday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -7881,7 +7870,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_LastFriday_Minute_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 30, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -7895,7 +7884,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Last,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -7907,7 +7896,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 28, 2, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Last Friday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -7918,7 +7907,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_LastFriday_Second()
     {
         var currentDate = new DateTime(2023, 6, 30, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -7933,7 +7922,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Last,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -7945,7 +7934,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Last Friday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -7956,7 +7945,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_LastFriday_Second_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 30, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -7970,7 +7959,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Last,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -7982,7 +7971,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 28, 2, 0, 2))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Last Friday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -7993,7 +7982,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FirstSaturday_Hour()
     {
         var currentDate = new DateTime(2023, 5, 7, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -8008,7 +7997,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.First,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -8020,7 +8009,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the First Saturday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -8031,7 +8020,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FirstSaturday_Hour_NoEndDate()
     {
         var currentDate = new DateTime(2023, 5, 7, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -8045,7 +8034,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.First,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -8057,7 +8046,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 1, 4, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the First Saturday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -8068,7 +8057,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FirstSaturday_Minute()
     {
         var currentDate = new DateTime(2023, 6, 3, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -8083,7 +8072,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.First,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -8095,7 +8084,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the First Saturday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -8106,7 +8095,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FirstSaturday_Minute_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 3, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -8120,7 +8109,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.First,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -8132,7 +8121,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 1, 2, 0, 0))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the First Saturday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -8143,7 +8132,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FirstSaturday_Second()
     {
         var currentDate = new DateTime(2023, 6, 3, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -8158,7 +8147,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.First,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -8170,7 +8159,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the First Saturday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -8181,7 +8170,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FirstSaturday_Second_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 3, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -8195,7 +8184,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.First,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -8207,7 +8196,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 1, 2, 0, 2))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the First Saturday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -8218,7 +8207,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_SecondSaturday_Hour()
     {
         var currentDate = new DateTime(2023, 5, 14, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -8233,7 +8222,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Second,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -8245,7 +8234,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Second Saturday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -8256,7 +8245,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_SecondSaturday_Hour_NoEndDate()
     {
         var currentDate = new DateTime(2023, 5, 13, 6, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -8270,7 +8259,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Second,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -8281,7 +8270,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 8, 3, 0, 0))));
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 8, 4, 0, 0))));
         });
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Second Saturday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -8292,7 +8281,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_SecondSaturday_Minute()
     {
         var currentDate = new DateTime(2023, 6, 10, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -8307,7 +8296,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Second,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -8318,7 +8307,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 10, 4, 0, 0))));
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Second Saturday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -8329,7 +8318,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurringSecondSaturday_Minute_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 10, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -8343,7 +8332,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Second,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -8354,7 +8343,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 10, 4, 0, 0))));
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 8, 2, 0, 0))));
         });
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Second Saturday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -8365,7 +8354,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_SecondSaturday_Second()
     {
         var currentDate = new DateTime(2023, 6, 10, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -8380,7 +8369,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Second,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -8392,7 +8381,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Second Saturday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -8403,7 +8392,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_SecondSaturday_Second_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 10, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -8417,7 +8406,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Second,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -8428,7 +8417,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 8, 2, 0, 1))));
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 8, 2, 0, 2))));
         });
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Second Saturday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -8439,7 +8428,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_ThirdSaturday_Hour()
     {
         var currentDate = new DateTime(2023, 5, 21, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -8454,7 +8443,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Third,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -8465,7 +8454,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[4].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Third Saturday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -8476,7 +8465,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_ThirdSaturday_Hour_NoEndDate()
     {
         var currentDate = new DateTime(2023, 5, 21, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -8490,7 +8479,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Third,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -8501,7 +8490,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 15, 3, 0, 0))));
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 15, 4, 0, 0))));
         });
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Third Saturday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -8512,7 +8501,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_ThirdSaturday_Minute()
     {
         var currentDate = new DateTime(2023, 6, 17, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -8527,7 +8516,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Third,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -8538,7 +8527,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 17, 4, 0, 0))));
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Third Saturday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -8549,7 +8538,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_ThirdSaturday_Minute_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 17, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -8563,7 +8552,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Third,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -8574,7 +8563,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 17, 4, 0, 0))));
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 15, 2, 0, 0))));
         });
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Third Saturday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -8585,7 +8574,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_ThirdSaturday_Second()
     {
         var currentDate = new DateTime(2023, 6, 17, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -8600,7 +8589,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Third,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -8611,7 +8600,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[4].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Third Saturday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -8622,7 +8611,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_ThirdSaturday_Second_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 17, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -8636,7 +8625,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Third,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -8648,7 +8637,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 15, 2, 0, 2))));
         });
         
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Third Saturday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -8659,7 +8648,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FourthSaturday_Hour()
     {
         var currentDate = new DateTime(2023, 5, 28, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -8674,7 +8663,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Fourth,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -8685,7 +8674,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[4].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Saturday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -8696,7 +8685,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FourthSaturday_Hour_NoEndDate()
     {
         var currentDate = new DateTime(2023, 5, 28, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -8710,7 +8699,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Fourth,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -8721,7 +8710,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 22, 3, 0, 0))));
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 22, 4, 0, 0))));
         });
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Saturday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -8732,7 +8721,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FourthSaturday_Minute()
     {
         var currentDate = new DateTime(2023, 6, 24, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -8747,7 +8736,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Fourth,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -8758,7 +8747,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 24, 4, 0, 0))));
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Saturday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -8769,7 +8758,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FourthSaturday_Minute_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 24, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -8783,7 +8772,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Fourth,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -8794,7 +8783,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 24, 4, 0, 0))));
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 22, 2, 0, 0))));
         });
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Saturday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -8805,7 +8794,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FourthSaturday_Second()
     {
         var currentDate = new DateTime(2023, 6, 24, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -8820,7 +8809,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Fourth,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -8831,7 +8820,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[4].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Saturday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -8842,7 +8831,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FourthSaturday_Second_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 24, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -8856,7 +8845,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Fourth,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -8867,7 +8856,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 22, 2, 0, 1))));
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 22, 2, 0, 2))));
         });
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Saturday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -8878,7 +8867,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_LastSaturday_Hour()
     {
         var currentDate = new DateTime(2023, 5, 28, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -8893,7 +8882,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Last,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -8904,7 +8893,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[4].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Last Saturday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -8915,7 +8904,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_LastSaturday_Hour_NoEndDate()
     {
         var currentDate = new DateTime(2023, 5, 28, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -8929,7 +8918,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Last,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -8940,7 +8929,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 29, 3, 0, 0))));
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 29, 4, 0, 0))));
         });
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Last Saturday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -8951,7 +8940,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_LastSaturday_Minute()
     {
         var currentDate = new DateTime(2023, 6, 24, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -8966,7 +8955,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Last,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -8977,7 +8966,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 24, 4, 0, 0))));
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Last Saturday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -8988,7 +8977,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_LastSaturday_Minute_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 24, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -9002,7 +8991,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Last,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -9013,7 +9002,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 24, 4, 0, 0))));
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 29, 2, 0, 0))));
         });
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Last Saturday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -9024,7 +9013,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_LastSaturday_Second()
     {
         var currentDate = new DateTime(2023, 6, 24, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -9039,7 +9028,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Last,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -9050,7 +9039,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[4].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Last Saturday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -9061,7 +9050,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_LastSaturday_Second_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 24, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -9075,7 +9064,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Last,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -9086,7 +9075,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 29, 2, 0, 1))));
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 29, 2, 0, 2))));
         });
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Last Saturday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -9097,7 +9086,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FirstSunday_Hour()
     {
         var currentDate = new DateTime(2023, 5, 8, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -9112,7 +9101,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.First,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -9123,7 +9112,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[4].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the First Sunday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -9134,7 +9123,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FirstSunday_Hour_NoEndDate()
     {
         var currentDate = new DateTime(2023, 5, 8, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -9148,7 +9137,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.First,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -9159,7 +9148,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 2, 3, 0, 0))));
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 2, 4, 0, 0))));
         });
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the First Sunday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -9170,7 +9159,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FirstSunday_Minute()
     {
         var currentDate = new DateTime(2023, 6, 4, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -9185,7 +9174,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.First,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -9196,7 +9185,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 4, 4, 0, 0))));
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the First Sunday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -9207,7 +9196,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FirstSunday_Minute_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 4, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -9221,7 +9210,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.First,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -9232,7 +9221,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 4, 4, 0, 0))));
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 2, 2, 0, 0))));
         });
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the First Sunday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -9243,7 +9232,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FirstSunday_Second()
     {
         var currentDate = new DateTime(2023, 6, 4, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -9258,7 +9247,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.First,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -9269,7 +9258,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[4].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the First Sunday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -9280,7 +9269,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FirstSunday_Second_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 4, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -9294,7 +9283,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.First,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -9305,7 +9294,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 2, 2, 0, 1))));
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 2, 2, 0, 2))));
         });
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the First Sunday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -9316,7 +9305,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_SecondSunday_Hour()
     {
         var currentDate = new DateTime(2023, 5, 15, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -9331,7 +9320,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Second,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -9342,7 +9331,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[4].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Second Sunday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -9353,7 +9342,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_SecondSunday_Hour_NoEndDate()
     {
         var currentDate = new DateTime(2023, 5, 15, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -9367,7 +9356,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Second,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -9378,7 +9367,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 9, 3, 0, 0))));
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 9, 4, 0, 0))));
         });
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Second Sunday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -9389,7 +9378,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_SecondSunday_Minute()
     {
         var currentDate = new DateTime(2023, 6, 11, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -9404,7 +9393,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Second,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -9415,7 +9404,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 11, 4, 0, 0))));
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Second Sunday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -9426,7 +9415,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurringSecondSunday_Minute_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 11, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -9440,7 +9429,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Second,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -9451,7 +9440,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 11, 4, 0, 0))));
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 9, 2, 0, 0))));
         });
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Second Sunday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -9462,7 +9451,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_SecondSunday_Second()
     {
         var currentDate = new DateTime(2023, 6, 11, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -9477,7 +9466,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Second,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -9488,7 +9477,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[4].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Second Sunday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -9499,7 +9488,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_SecondSunday_Second_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 11, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -9513,7 +9502,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Second,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -9524,7 +9513,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 9, 2, 0, 1))));
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 9, 2, 0, 2))));
         });
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Second Sunday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -9535,7 +9524,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_ThirdSunday_Hour()
     {
         var currentDate = new DateTime(2023, 5, 22, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -9550,7 +9539,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Third,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -9561,7 +9550,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[4].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Third Sunday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -9572,7 +9561,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_ThirdSunday_Hour_NoEndDate()
     {
         var currentDate = new DateTime(2023, 5, 22, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -9586,7 +9575,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Third,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -9597,7 +9586,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 16, 3, 0, 0))));
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 16, 4, 0, 0))));
         });
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Third Sunday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -9608,7 +9597,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_ThirdSunday_Minute()
     {
         var currentDate = new DateTime(2023, 6, 18, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -9623,7 +9612,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Third,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -9634,7 +9623,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 18, 4, 0, 0))));
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Third Sunday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -9645,7 +9634,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_ThirdSunday_Minute_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 18, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -9659,7 +9648,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Third,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -9670,7 +9659,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 18, 4, 0, 0))));
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 16, 2, 0, 0))));
         });
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Third Sunday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -9681,7 +9670,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_ThirdSunday_Second()
     {
         var currentDate = new DateTime(2023, 6, 18, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -9696,7 +9685,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Third,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -9707,7 +9696,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[4].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Third Sunday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -9718,7 +9707,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_ThirdSunday_Second_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 18, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -9732,7 +9721,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Third,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -9743,7 +9732,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 16, 2, 0, 1))));
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 16, 2, 0, 2))));
         });
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Third Sunday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -9754,7 +9743,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FourthSunday_Hour()
     {
         var currentDate = new DateTime(2023, 5, 29, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -9769,7 +9758,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Fourth,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -9780,7 +9769,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[4].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Sunday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -9791,7 +9780,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FourthSunday_Hour_NoEndDate()
     {
         var currentDate = new DateTime(2023, 5, 29, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -9805,7 +9794,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Fourth,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -9816,7 +9805,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 23, 3, 0, 0))));
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 23, 4, 0, 0))));
         });
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Sunday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -9827,7 +9816,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FourthSunday_Minute()
     {
         var currentDate = new DateTime(2023, 6, 25, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -9842,7 +9831,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Fourth,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -9853,7 +9842,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 25, 4, 0, 0))));
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Sunday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -9864,7 +9853,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FourthSunday_Minute_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 25, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -9878,7 +9867,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Fourth,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -9889,7 +9878,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 25, 4, 0, 0))));
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 23, 2, 0, 0))));
         });
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Sunday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -9900,7 +9889,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FourthSunday_Second()
     {
         var currentDate = new DateTime(2023, 6, 25, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -9915,7 +9904,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Fourth,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -9926,7 +9915,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[4].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Sunday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -9937,7 +9926,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_FourthSunday_Second_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 25, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -9951,7 +9940,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Fourth,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -9962,7 +9951,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 23, 2, 0, 1))));
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 23, 2, 0, 2))));
         });
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Fourth Sunday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -9973,7 +9962,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_LastSunday_Hour()
     {
         var currentDate = new DateTime(2023, 5, 29, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -9988,7 +9977,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Last,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -9999,7 +9988,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[4].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Last Sunday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -10010,7 +9999,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_LastSunday_Hour_NoEndDate()
     {
         var currentDate = new DateTime(2023, 5, 29, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -10024,7 +10013,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Last,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -10035,7 +10024,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 30, 3, 0, 0))));
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 30, 4, 0, 0))));
         });
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Last Sunday of every 1 month(s) every" +
                        $" 1 Hour(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -10046,7 +10035,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_LastSunday_Minute()
     {
         var currentDate = new DateTime(2023, 6, 25, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -10061,7 +10050,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Last,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -10072,7 +10061,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 25, 4, 0, 0))));
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Last Sunday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -10083,7 +10072,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_LastSunday_Minute_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 25, 1, 0, 0);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -10097,7 +10086,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Last,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -10108,7 +10097,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 6, 25, 4, 0, 0))));
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 30, 2, 0, 0))));
         });
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Last Sunday of every 1 month(s) every" +
                        $" 30 Minute(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -10119,7 +10108,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_LastSunday_Second()
     {
         var currentDate = new DateTime(2023, 6, 25, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -10134,7 +10123,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Last,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -10145,7 +10134,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[4].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
             series[5].ShouldBeLeft(value => Assert.That(value, Is.EqualTo("Current date is past end date!")));
         });
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Last Sunday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";
@@ -10156,7 +10145,7 @@ public class MonthlyPeriodRecurringScheduleTests
     public void SeriesMonthlyPeriodRecurring_LastSunday_Second_NoEndDate()
     {
         var currentDate = new DateTime(2023, 6, 25, 3, 59, 57);
-        var monthlyPeriodRecurringSchedule = new MonthlyPeriodRecurringSchedule
+        var schedule = new MonthlyPeriodRecurringSchedule
         {
             Name = "Send email",
             IsEnabled = true,
@@ -10170,7 +10159,7 @@ public class MonthlyPeriodRecurringScheduleTests
             Position = Position.Last,
         };
 
-        var series = monthlyPeriodRecurringSchedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
+        var series = schedule.MonthlyTheOnceScheduleSeries(currentDate, 6);
         Assert.That(series, Has.Count.EqualTo(6));
         Assert.Multiple(() =>
         {
@@ -10181,7 +10170,7 @@ public class MonthlyPeriodRecurringScheduleTests
             series[4].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 30, 2, 0, 1))));
             series[5].ShouldBeRight(value => Assert.That(value, Is.EqualTo(new DateTime(2023, 7, 30, 2, 0, 2))));
         });
-        var description = monthlyPeriodRecurringSchedule.GetTaskDescription();
+        var description = schedule.GetTaskDescription();
         var expected = $"Occurs the Last Sunday of every 1 month(s) every" +
                        $" 1 Second(s) between {new TimeSpan(2, 0, 0)} and {new TimeSpan(4, 0, 0)}" +
                        $" starting on {new DateTime(2023, 1, 1)}";

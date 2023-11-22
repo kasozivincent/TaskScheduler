@@ -27,16 +27,6 @@ public abstract class WeeklySchedule: RecurringSchedule
         }
     }
 
-    private bool SearchDate(List<DateTime> week, DateTime currentDate)
-    {
-        foreach (var date in week)
-        {
-            if (date.Date == currentDate.Date)
-                return true;
-        }
-        return false;
-    }
-   
     protected abstract Either<string, DateTime> ValidateNextDate(DateTime date);
     protected override bool ValidateCurrentDate(DateTime currentDate)
     {
